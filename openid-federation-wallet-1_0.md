@@ -1,5 +1,5 @@
 %%%
-title = "OpenID Federation Wallet Architectures 1.0 - draft 03"
+title = "OpenID Federation Wallet Architectures 1.0 - draft 04"
 abbrev = "openid-federation-wallet"
 ipr = "none"
 workgroup = "OpenID Connect A/B"
@@ -826,6 +826,10 @@ The technology described in this specification was made available from contribut
 # Document History
 
    [[ To be removed from the final specification ]]
+
+   -04
+
+   * Updated draft number following working group adoption of -03.
 
    -03
    
