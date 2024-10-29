@@ -10,10 +10,10 @@ Additionally, it provides practical examples of how to apply policies for typica
 ## Builds
 
 Previews for each branch are automatically built and published.
-You can view the preview of the main branch at [https://peppelinux.github.io/federation-wallet/main.html](https://peppelinux.github.io/federation-wallet/main.html).
+You can view the preview of the main branch at [https://openid.github.io/federation-wallet/main.html](https://openid.github.io/federation-wallet/main.html).
 Other branches are built and deployed as well, using the branch name as the html filename, as shown below:
 
-- https://peppelinux.github.io/federation-wallet/$BRANCH-NAME.html
+- https://openid.github.io/federation-wallet/$BRANCH-NAME.html
 
 ## Build the HTML ##
 
