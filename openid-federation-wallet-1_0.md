@@ -78,12 +78,6 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 this document are to be interpreted as described in BCP 14 [@!RFC2119]
 [@!RFC8174] when, and only when, they appear in all capitals, as shown here.
 
-## Warning
-
-This document is not an OpenID Foundation International Standard.
-It is distributed for review and comment.
-It is subject to change without notice and may not be referred to as an International Standard.
-
 # Scope
 
 This specification is a profile of [@!OpenID.Federation] for wallet ecosystems.
