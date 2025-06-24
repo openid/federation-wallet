@@ -281,7 +281,7 @@ The Credential Issuer is an OAuth 2.0 Protected Resource Server and it MAY also 
 The OpenID Federation Entity Type Identifier for the Wallet Provider is `openid_wallet_provider`.
 
 For information on metadata parameters specific to OpenID Wallets,
-refer to Section *8. Wallet Metadata (Authorization Server Metadata)* of
+refer to Section *10. Wallet Metadata (Authorization Server Metadata)* of
 the OpenID for Verifiable Presentations [@!OpenID4VP] specification.
 
 ## OpenID Credential Issuer Entity Type
@@ -289,7 +289,7 @@ the OpenID for Verifiable Presentations [@!OpenID4VP] specification.
 The OpenID Federation Entity Type Identifier for the Credential Issuer is `openid_credential_issuer`.
 
 For information on metadata parameters specific to OpenID Credential Issuers,
-refer to Section *10.2. Credential Issuer Metadata* of
+refer to Section *11.2. Credential Issuer Metadata* of
 the OpenID for Verifiable Credential Issuance [@!OpenID4VCI] specification.
 
 ## OpenID Credential Verifier Entity Type
@@ -299,7 +299,7 @@ The OpenID Federation Entity Type Identifier for the Credential Verifier is `ope
 This specification introduces a distinct Entity Type Identifier for the OpenID Credential Verifier to clearly differentiate it from a traditional OpenID Connect Relying Party (`openid_relying_party`). This distinction highlights the unique characteristics and functionalities of the Wallet ecosystem and its Credential Verifier.
 
 For information on metadata parameters specific to OpenID Credential Verifiers,
-refer to Section *9. Verifier Metadata (Client Metadata)* of
+refer to Section *11. Verifier Metadata (Client Metadata)* of
 the OpenID for Verifiable Presentations [@!OpenID4VP] specification.
 
 # Federation Policies
@@ -366,7 +366,7 @@ Trust Marks SHOULD be defined within the trust framework. Trust Marks are assert
 
 ```json=
 {
-  "id":"https://diligent.federation.example.com/openid_credential_verifier/private/under-age",
+  "trust_mark_type":"https://diligent.federation.example.com/openid_credential_verifier/private/under-age",
   "iss": "https://trustissuer.pinarolo.example.it",
   "sub": "https://vavuso.example.com/rp",
   "iat": 1579621160,
