@@ -1209,7 +1209,7 @@ li > p:last-of-type:only-child {
 <thead><tr>
 <td class="left"></td>
 <td class="center">openid-federation-wallet</td>
-<td class="right">October 2024</td>
+<td class="right">June 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">De Marco, et al.</td>
@@ -1224,7 +1224,7 @@ li > p:last-of-type:only-child {
 <dd class="workgroup">OpenID Connect A/B</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-10-29" class="published">29 October 2024</time>
+<time datetime="2025-06-28" class="published">28 June 2025</time>
     </dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
@@ -1708,7 +1708,7 @@ This is an extension of the three-party Issuer-Holder-Verifier Model described i
         </h3>
 <p id="section-6.1-1">The OpenID Federation Entity Type Identifier for the Wallet Provider is <code>openid_wallet_provider</code>.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 <p id="section-6.1-2">For information on metadata parameters specific to OpenID Wallets,
-refer to Section <em>8. Wallet Metadata (Authorization Server Metadata)</em> of
+refer to Section <em>10. Wallet Metadata (Authorization Server Metadata)</em> of
 the OpenID for Verifiable Presentations <span>[<a href="#OpenID4VP" class="cite xref">OpenID4VP</a>]</span> specification.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1719,7 +1719,7 @@ the OpenID for Verifiable Presentations <span>[<a href="#OpenID4VP" class="cite 
         </h3>
 <p id="section-6.2-1">The OpenID Federation Entity Type Identifier for the Credential Issuer is <code>openid_credential_issuer</code>.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 <p id="section-6.2-2">For information on metadata parameters specific to OpenID Credential Issuers,
-refer to Section <em>10.2. Credential Issuer Metadata</em> of
+refer to Section <em>11.2. Credential Issuer Metadata</em> of
 the OpenID for Verifiable Credential Issuance <span>[<a href="#OpenID4VCI" class="cite xref">OpenID4VCI</a>]</span> specification.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1731,7 +1731,7 @@ the OpenID for Verifiable Credential Issuance <span>[<a href="#OpenID4VCI" class
 <p id="section-6.3-1">The OpenID Federation Entity Type Identifier for the Credential Verifier is <code>openid_credential_verifier</code>.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
 <p id="section-6.3-2">This specification introduces a distinct Entity Type Identifier for the OpenID Credential Verifier to clearly differentiate it from a traditional OpenID Connect Relying Party (<code>openid_relying_party</code>). This distinction highlights the unique characteristics and functionalities of the Wallet ecosystem and its Credential Verifier.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
 <p id="section-6.3-3">For information on metadata parameters specific to OpenID Credential Verifiers,
-refer to Section <em>9. Verifier Metadata (Client Metadata)</em> of
+refer to Section <em>11. Verifier Metadata (Client Metadata)</em> of
 the OpenID for Verifiable Presentations <span>[<a href="#OpenID4VP" class="cite xref">OpenID4VP</a>]</span> specification.<a href="#section-6.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1809,7 +1809,7 @@ These modifications allow a federation authority, such as a Trust Anchor, to app
 <p id="section-7.4-4">Trust Marks SHOULD be defined within the trust framework. Trust Marks are asserted about a subject through a registration service or compliance evaluation mechanism and therefore included in subject's Entity Configurations. This allows other entities to quickly assess the compliance status of a subject by examining the Entity Configuration of a subject.<a href="#section-7.4-4" class="pilcrow">¶</a></p>
 <div class="lang-json= sourcecode" id="section-7.4-5">
 <pre>{
-  "id":"https://diligent.federation.example.com/openid_credential_verifier/private/under-age",
+  "trust_mark_type":"https://diligent.federation.example.com/openid_credential_verifier/private/under-age",
   "iss": "https://trustissuer.pinarolo.example.it",
   "sub": "https://vavuso.example.com/rp",
   "iat": 1579621160,
