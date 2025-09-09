@@ -101,7 +101,7 @@ This specification uses the terms
 "CBOR Web Token (CWT)" defined by CBOR Web Token (CWT) [@!RFC8392],
 "Client" as defined by [@!RFC6749],
 "Verifiable Presentation" and "Wallet Attestation" defined in [@!OpenID4VP],
-"Holder" and "Credential Issuer" defined in [@!OpenID4VCI],
+"Credential", "Holder" and "Credential Issuer" defined in [@!OpenID4VCI],
 and "Trust Mark", "Federation Entity", "Trust Anchor",
 "Intermediate", and "Subordinate Statement" defined in [@!OpenID.Federation].
 
@@ -610,19 +610,19 @@ Note: While this section exemplifies the journey of discovery from the perspecti
 
 ## Credential Verifiers Establishing Trust in Credential Issuers
 
-During the credential verification phase, Credential Verifiers SHOULD establish trust with Credential Issuers to validate the authenticity and integrity of presented digital credentials. This trust establishment process is critical to ensure that the Credential Verifier can rely on the credentials issued by a particular Credential Issuer and verify their validity against the issuer's cryptographic material.
+During the Credential verification phase, Credential Verifiers SHOULD establish trust with Credential Issuers to validate the authenticity and integrity of presented digital Credentials. This trust evaluation ensures that the Credential Verifier can rely on the Credentials issued by a particular Credential Issuer and verify their validity against the Credential Issuer's cryptographic material.
 
 The trust establishment between Credential Verifiers and Credential Issuers follows the standard OpenID Federation entity discovery mechanisms. The Credential Verifier initiates this process by fetching the Credential Issuer's Entity Configuration to obtain authority hints and construct a valid Trust Chain up to a recognized Trust Anchor.
 
-The [@!OpenID.Federation] specification requires that Entity Identifiers MUST be URLs using the https scheme. In various flavors of digital credentials, the Credential Issuer can be identified in various ways. If the Credential Issuer is identified using a https URL in the digital credential, the Credential Verifier SHOULD use that URL as the Entity Identifier of the Credential Issuer. If the Credential Issuer is identified using other methods that have 1-to-1 mapping to a https URL (e.g., `did:web`, `did:webvh`), the Credential Verifier MAY use that URL as the Entity Identifier of the Credential Issuer. Future versions of this specification may provide other mechanisms to specity the Credential Issuer's Entity Identifier in a digital credential.
+The [@!OpenID.Federation] specification requires that Entity Identifiers MUST be URLs using the https scheme. In various flavors of digital Credentials, the Credential Issuer can be identified in various ways. If the Credential Issuer is identified using a https URL in the digital Credential, the Credential Verifier SHOULD use that URL as the Entity Identifier of the Credential Issuer. If the Credential Issuer is identified using other methods that have 1-to-1 mapping to a https URL (e.g., `did:web`, `did:webvh`), the Credential Verifier MAY use that URL as the Entity Identifier of the Credential Issuer. Future versions of this specification may provide other mechanisms to specity the Credential Issuer's Entity Identifier in a digital credential.
 
 The Credential Verifier SHOULD validate the Trust Chain for the Credential Issuer using the same federation discovery process outlined in other sections. This includes:
 
-1. **Entity Configuration Retrieval**: The Credential Verifier fetches the Credential Issuer's Entity Configuration from the issuer's configuration endpoint.
+1. **Entity Configuration Retrieval**: The Credential Verifier fetches the Credential Issuer's Entity Configuration.
 
-2. **Authority Hints Processing**: The Credential Verifier follows the authority hints to collect Subordinate Statements from Intermediate entities and the Trust Anchor.
+2. **Authority Hints Processing**: The Credential Verifier follows the authority hints to collect Subordinate Statements from Intermediate Entities and the Trust Anchor.
 
-3. **Trust Chain Validation**: Each Subordinate Statement in the chain MUST be cryptographically validated using the issuing entity's public keys.
+3. **Trust Chain Validation**: Each Subordinate Statement in the chain MUST be cryptographically validated using the issuing Entity's public keys.
 
 4. **Metadata Processing**: Upon successful Trust Chain validation, the Credential Verifier processes the final metadata for the Credential Issuer, applying any relevant policies.
 
@@ -688,7 +688,6 @@ The Credential Verifier SHOULD validate the Trust Chain for the Credential Issue
 ~~~
 **Figure 7**: Federation Entity Discovery, the Credential Verifier evaluates the trust with a Credential Issuer.
 
-This trust establishment process ensures that Credential Verifiers can confidently validate digital credentials by verifying both the issuer's legitimacy within the federation and the cryptographic integrity of the credentials themselves. The process provides the necessary foundation for secure and trusted credential verification workflows within federated wallet ecosystems.
 
 # Implementation Considerations for Offline Flows
 
@@ -714,6 +713,7 @@ We would like to thank the following individuals for their comments, ideas, and 
 - Francesco Antonio Marino
 - Giada Sciarretta
 - Niels van Dijk
+- Samuel Rinnetmäki
 
 {backmatter}
 
