@@ -1,4 +1,4 @@
-# OpenID Federation Wallet Architectures 1.0
+# OpenID Federation for Wallet Architectures 1.0
 
 This repository contains the OpenID Federation for Wallet Architectures specification.
 
