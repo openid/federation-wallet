@@ -1,5 +1,5 @@
 %%%
-title = "OpenID Federation Wallet Architectures 1.0 - draft 04"
+title = "OpenID Federation for Wallet Architectures 1.0 - draft 04"
 abbrev = "openid-federation-wallet"
 ipr = "none"
 workgroup = "OpenID Connect A/B"
