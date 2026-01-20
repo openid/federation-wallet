@@ -96,9 +96,8 @@ general-purpose wallet specifications to define those new parameters there.
 # Terminology
 
 This specification uses the terms
-"End-User" and "Entity" as defined by OpenID Connect Core [@!OpenID.Core],
+"End-User" and "Entity" as defined by OpenID Connect [@!OpenID.Core],
 "JSON Web Token (JWT)" defined by JSON Web Token (JWT) [@!RFC7519],
-"CBOR Web Token (CWT)" defined by CBOR Web Token (CWT) [@!RFC8392],
 "Client" as defined by [@!RFC6749],
 "Verifiable Presentation" and "Wallet Attestation" defined in [@!OpenID4VP],
 "Holder" and "Credential Issuer" defined in [@!OpenID4VCI],
