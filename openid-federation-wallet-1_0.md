@@ -1,13 +1,13 @@
 %%%
 title = "OpenID Federation for Wallet Architectures 1.0 - draft 04"
-abbrev = "openid-federation-wallet"
+abbrev = "OpenID Federation for Wallet Architectures"
 ipr = "none"
-workgroup = "OpenID Connect A/B"
-keyword = ["security", "openid", "ssi"]
+workgroup = "OpenID Connect Working Group"
+keyword = ["security", "openid", "digital credentials", "issuer", "holder", "verifier"]
 
 [seriesInfo]
 name = "Internet-Draft"
-value = "openid-federation-wallet"
+value = "openid-federation-wallet-1_0"
 status = "standard"
 
 [[author]]
@@ -623,15 +623,16 @@ The Entity that receives the data object including the JWT `trust_chain`, such a
 Using short-lived Trust Chains ensures compatibility with required revocation administrative protocols, such as those defined in a legal framework. For example, if a revocation must be propagated in less than 24 hours, the Trust Chain should not be valid for more than that period.
 
 
-# Acknowledgments
+# Acknowledgements
 
-We would like to thank the following individuals for their comments, ideas, and contributions to this implementation profile and to the initial set of implementations.
-
-- Leif Johansson
-- Stefan Liström
-- Francesco Antonio Marino
-- Giada Sciarretta
-- Niels van Dijk
+We would like to thank the following individuals for their comments, ideas, and contributions to this implementation profile and to the initial set of implementations:
+Leif Johansson,
+Stefan Liström,
+Francesco Antonio Marino,
+Eduardo Perottoni,
+Giada Sciarretta,
+and
+Niels van Dijk.
 
 {backmatter}
 
@@ -705,7 +706,7 @@ We would like to thank the following individuals for their comments, ideas, and 
       <front>
         <title>OpenID for Verifiable Presentations</title>
         <author initials="O." surname="Terbu" fullname="Oliver Terbu">
-         <organization>Mattr</organization>
+         <organization>MATTR</organization>
         </author>
         <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
           <organization>SPRIND</organization>
@@ -713,10 +714,13 @@ We would like to thank the following individuals for their comments, ideas, and 
         <author initials="K." surname="Yasuda" fullname="Kristina Yasuda">
           <organization>SPRIND</organization>
         </author>
-        <author initials="T." surname="Looker" fullname="Tobias Looker">
-          <organization>Mattr</organization>
+        <author initials="D." surname="Fett" fullname="Daniel Fett">
+          <organization>Authlete</organization>
         </author>
-       <date day="9" month="August" year="2024"/>
+        <author initials="J." surname="Heenan" fullname="Joseph Heenan">
+          <organization>Authlete</organization>
+        </author>
+       <date day="9" month="July" year="2025"/>
       </front>
 </reference>
 
@@ -732,52 +736,11 @@ We would like to thank the following individuals for their comments, ideas, and 
           <author initials="T." surname="Looker" fullname="Tobias Looker">
             <organization>Mattr</organization>
           </author>
-          <date day="9" month="August" year="2024"/>
+          <author initials="P." surname="Bastian" fullname="Paul Bastian">
+            <organization>Bundesdruckerei</organization>
+          </author>
+          <date day="16" month="September" year="2025"/>
         </front>
-</reference>
-
-<reference anchor="OpenID4VC-HAIP" target="https://openid.net/specs/openid4vc-high-assurance-interoperability-profile-sd-jwt-vc-1_0.html">
-        <front>
-          <title>OpenID4VC High Assurance Interoperability Profile with SD-JWT VC</title>
-          <author initials="K." surname="Yasuda" fullname="Kristina Yasuda">
-            <organization>Microsoft</organization>
-          </author>
-          <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
-            <organization>sprind.org</organization>
-          </author>
-          <date day="9" month="January" year="2024"/>
-        </front>
-</reference>
-
-<reference anchor="DIF.PresentationExchange" target="https://identity.foundation/presentation-exchange/spec/v2.0.0/">
-        <front>
-          <title>Presentation Exchange 2.0.0</title>
-		  <author fullname="Daniel Buchner">
-            <organization>Microsoft</organization>
-          </author>
-          <author fullname="Brent Zundel">
-            <organization>Evernym</organization>
-          </author>
-          <author fullname="Martin Riedel">
-            <organization>Consensys Mesh</organization>
-          </author>
-          <author fullname="Kim Hamilton Duffy">
-            <organization>Centre Consortium</organization>
-          </author>
-        </front>
-</reference>
-
-<reference anchor="OAuth.JARM" target="https://openid.net/specs/oauth-v2-jarm.html">
-  <front>
-    <title>JWT Secured Authorization Response Mode for OAuth 2.0 (JARM)</title>
-    <author initials="T." surname="Lodderstedt" fullname="Torsten Lodderstedt">
-      <organization>yes.com</organization>
-    </author>
-    <author initials="B." surname="Brian" fullname="Brian Campbell">
-      <organization>Ping Identity</organization>
-    </author>
-   <date day="9" month="November" year="2022"/>
-  </front>
 </reference>
 
 <reference anchor="OpenID.Federation" target="https://openid.net/specs/openid-federation-1_0.html">
@@ -801,27 +764,17 @@ We would like to thank the following individuals for their comments, ideas, and 
           <author fullname="Vladimir Dzhuvinov">
             <organization>Connect2id</organization>
           </author>
-          <date day="31" month="May" year="2024"/>
+          <date day="19" month="January" year="2026"/>
         </front>
-</reference>
-
-<reference anchor="eIDAS" target="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32014R0910">
-  <front>
-    <title>REGULATION (EU) No 910/2014 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL on electronic identification and trust services for electronic transactions in the internal market and repealing Directive 1999/93/EC</title>
-    <author surname="European Parliament">
-      <organization>European Parliament</organization>
-    </author>
-    <date year="2014" month="July" day="23"></date>
-  </front>
 </reference>
 
 # Notices
 
-Copyright (c) 2024 The OpenID Foundation.
+Copyright (c) 2026 The OpenID Foundation.
 
-The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, or other interested party a non-exclusive, royalty free, worldwide copyright license to reproduce, prepare derivative works from, distribute, perform and display, this Implementers Draft or Final Specification solely for the purposes of (i) developing specifications, and (ii) implementing Implementers Drafts and Final Specifications based on such documents, provided that attribution be made to the OIDF as the source of the material, but that such attribution does not indicate an endorsement by the OIDF.
+The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, or other interested party a non-exclusive, royalty free, worldwide copyright license to reproduce, prepare derivative works from, distribute, perform and display, this Implementers Draft, Final Specification, or Final Specification Incorporating Errata Corrections solely for the purposes of (i) developing specifications, and (ii) implementing Implementers Drafts, Final Specifications, and Final Specification Incorporating Errata Corrections based on such documents, provided that attribution be made to the OIDF as the source of the material, but that such attribution does not indicate an endorsement by the OIDF.
 
-The technology described in this specification was made available from contributions from various sources, including members of the OpenID Foundation and others. Although the OpenID Foundation has taken steps to help ensure that the technology is available for distribution, it takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this specification or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any independent effort to identify any such rights. The OpenID Foundation and the contributors to this specification make no (and hereby expressly disclaim any) warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to this specification, and the entire risk as to implementing this specification is assumed by the implementer. The OpenID Intellectual Property Rights policy requires contributors to offer a patent promise not to assert certain patent claims against other contributors and against implementers. The OpenID Foundation invites any interested party to bring to its attention any copyrights, patents, patent applications, or other proprietary rights that MAY cover technology that MAY be required to practice this specification.
+The technology described in this specification was made available from contributions from various sources, including members of the OpenID Foundation and others. Although the OpenID Foundation has taken steps to help ensure that the technology is available for distribution, it takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this specification or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any independent effort to identify any such rights. The OpenID Foundation and the contributors to this specification make no (and hereby expressly disclaim any) warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to this specification, and the entire risk as to implementing this specification is assumed by the implementer. The OpenID Intellectual Property Rights policy (found at openid.net) requires contributors to offer a patent promise not to assert certain patent claims against other contributors and against implementers. OpenID invites any interested party to bring to its attention any copyrights, patents, patent applications, or other proprietary rights that may cover technology that may be required to practice this specification.
 
 # Document History
 
@@ -829,7 +782,9 @@ The technology described in this specification was made available from contribut
 
    -04
 
-   * Updated draft number following working group adoption of -03.
+   * Changed name to OpenID Federation for Wallet Architectures 1.0.
+   * Updated references.
+   * Removed unused references.
 
    -03
    
