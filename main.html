@@ -16,8 +16,11 @@ digital wallet architectures.
 <meta content="xml2rfc 3.16.0" name="generator">
 <meta content="security" name="keyword">
 <meta content="openid" name="keyword">
-<meta content="ssi" name="keyword">
-<meta content="openid-federation-wallet" name="ietf.draft">
+<meta content="digital credentials" name="keyword">
+<meta content="issuer" name="keyword">
+<meta content="holder" name="keyword">
+<meta content="verifier" name="keyword">
+<meta content="openid-federation-wallet-1_0" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.16.0
     Python 3.10.2
@@ -36,7 +39,7 @@ digital wallet architectures.
     six 1.16.0
     wcwidth 0.2.6
 -->
-<link href="./openid-federation-wallet.xml" rel="alternate" type="application/rfc+xml">
+<link href="./openid-federation-wallet-1_0.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 <style type="text/css">/*
 
@@ -1208,7 +1211,7 @@ li > p:last-of-type:only-child {
 <table class="ears">
 <thead><tr>
 <td class="left"></td>
-<td class="center">openid-federation-wallet</td>
+<td class="center">OpenID Federation for Wallet Architectur</td>
 <td class="right">January 2026</td>
 </tr></thead>
 <tfoot><tr>
@@ -1221,10 +1224,10 @@ li > p:last-of-type:only-child {
 <div id="internal-metadata" class="document-information">
 <dl id="identifiers">
 <dt class="label-workgroup">Workgroup:</dt>
-<dd class="workgroup">OpenID Connect A/B</dd>
+<dd class="workgroup">OpenID Connect Working Group</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-01-19" class="published">19 January 2026</time>
+<time datetime="2026-01-20" class="published">20 January 2026</time>
     </dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
@@ -1347,7 +1350,7 @@ digital wallet architectures.<a href="#section-abstract-1" class="pilcrow">¶</a
             <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-implementation-consideratio" class="internal xref">Implementation Considerations for Offline Flows</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-acknowledgements" class="internal xref">Acknowledgements</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
             <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-normative-references" class="internal xref">Normative References</a></p>
@@ -2088,24 +2091,19 @@ These modifications allow a federation authority, such as a Trust Anchor, to app
 <p id="section-9-5">Using short-lived Trust Chains ensures compatibility with required revocation administrative protocols, such as those defined in a legal framework. For example, if a revocation must be propagated in less than 24 hours, the Trust Chain should not be valid for more than that period.<a href="#section-9-5" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="acknowledgments">
+<div id="acknowledgements">
 <section id="section-10">
-      <h2 id="name-acknowledgments">
-<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
+      <h2 id="name-acknowledgements">
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-acknowledgements" class="section-name selfRef">Acknowledgements</a>
       </h2>
-<p id="section-10-1">We would like to thank the following individuals for their comments, ideas, and contributions to this implementation profile and to the initial set of implementations.<a href="#section-10-1" class="pilcrow">¶</a></p>
-<ul class="compact">
-<li class="compact" id="section-10-2.1">Leif Johansson<a href="#section-10-2.1" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="section-10-2.2">Stefan Listr&amp;#246;m<a href="#section-10-2.2" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="section-10-2.3">Francesco Antonio Marino<a href="#section-10-2.3" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="section-10-2.4">Giada Sciarretta<a href="#section-10-2.4" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="section-10-2.5">Niels van Dijk<a href="#section-10-2.5" class="pilcrow">¶</a>
-</li>
-      </ul>
+<p id="section-10-1">We would like to thank the following individuals for their comments, ideas, and contributions to this implementation profile and to the initial set of implementations:
+Leif Johansson,
+Stefan Liström,
+Francesco Antonio Marino,
+Eduardo Perottoni,
+Giada Sciarretta,
+and
+Niels van Dijk.<a href="#section-10-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <section id="section-11">
@@ -2119,15 +2117,15 @@ These modifications allow a federation authority, such as a Trust Anchor, to app
 <dd class="break"></dd>
 <dt id="OpenID.Federation">[OpenID.Federation]</dt>
       <dd>
-<span class="refAuthor">Ed., R. H.</span>, <span class="refAuthor">Jones, M. B.</span>, <span class="refAuthor">Solberg, A.</span>, <span class="refAuthor">Bradley, J.</span>, <span class="refAuthor">Marco, G. D.</span>, and <span class="refAuthor">V. Dzhuvinov</span>, <span class="refTitle">"OpenID Federation 1.0"</span>, <time datetime="2024-05-31" class="refDate">31 May 2024</time>, <span>&lt;<a href="https://openid.net/specs/openid-federation-1_0.html">https://openid.net/specs/openid-federation-1_0.html</a>&gt;</span>. </dd>
+<span class="refAuthor">Ed., R. H.</span>, <span class="refAuthor">Jones, M. B.</span>, <span class="refAuthor">Solberg, A.</span>, <span class="refAuthor">Bradley, J.</span>, <span class="refAuthor">Marco, G. D.</span>, and <span class="refAuthor">V. Dzhuvinov</span>, <span class="refTitle">"OpenID Federation 1.0"</span>, <time datetime="2026-01-19" class="refDate">19 January 2026</time>, <span>&lt;<a href="https://openid.net/specs/openid-federation-1_0.html">https://openid.net/specs/openid-federation-1_0.html</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="OpenID4VCI">[OpenID4VCI]</dt>
       <dd>
-<span class="refAuthor">Lodderstedt, T.</span>, <span class="refAuthor">Yasuda, K.</span>, and <span class="refAuthor">T. Looker</span>, <span class="refTitle">"OpenID for Verifiable Credential Issuance"</span>, <time datetime="2024-08-09" class="refDate">9 August 2024</time>, <span>&lt;<a href="https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html">https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html</a>&gt;</span>. </dd>
+<span class="refAuthor">Lodderstedt, T.</span>, <span class="refAuthor">Yasuda, K.</span>, <span class="refAuthor">Looker, T.</span>, and <span class="refAuthor">P. Bastian</span>, <span class="refTitle">"OpenID for Verifiable Credential Issuance"</span>, <time datetime="2025-09-16" class="refDate">16 September 2025</time>, <span>&lt;<a href="https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html">https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="OpenID4VP">[OpenID4VP]</dt>
       <dd>
-<span class="refAuthor">Terbu, O.</span>, <span class="refAuthor">Lodderstedt, T.</span>, <span class="refAuthor">Yasuda, K.</span>, and <span class="refAuthor">T. Looker</span>, <span class="refTitle">"OpenID for Verifiable Presentations"</span>, <time datetime="2024-08-09" class="refDate">9 August 2024</time>, <span>&lt;<a href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html">https://openid.net/specs/openid-4-verifiable-presentations-1_0.html</a>&gt;</span>. </dd>
+<span class="refAuthor">Terbu, O.</span>, <span class="refAuthor">Lodderstedt, T.</span>, <span class="refAuthor">Yasuda, K.</span>, <span class="refAuthor">Fett, D.</span>, and <span class="refAuthor">J. Heenan</span>, <span class="refTitle">"OpenID for Verifiable Presentations"</span>, <time datetime="2025-07-09" class="refDate">9 July 2025</time>, <span>&lt;<a href="https://openid.net/specs/openid-4-verifiable-presentations-1_0.html">https://openid.net/specs/openid-4-verifiable-presentations-1_0.html</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
       <dd>
@@ -2160,9 +2158,9 @@ These modifications allow a federation authority, such as a Trust Anchor, to app
       <h2 id="name-notices">
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-notices" class="section-name selfRef">Notices</a>
       </h2>
-<p id="appendix-A-1">Copyright (c) 2024 The OpenID Foundation.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
-<p id="appendix-A-2">The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, or other interested party a non-exclusive, royalty free, worldwide copyright license to reproduce, prepare derivative works from, distribute, perform and display, this Implementers Draft or Final Specification solely for the purposes of (i) developing specifications, and (ii) implementing Implementers Drafts and Final Specifications based on such documents, provided that attribution be made to the OIDF as the source of the material, but that such attribution does not indicate an endorsement by the OIDF.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
-<p id="appendix-A-3">The technology described in this specification was made available from contributions from various sources, including members of the OpenID Foundation and others. Although the OpenID Foundation has taken steps to help ensure that the technology is available for distribution, it takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this specification or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any independent effort to identify any such rights. The OpenID Foundation and the contributors to this specification make no (and hereby expressly disclaim any) warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to this specification, and the entire risk as to implementing this specification is assumed by the implementer. The OpenID Intellectual Property Rights policy requires contributors to offer a patent promise not to assert certain patent claims against other contributors and against implementers. The OpenID Foundation invites any interested party to bring to its attention any copyrights, patents, patent applications, or other proprietary rights that MAY cover technology that MAY be required to practice this specification.<a href="#appendix-A-3" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">Copyright (c) 2026 The OpenID Foundation.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-2">The OpenID Foundation (OIDF) grants to any Contributor, developer, implementer, or other interested party a non-exclusive, royalty free, worldwide copyright license to reproduce, prepare derivative works from, distribute, perform and display, this Implementers Draft, Final Specification, or Final Specification Incorporating Errata Corrections solely for the purposes of (i) developing specifications, and (ii) implementing Implementers Drafts, Final Specifications, and Final Specification Incorporating Errata Corrections based on such documents, provided that attribution be made to the OIDF as the source of the material, but that such attribution does not indicate an endorsement by the OIDF.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
+<p id="appendix-A-3">The technology described in this specification was made available from contributions from various sources, including members of the OpenID Foundation and others. Although the OpenID Foundation has taken steps to help ensure that the technology is available for distribution, it takes no position regarding the validity or scope of any intellectual property or other rights that might be claimed to pertain to the implementation or use of the technology described in this specification or the extent to which any license under such rights might or might not be available; neither does it represent that it has made any independent effort to identify any such rights. The OpenID Foundation and the contributors to this specification make no (and hereby expressly disclaim any) warranties (express, implied, or otherwise), including implied warranties of merchantability, non-infringement, fitness for a particular purpose, or title, related to this specification, and the entire risk as to implementing this specification is assumed by the implementer. The OpenID Intellectual Property Rights policy (found at openid.net) requires contributors to offer a patent promise not to assert certain patent claims against other contributors and against implementers. OpenID invites any interested party to bring to its attention any copyrights, patents, patent applications, or other proprietary rights that may cover technology that may be required to practice this specification.<a href="#appendix-A-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="document-history">
@@ -2173,7 +2171,11 @@ These modifications allow a federation authority, such as a Trust Anchor, to app
 <p id="appendix-B-1">[[ To be removed from the final specification ]]<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 <p id="appendix-B-2">-04<a href="#appendix-B-2" class="pilcrow">¶</a></p>
 <ul class="compact">
-<li class="compact" id="appendix-B-3.1">Updated draft number following working group adoption of -03.<a href="#appendix-B-3.1" class="pilcrow">¶</a>
+<li class="compact" id="appendix-B-3.1">Changed name to OpenID Federation for Wallet Architectures 1.0.<a href="#appendix-B-3.1" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="appendix-B-3.2">Updated references.<a href="#appendix-B-3.2" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="appendix-B-3.3">Removed unused references.<a href="#appendix-B-3.3" class="pilcrow">¶</a>
 </li>
       </ul>
 <p id="appendix-B-4">-03<a href="#appendix-B-4" class="pilcrow">¶</a></p>
