@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>OpenID Federation for Wallet Architectures 1.0 - draft 04</title>
+<title>OpenID Federation for Wallet Architectures 1.0 - draft 05</title>
 <meta content="Giuseppe De Marco" name="author">
 <meta content="Roland Hedberg" name="author">
 <meta content="Michael B. Jones" name="author">
@@ -1250,7 +1250,7 @@ li > p:last-of-type:only-child {
 </dd>
 </dl>
 </div>
-<h1 id="title">OpenID Federation for Wallet Architectures 1.0 - draft 04</h1>
+<h1 id="title">OpenID Federation for Wallet Architectures 1.0 - draft 05</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">This specification defines the OpenID Federation entity types for
@@ -1772,8 +1772,8 @@ Each JWK in the set MUST have a <code>kid</code> (Key ID) parameter that uniquel
 identifies the key within the context of the Credential Verifier.
 When a Credential Verifier participates in a federation and exposes
 <code>openid_credential_verifier.jwks</code> via its Entity Configuration and the
-evaluated Trust Chain, Wallets and other relying parties <span class="bcp14">MUST</span> use the
-keys obtained from the federation metadata and <span class="bcp14">SHOULD</span> ignore any <code>jwks</code>
+evaluated Trust Chain, Wallets and other relying parties MUST use the
+keys obtained from the federation metadata and MUST ignore any <code>jwks</code>
 value conveyed in <code>client_metadata</code> within the Authorization Request.
 Only when no federated <code>openid_credential_verifier</code> metadata is available
 MAY implementations rely on <code>jwks</code> from <code>client_metadata</code> as defined in
@@ -1918,19 +1918,16 @@ This profile uses these objects to control the OpenID4VP behaviour of the
 Credential Verifier in a way that can be enforced by superior entities.<a href="#section-7.1.1-1" class="pilcrow">¶</a></p>
 <p id="section-7.1.1-2">Superior entities (for example Trust Anchors or Intermediates):<a href="#section-7.1.1-2" class="pilcrow">¶</a></p>
 <ul class="compact">
-<li class="compact" id="section-7.1.1-3.1">
-              <span class="bcp14">MAY</span> set, add or replace the <code>openid_credential_verifier.jwks</code> value
+<li class="compact" id="section-7.1.1-3.1">MAY set, add or replace the <code>openid_credential_verifier.jwks</code> value
 to constrain which public keys are accepted for signing Request Objects
 and, where applicable, for response encryption.<a href="#section-7.1.1-3.1" class="pilcrow">¶</a>
 </li>
-            <li class="compact" id="section-7.1.1-3.2">
-              <span class="bcp14">MAY</span> set or restrict the <code>openid_credential_verifier.request_uris</code>,
+            <li class="compact" id="section-7.1.1-3.2">MAY set or restrict the <code>openid_credential_verifier.request_uris</code>,
 <code>openid_credential_verifier.response_uris</code>, and
 <code>openid_credential_verifier.redirect_uris</code> values to the endpoints that
 have been registered and approved for the Credential Verifier.<a href="#section-7.1.1-3.2" class="pilcrow">¶</a>
 </li>
-            <li class="compact" id="section-7.1.1-3.3">
-              <span class="bcp14">MAY</span> add or constrain one or more <code>openid_credential_verifier.dcql_query</code>
+            <li class="compact" id="section-7.1.1-3.3">MAY add or constrain one or more <code>openid_credential_verifier.dcql_query</code>
 objects (for example as a list or profile-specific structure) to define the
 only DCQL queries that the Credential Verifier is permitted to use.<a href="#section-7.1.1-3.3" class="pilcrow">¶</a>
 </li>
@@ -1943,29 +1940,29 @@ for trust and policy checks.<a href="#section-7.1.1-4" class="pilcrow">¶</a></p
 Trust Chain according to <span>[<a href="#OpenID.Federation" class="cite xref">OpenID.Federation</a>]</span>, Sections 3, 5, and 6.1.
 In particular:<a href="#section-7.1.1-5" class="pilcrow">¶</a></p>
 <ul class="compact">
-<li class="compact" id="section-7.1.1-6.1">A Wallet evaluating a Credential Verifier <span class="bcp14">MUST</span> treat the final
+<li class="compact" id="section-7.1.1-6.1">A Wallet evaluating a Credential Verifier MUST treat the final
 <code>openid_credential_verifier.request_uris</code>,
 <code>openid_credential_verifier.response_uris</code>, and
 <code>openid_credential_verifier.redirect_uris</code> values as the authoritative
 lists of allowed endpoints.
 Any <code>request_uri</code>, <code>response_uri</code>, or <code>redirect_uri</code> appearing in an
 Authorization Request that is not contained in the corresponding list
-<span class="bcp14">MUST</span> cause the Wallet to reject the request to prevent endpoint mix-up
+MUST cause the Wallet to reject the request to prevent endpoint mix-up
 attacks, consistent with the considerations in <span>[<a href="#OpenID4VP" class="cite xref">OpenID4VP</a>]</span>,
 Section 8.2 and the checks defined for Relying Parties in the
 IT Wallet specifications.<a href="#section-7.1.1-6.1" class="pilcrow">¶</a>
 </li>
-            <li class="compact" id="section-7.1.1-6.2">A Wallet evaluating a Credential Verifier <span class="bcp14">SHOULD</span> use the effective
+            <li class="compact" id="section-7.1.1-6.2">A Wallet evaluating a Credential Verifier SHOULD use the effective
 <code>openid_credential_verifier.dcql_query</code> metadata to determine which
 Credential types and claims the Credential Verifier is authorized to
 request.
 When a <code>dcql_query</code> value is provided via
 <code>metadata.openid_credential_verifier</code> in a Subordinate Statement,
 any <code>dcql_query</code> conveyed by the Credential Verifier in the Request Object
-or in <code>client_metadata</code> <span class="bcp14">MUST</span> be ignored, as it is overridden by the
+or in <code>client_metadata</code> MUST be ignored, as it is overridden by the
 federation-managed value.
 When a <code>dcql_query</code> constraint is expressed via
-<code>metadata_policy.openid_credential_verifier</code>, that policy <span class="bcp14">MUST</span> be
+<code>metadata_policy.openid_credential_verifier</code>, that policy MUST be
 applied to any <code>dcql_query</code> present in the Credential Verifier metadata,
 if available, or otherwise to the <code>dcql_query</code> contained in
 <code>client_metadata</code> in the Authorization Request.
@@ -2379,59 +2376,82 @@ Niels van Dijk.<a href="#section-10-1" class="pilcrow">¶</a></p>
 <a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-document-history" class="section-name selfRef">Document History</a>
       </h2>
 <p id="appendix-B-1">[[ To be removed from the final specification ]]<a href="#appendix-B-1" class="pilcrow">¶</a></p>
-<p id="appendix-B-2">-04<a href="#appendix-B-2" class="pilcrow">¶</a></p>
+<p id="appendix-B-2">-05<a href="#appendix-B-2" class="pilcrow">¶</a></p>
 <ul class="compact">
-<li class="compact" id="appendix-B-3.1">Changed name to OpenID Federation for Wallet Architectures 1.0.<a href="#appendix-B-3.1" class="pilcrow">¶</a>
+<li class="compact" id="appendix-B-3.1">Extended OpenID Credential Verifier entity type with additional metadata
+ parameters: jwks, request_uris, response_uris, redirect_uris, and
+ dcql_query, with definitions and rationale aligned to the Trusted
+ Third-Party trust model.<a href="#appendix-B-3.1" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-B-3.2">Updated references.<a href="#appendix-B-3.2" class="pilcrow">¶</a>
+        <li class="compact" id="appendix-B-3.2">Specified that when a Credential Verifier participates in a federation,
+ Wallets MUST use jwks from federation metadata and MUST ignore jwks
+ from client_metadata in the Authorization Request.<a href="#appendix-B-3.2" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-B-3.3">Removed unused references.<a href="#appendix-B-3.3" class="pilcrow">¶</a>
+        <li class="compact" id="appendix-B-3.3">Added section on using openid_credential_verifier metadata and
+ metadata_policy in Subordinate Statements for policy enforcement by
+ superior entities (endpoints, keys, dcql_query).<a href="#appendix-B-3.3" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="appendix-B-3.4">Clarified dcql_query override rules: metadata in a Subordinate
+ Statement overrides request/client_metadata; metadata_policy applies to
+ verifier metadata or, if absent, to client_metadata; profiles MAY use
+ Trust Marks to convey dcql_query-related policies.<a href="#appendix-B-3.4" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="appendix-B-3.5">Removed bold formatting from RFC 2119 keywords for consistency.<a href="#appendix-B-3.5" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="appendix-B-4">-03<a href="#appendix-B-4" class="pilcrow">¶</a></p>
+<p id="appendix-B-4">-04<a href="#appendix-B-4" class="pilcrow">¶</a></p>
 <ul class="compact">
-<li class="compact" id="appendix-B-5.1">Added section about Credential Issuers establishing trust with Wallet Solution<a href="#appendix-B-5.1" class="pilcrow">¶</a>
+<li class="compact" id="appendix-B-5.1">Changed name to OpenID Federation for Wallet Architectures 1.0.<a href="#appendix-B-5.1" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-B-5.2">Added sequence diagrams using ascii-arts<a href="#appendix-B-5.2" class="pilcrow">¶</a>
+        <li class="compact" id="appendix-B-5.2">Updated references.<a href="#appendix-B-5.2" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-B-5.3">Renamed Third-Party Trust Model to Trusted Third-Party Model<a href="#appendix-B-5.3" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-B-5.4">Added legends to the figures<a href="#appendix-B-5.4" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-B-5.5">Added section about Wallet Checking the Non-Revocation of its Wallet Provider<a href="#appendix-B-5.5" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-B-5.6">Added implementation Considerations for Offline Flows<a href="#appendix-B-5.6" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-B-5.7">Improved clarification about using metadata in Subordiante Statements<a href="#appendix-B-5.7" class="pilcrow">¶</a>
+        <li class="compact" id="appendix-B-5.3">Removed unused references.<a href="#appendix-B-5.3" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="appendix-B-6">-02<a href="#appendix-B-6" class="pilcrow">¶</a></p>
+<p id="appendix-B-6">-03<a href="#appendix-B-6" class="pilcrow">¶</a></p>
 <ul class="compact">
-<li class="compact" id="appendix-B-7.1">Added non-normative example about using policies with metadata and trust marks<a href="#appendix-B-7.1" class="pilcrow">¶</a>
+<li class="compact" id="appendix-B-7.1">Added section about Credential Issuers establishing trust with Wallet Solution<a href="#appendix-B-7.1" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-B-7.2">Added Credential Verifier and Credential Verifier Instance<a href="#appendix-B-7.2" class="pilcrow">¶</a>
+        <li class="compact" id="appendix-B-7.2">Added sequence diagrams using ascii-arts<a href="#appendix-B-7.2" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-B-7.3">Added section about Credential Verifier Instance<a href="#appendix-B-7.3" class="pilcrow">¶</a>
+        <li class="compact" id="appendix-B-7.3">Renamed Third-Party Trust Model to Trusted Third-Party Model<a href="#appendix-B-7.3" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-B-7.4">Illustrative rationale about Authentic Sources and Wallet Provider within the Four-Party Model sections<a href="#appendix-B-7.4" class="pilcrow">¶</a>
+        <li class="compact" id="appendix-B-7.4">Added legends to the figures<a href="#appendix-B-7.4" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-B-7.5">Moved text on Possible Use of Metadata Parameters by Wallet Ecosystems to issue #22.<a href="#appendix-B-7.5" class="pilcrow">¶</a>
+        <li class="compact" id="appendix-B-7.5">Added section about Wallet Checking the Non-Revocation of its Wallet Provider<a href="#appendix-B-7.5" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-B-7.6">Added warning about the specification not being final.<a href="#appendix-B-7.6" class="pilcrow">¶</a>
+        <li class="compact" id="appendix-B-7.6">Added implementation Considerations for Offline Flows<a href="#appendix-B-7.6" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="appendix-B-7.7">Improved clarification about using metadata in Subordiante Statements<a href="#appendix-B-7.7" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="appendix-B-8">-01<a href="#appendix-B-8" class="pilcrow">¶</a></p>
+<p id="appendix-B-8">-02<a href="#appendix-B-8" class="pilcrow">¶</a></p>
 <ul class="compact">
-<li class="compact" id="appendix-B-9.1">Created Scope section describing the purpose of the document and collaboration with other working groups.<a href="#appendix-B-9.1" class="pilcrow">¶</a>
+<li class="compact" id="appendix-B-9.1">Added non-normative example about using policies with metadata and trust marks<a href="#appendix-B-9.1" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-B-9.2">Moved metadata tables and examples to an informative appendix on possible usage.<a href="#appendix-B-9.2" class="pilcrow">¶</a>
+        <li class="compact" id="appendix-B-9.2">Added Credential Verifier and Credential Verifier Instance<a href="#appendix-B-9.2" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-B-9.3">Fixed #10: Renamed <code>openid_wallet_relying_party</code> to <code>openid_credential_verifier</code>.<a href="#appendix-B-9.3" class="pilcrow">¶</a>
+        <li class="compact" id="appendix-B-9.3">Added section about Credential Verifier Instance<a href="#appendix-B-9.3" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="appendix-B-9.4">Illustrative rationale about Authentic Sources and Wallet Provider within the Four-Party Model sections<a href="#appendix-B-9.4" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="appendix-B-9.5">Moved text on Possible Use of Metadata Parameters by Wallet Ecosystems to issue #22.<a href="#appendix-B-9.5" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="appendix-B-9.6">Added warning about the specification not being final.<a href="#appendix-B-9.6" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="appendix-B-10">-00<a href="#appendix-B-10" class="pilcrow">¶</a></p>
+<p id="appendix-B-10">-01<a href="#appendix-B-10" class="pilcrow">¶</a></p>
 <ul class="compact">
-<li class="compact" id="appendix-B-11.1">Initial version<a href="#appendix-B-11.1" class="pilcrow">¶</a>
+<li class="compact" id="appendix-B-11.1">Created Scope section describing the purpose of the document and collaboration with other working groups.<a href="#appendix-B-11.1" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="appendix-B-11.2">Moved metadata tables and examples to an informative appendix on possible usage.<a href="#appendix-B-11.2" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="appendix-B-11.3">Fixed #10: Renamed <code>openid_wallet_relying_party</code> to <code>openid_credential_verifier</code>.<a href="#appendix-B-11.3" class="pilcrow">¶</a>
+</li>
+      </ul>
+<p id="appendix-B-12">-00<a href="#appendix-B-12" class="pilcrow">¶</a></p>
+<ul class="compact">
+<li class="compact" id="appendix-B-13.1">Initial version<a href="#appendix-B-13.1" class="pilcrow">¶</a>
 </li>
       </ul>
 </section>
