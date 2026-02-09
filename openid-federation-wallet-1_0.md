@@ -366,13 +366,14 @@ metadata:
 `dcql_query`:
 : OPTIONAL. A JSON object containing a Digital Credentials Query Language
   (DCQL) query as defined in [@!OpenID4VP], Section 6.
-  When present in `openid_credential_verifier` metadata, this parameter
-  describes a Verifier-defined default query or a constrained query profile
-  that the Credential Verifier is authorized to use.
-  Profiles of this specification MAY define policies that require any
-  `dcql_query` contained in an Authorization Request to be equal to,
-  or a constrained refinement of, one of the `dcql_query` objects published
-  in federation metadata for that Credential Verifier.
+  The structure is identical to the `dcql_query` Authorization Request
+  parameter in [@!OpenID4VP].
+  When present, `openid_credential_verifier` metadata contains exactly one
+  `dcql_query` object: the default or constrained query that the Credential
+  Verifier is authorized to use.
+  Profiles of this specification MAY define policies that require the
+  `dcql_query` in an Authorization Request to be equal to, or a constrained
+  refinement of, that single metadata object.
 
 #### Rationale for Extending the Set of `openid_credential_verifier` Metadata Parameters
 
@@ -453,9 +454,8 @@ Superior entities (for example Trust Anchors or Intermediates):
   `openid_credential_verifier.response_uris`, and
   `openid_credential_verifier.redirect_uris` values to the endpoints that
   have been registered and approved for the Credential Verifier.
-- MAY add or constrain one or more `openid_credential_verifier.dcql_query`
-  objects (for example as a list or profile-specific structure) to define the
-  only DCQL queries that the Credential Verifier is permitted to use.
+- MAY add or constrain the `openid_credential_verifier.dcql_query` value to
+  define the DCQL query that the Credential Verifier is permitted to use.
 
 When `metadata` is used, the resulting `openid_credential_verifier` metadata
 in the Leaf Entity Configuration after Trust Chain evaluation represents the
@@ -953,7 +953,6 @@ The technology described in this specification was made available from contribut
      Statement overrides request/client_metadata; metadata_policy applies to
      verifier metadata or, if absent, to client_metadata; profiles MAY use
      Trust Marks to convey dcql_query-related policies.
-   * Removed bold formatting from RFC 2119 keywords for consistency.
 
    -04
 
