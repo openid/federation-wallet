@@ -837,6 +837,14 @@ The technology described in this specification was made available from contribut
 
    [[ To be removed from the final specification ]]
 
+   -05
+
+   * Added subsection "OpenID Credential Issuer Metadata Parameters" under OpenID Credential Issuer Entity Type, profiling `openid_credential_issuer` metadata when used in Wallet federations.
+   * Documented `credential_issuer`, `authorization_servers`, and the OpenID4VCI parameters (credential_endpoint, nonce_endpoint, display, credential_configurations_supported, etc.) as carried in Federation metadata/metadata_policy.
+   * Added `jwks`: scope for signature of responses, tokens, and issued credentials; requirement that public keys used to verify signed Credential Issuer metadata (e.g. at .well-known/openid-credential-issuer per OpenID4VCI 12.2.3) be provided in `openid_credential_issuer` jwks when trust frameworks require it.
+   * Removed `trust_frameworks_supported` (not in OpenID4VCI or OpenID Federation); referenced `status_list_aggregation_endpoint` briefly under "Additional metadata parameters" with Token Status List reference.
+   * Replaced HTML entities (&nbsp;) with normal spaces in the new subsection.
+
    -04
 
    * Changed name to OpenID Federation for Wallet Architectures 1.0.
