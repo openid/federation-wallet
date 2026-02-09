@@ -1820,13 +1820,14 @@ trusted Redirect URIs for the Credential Verifier.<a href="#section-6.3.1-4.8" c
 <code>dcql_query</code>:</dt>
             <dd style="margin-left: 1.5em" id="section-6.3.1-4.10">OPTIONAL. A JSON object containing a Digital Credentials Query Language
 (DCQL) query as defined in <span>[<a href="#OpenID4VP" class="cite xref">OpenID4VP</a>]</span>, Section 6.
-When present in <code>openid_credential_verifier</code> metadata, this parameter
-describes a Verifier-defined default query or a constrained query profile
-that the Credential Verifier is authorized to use.
-Profiles of this specification MAY define policies that require any
-<code>dcql_query</code> contained in an Authorization Request to be equal to,
-or a constrained refinement of, one of the <code>dcql_query</code> objects published
-in federation metadata for that Credential Verifier.<a href="#section-6.3.1-4.10" class="pilcrow">¶</a>
+The structure is identical to the <code>dcql_query</code> Authorization Request
+parameter in <span>[<a href="#OpenID4VP" class="cite xref">OpenID4VP</a>]</span>.
+When present, <code>openid_credential_verifier</code> metadata contains exactly one
+<code>dcql_query</code> object: the default or constrained query that the Credential
+Verifier is authorized to use.
+Profiles of this specification MAY define policies that require the
+<code>dcql_query</code> in an Authorization Request to be equal to, or a constrained
+refinement of, that single metadata object.<a href="#section-6.3.1-4.10" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 </dl>
@@ -1927,9 +1928,8 @@ and, where applicable, for response encryption.<a href="#section-7.1.1-3.1" clas
 <code>openid_credential_verifier.redirect_uris</code> values to the endpoints that
 have been registered and approved for the Credential Verifier.<a href="#section-7.1.1-3.2" class="pilcrow">¶</a>
 </li>
-            <li class="compact" id="section-7.1.1-3.3">MAY add or constrain one or more <code>openid_credential_verifier.dcql_query</code>
-objects (for example as a list or profile-specific structure) to define the
-only DCQL queries that the Credential Verifier is permitted to use.<a href="#section-7.1.1-3.3" class="pilcrow">¶</a>
+            <li class="compact" id="section-7.1.1-3.3">MAY add or constrain the <code>openid_credential_verifier.dcql_query</code> value to
+define the DCQL query that the Credential Verifier is permitted to use.<a href="#section-7.1.1-3.3" class="pilcrow">¶</a>
 </li>
           </ul>
 <p id="section-7.1.1-4">When <code>metadata</code> is used, the resulting <code>openid_credential_verifier</code> metadata
@@ -2395,8 +2395,6 @@ Niels van Dijk.<a href="#section-10-1" class="pilcrow">¶</a></p>
  Statement overrides request/client_metadata; metadata_policy applies to
  verifier metadata or, if absent, to client_metadata; profiles MAY use
  Trust Marks to convey dcql_query-related policies.<a href="#appendix-B-3.4" class="pilcrow">¶</a>
-</li>
-        <li class="compact" id="appendix-B-3.5">Removed bold formatting from RFC 2119 keywords for consistency.<a href="#appendix-B-3.5" class="pilcrow">¶</a>
 </li>
       </ul>
 <p id="appendix-B-4">-04<a href="#appendix-B-4" class="pilcrow">¶</a></p>
