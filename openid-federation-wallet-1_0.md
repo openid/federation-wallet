@@ -288,7 +288,7 @@ the OpenID for Verifiable Presentations [@!OpenID4VP] specification.
 The OpenID Federation Entity Type Identifier for the Credential Issuer is `openid_credential_issuer`.
 
 For information on metadata parameters specific to OpenID Credential Issuers,
-refer to Section *11.2. Credential Issuer Metadata* and Section *12.2.4. Credential Issuer Metadata Parameters* of
+refer to Section 11.2 (Credential Issuer Metadata) and Section 12.2.4 (Credential Issuer Metadata Parameters) of
 the OpenID for Verifiable Credential Issuance [@!OpenID4VCI] specification.
 
 ### OpenID Credential Issuer Metadata Parameters
@@ -345,7 +345,7 @@ metadata MUST ignore unrecognized metadata parameters.
 OpenID4VCI also defines JOSE header parameters such as `trust_chain`
 for proofs and signed metadata (see Appendix F.1 and Section 12.2.3
 of [@!OpenID4VCI]), which enable a Credential Issuer to bind its keys
-and metadata to an OpenID Federation trust chain [@!OpenID.Federation].
+and metadata to an OpenID Federation Trust Chain [@!OpenID.Federation].
 Those mechanisms MUST be used consistently with
 the federation model defined in this document.
 
