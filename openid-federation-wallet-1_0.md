@@ -1,5 +1,5 @@
 %%%
-title = "OpenID Federation for Wallet Architectures 1.0 - draft 04"
+title = "OpenID Federation for Wallet Architectures 1.0 - draft 05"
 abbrev = "OpenID Federation for Wallet Architectures"
 ipr = "none"
 workgroup = "OpenID Connect Working Group"
@@ -326,8 +326,8 @@ metadata:
   identifies the key within the context of the Credential Verifier.
   When a Credential Verifier participates in a federation and exposes
   `openid_credential_verifier.jwks` via its Entity Configuration and the
-  evaluated Trust Chain, Wallets and other relying parties **MUST** use the
-  keys obtained from the federation metadata and **SHOULD** ignore any `jwks`
+  evaluated Trust Chain, Wallets and other relying parties MUST use the
+  keys obtained from the federation metadata and MUST ignore any `jwks`
   value conveyed in `client_metadata` within the Authorization Request.
   Only when no federated `openid_credential_verifier` metadata is available
   MAY implementations rely on `jwks` from `client_metadata` as defined in
@@ -446,14 +446,14 @@ Credential Verifier in a way that can be enforced by superior entities.
 
 Superior entities (for example Trust Anchors or Intermediates):
 
-- **MAY** set, add or replace the `openid_credential_verifier.jwks` value
+- MAY set, add or replace the `openid_credential_verifier.jwks` value
   to constrain which public keys are accepted for signing Request Objects
   and, where applicable, for response encryption.
-- **MAY** set or restrict the `openid_credential_verifier.request_uris`,
+- MAY set or restrict the `openid_credential_verifier.request_uris`,
   `openid_credential_verifier.response_uris`, and
   `openid_credential_verifier.redirect_uris` values to the endpoints that
   have been registered and approved for the Credential Verifier.
-- **MAY** add or constrain one or more `openid_credential_verifier.dcql_query`
+- MAY add or constrain one or more `openid_credential_verifier.dcql_query`
   objects (for example as a list or profile-specific structure) to define the
   only DCQL queries that the Credential Verifier is permitted to use.
 
@@ -466,28 +466,28 @@ When `metadata_policy` is used, the same constraints are propagated along the
 Trust Chain according to [@!OpenID.Federation], Sections 3, 5, and 6.1.
 In particular:
 
-- A Wallet evaluating a Credential Verifier **MUST** treat the final
+- A Wallet evaluating a Credential Verifier MUST treat the final
   `openid_credential_verifier.request_uris`,
   `openid_credential_verifier.response_uris`, and
   `openid_credential_verifier.redirect_uris` values as the authoritative
   lists of allowed endpoints.
   Any `request_uri`, `response_uri`, or `redirect_uri` appearing in an
   Authorization Request that is not contained in the corresponding list
-  **MUST** cause the Wallet to reject the request to prevent endpoint mix-up
+  MUST cause the Wallet to reject the request to prevent endpoint mix-up
   attacks, consistent with the considerations in [@!OpenID4VP],
   Section 8.2 and the checks defined for Relying Parties in the
   IT Wallet specifications.
-- A Wallet evaluating a Credential Verifier **SHOULD** use the effective
+- A Wallet evaluating a Credential Verifier SHOULD use the effective
   `openid_credential_verifier.dcql_query` metadata to determine which
   Credential types and claims the Credential Verifier is authorized to
   request.
   When a `dcql_query` value is provided via
   `metadata.openid_credential_verifier` in a Subordinate Statement,
   any `dcql_query` conveyed by the Credential Verifier in the Request Object
-  or in `client_metadata` **MUST** be ignored, as it is overridden by the
+  or in `client_metadata` MUST be ignored, as it is overridden by the
   federation-managed value.
   When a `dcql_query` constraint is expressed via
-  `metadata_policy.openid_credential_verifier`, that policy **MUST** be
+  `metadata_policy.openid_credential_verifier`, that policy MUST be
   applied to any `dcql_query` present in the Credential Verifier metadata,
   if available, or otherwise to the `dcql_query` contained in
   `client_metadata` in the Authorization Request.
@@ -936,6 +936,24 @@ The technology described in this specification was made available from contribut
 # Document History
 
    [[ To be removed from the final specification ]]
+
+   -05
+
+   * Extended OpenID Credential Verifier entity type with additional metadata
+     parameters: jwks, request_uris, response_uris, redirect_uris, and
+     dcql_query, with definitions and rationale aligned to the Trusted
+     Third-Party trust model.
+   * Specified that when a Credential Verifier participates in a federation,
+     Wallets MUST use jwks from federation metadata and MUST ignore jwks
+     from client_metadata in the Authorization Request.
+   * Added section on using openid_credential_verifier metadata and
+     metadata_policy in Subordinate Statements for policy enforcement by
+     superior entities (endpoints, keys, dcql_query).
+   * Clarified dcql_query override rules: metadata in a Subordinate
+     Statement overrides request/client_metadata; metadata_policy applies to
+     verifier metadata or, if absent, to client_metadata; profiles MAY use
+     Trust Marks to convey dcql_query-related policies.
+   * Removed bold formatting from RFC 2119 keywords for consistency.
 
    -04
 
