@@ -374,11 +374,11 @@ metadata:
   or a constrained refinement of, one of the `dcql_query` objects published
   in federation metadata for that Credential Verifier.
 
-#### Rationale for extending the set of `openid_credential_verifier` metadata parameters
+#### Rationale for Extending the Set of `openid_credential_verifier` Metadata Parameters
 
 The rationale for extending the set of `openid_credential_verifier` metadata
 parameters is to align OpenID4VP Verifiers with the Trusted Third-Party trust
-model adopted by this specification. Cyptographic material, protocol endpoints 
+model employed by this specification. Cryptographic material, protocol endpoints 
 and default or constrained DCQL queries are published in federation-managed metadata,
 constrained DCQL queries in federation-managed metadata. This practice aims to:
 
