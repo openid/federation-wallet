@@ -303,9 +303,10 @@ follows when used in Wallet federations:
 
 - `credential_issuer`:
   The Credential Issuer Identifier as defined in [@!OpenID4VCI], Section 12.2.1.
-  It MUST be a case-sensitive `https` URL and MUST be consistent with the
-  `sub` value of the Entity Configuration and the `iss`/`sub` values used
-  in Subordinate Statements, as defined in [@!OpenID.Federation].
+  It MUST be a case-sensitive `https` URL and MUST be equal to the
+  `sub` value in the Credential Issuer's Entity Configuration and to the
+  `sub` value in any Subordinate Statement about that Credential Issuer,
+  as defined in [@!OpenID.Federation].
 
 - `authorization_servers`:
   As defined in [@!OpenID4VCI], Section 12.2.4. Each element of this array
