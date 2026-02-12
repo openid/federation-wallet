@@ -391,10 +391,10 @@ constrained DCQL queries in federation-managed metadata. This practice aims to:
 - limit the kinds of Digital Credentials and claims that a Credential
   Verifier is allowed to request from Wallets.
 
-This moves critical configuration and authorization decisions from ad‑hoc,
-per‑instance configuration into a federated, policy-driven framework anchored
-in the Trust Anchor, improving reliability and consistency of participants
-across the ecosystem.
+When these parameters are expressed and enforced through Subordinate
+Statements, as defined in [@!OpenID.Federation], critical configuration and
+authorization decisions move from ad‑hoc, per‑instance configuration into a
+federated, policy-driven framework anchored in the Trust Anchor and the Superior Entities.
 
 # Federation Policies
 
