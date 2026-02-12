@@ -363,17 +363,18 @@ metadata:
   Wallets and Federation Authorities MUST treat these values as the set of
   trusted Redirect URIs for the Credential Verifier.
 
-`dcql_query`:
-: OPTIONAL. A JSON object containing a Digital Credentials Query Language
-  (DCQL) query as defined in [@!OpenID4VP], Section 6.
-  The structure is identical to the `dcql_query` Authorization Request
-  parameter in [@!OpenID4VP].
-  When present, `openid_credential_verifier` metadata contains exactly one
-  `dcql_query` object: the default or constrained query that the Credential
-  Verifier is authorized to use.
+`dcql_queries`:
+: OPTIONAL. A non-empty array of JSON objects, each containing a Digital
+  Credentials Query Language (DCQL) query as defined in [@!OpenID4VP],
+  Section 6.
+  Each array element has the same structure as the `dcql_query` Authorization
+  Request parameter in [@!OpenID4VP].
+  When present, this parameter lists the DCQL queries that the Credential
+  Verifier is authorized to use in different situations (e.g. identification,
+  education, employment, voluntary work).
   Profiles of this specification MAY define policies that require the
   `dcql_query` in an Authorization Request to be equal to, or a constrained
-  refinement of, that single metadata object.
+  refinement of, one of the query objects in this array.
 
 #### Rationale for Extending the Set of `openid_credential_verifier` Metadata Parameters
 
@@ -454,8 +455,9 @@ Superior entities (for example Trust Anchors or Intermediates):
   `openid_credential_verifier.response_uris`, and
   `openid_credential_verifier.redirect_uris` values to the endpoints that
   have been registered and approved for the Credential Verifier.
-- MAY add or constrain the `openid_credential_verifier.dcql_query` value to
-  define the DCQL query that the Credential Verifier is permitted to use.
+- MAY add or constrain the `openid_credential_verifier.dcql_queries` value to
+  define the list of DCQL queries that the Credential Verifier is permitted
+  to use.
 
 When `metadata` is used, the resulting `openid_credential_verifier` metadata
 in the Leaf Entity Configuration after Trust Chain evaluation represents the
@@ -478,20 +480,20 @@ In particular:
   Section 8.2 and the checks defined for Relying Parties in the
   IT Wallet specifications.
 - A Wallet evaluating a Credential Verifier SHOULD use the effective
-  `openid_credential_verifier.dcql_query` metadata to determine which
+  `openid_credential_verifier.dcql_queries` metadata to determine which
   Credential types and claims the Credential Verifier is authorized to
   request.
-  When a `dcql_query` value is provided via
+  When a `dcql_queries` value is provided via
   `metadata.openid_credential_verifier` in a Subordinate Statement,
   any `dcql_query` conveyed by the Credential Verifier in the Request Object
   or in `client_metadata` MUST be ignored, as it is overridden by the
-  federation-managed value.
-  When a `dcql_query` constraint is expressed via
+  federation-managed list.
+  When a `dcql_queries` constraint is expressed via
   `metadata_policy.openid_credential_verifier`, that policy MUST be
-  applied to any `dcql_query` present in the Credential Verifier metadata,
+  applied to any `dcql_queries` present in the Credential Verifier metadata,
   if available, or otherwise to the `dcql_query` contained in
   `client_metadata` in the Authorization Request.
-  Profiles MAY additionally convey `dcql_query`-related policies using
+  Profiles MAY additionally convey `dcql_queries`-related policies using
   Trust Marks bound to the Credential Verifier; see the section on
   Trust Marks and policy expression for further guidance.
 
@@ -779,6 +781,18 @@ The Entity that receives the data object including the JWT `trust_chain`, such a
 
 Using short-lived Trust Chains ensures compatibility with required revocation administrative protocols, such as those defined in a legal framework. For example, if a revocation must be propagated in less than 24 hours, the Trust Chain should not be valid for more than that period.
 
+# IANA Considerations
+
+## OAuth Parameters Registry
+
+This specification registers the following parameter in the IANA "OAuth Parameters" registry [@IANA.OAuth.Parameters] established by [@!RFC6749].
+
+### dcql_queries
+
+* Name: `dcql_queries`
+* Parameter Usage Location: authorization request, client metadata, and in `openid_credential_verifier` entity metadata as defined by this specification.
+* Change Controller: OpenID Foundation AB/Connect Working Group - openid-specs-ab@lists.openid.net
+* Reference: Additional OpenID Credential Verifier Metadata Parameters section of this specification
 
 # Acknowledgements
 
@@ -925,6 +939,13 @@ Niels van Dijk.
         </front>
 </reference>
 
+<reference anchor="IANA.OAuth.Parameters" target="https://www.iana.org/assignments/oauth-parameters/">
+  <front>
+    <title>OAuth Parameters</title>
+    <author><organization>IANA</organization></author>
+  </front>
+</reference>
+
 # Notices
 
 Copyright (c) 2026 The OpenID Foundation.
@@ -941,18 +962,22 @@ The technology described in this specification was made available from contribut
 
    * Extended OpenID Credential Verifier entity type with additional metadata
      parameters: jwks, request_uris, response_uris, redirect_uris, and
-     dcql_query, with definitions and rationale aligned to the Trusted
+     dcql_queries, with definitions and rationale aligned to the Trusted
      Third-Party trust model.
    * Specified that when a Credential Verifier participates in a federation,
      Wallets MUST use jwks from federation metadata and MUST ignore jwks
      from client_metadata in the Authorization Request.
    * Added section on using openid_credential_verifier metadata and
      metadata_policy in Subordinate Statements for policy enforcement by
-     superior entities (endpoints, keys, dcql_query).
-   * Clarified dcql_query override rules: metadata in a Subordinate
+     superior entities (endpoints, keys, dcql_queries).
+   * Clarified dcql_queries override rules: metadata in a Subordinate
      Statement overrides request/client_metadata; metadata_policy applies to
      verifier metadata or, if absent, to client_metadata; profiles MAY use
-     Trust Marks to convey dcql_query-related policies.
+     Trust Marks to convey dcql_queries-related policies.
+   * Defined dcql_queries as a non-empty array of DCQL query objects (as in
+     OpenID4VP) so verifiers can publish multiple authorized queries for
+     different situations.
+   * Added IANA Considerations registering the dcql_queries parameter.
 
    -04
 
