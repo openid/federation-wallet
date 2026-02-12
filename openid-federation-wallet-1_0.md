@@ -304,7 +304,7 @@ follows when used in Wallet federations:
 - `credential_issuer`:
   The Credential Issuer Identifier as defined in [@!OpenID4VCI], Section 12.2.1.
   It MUST be a case-sensitive `https` URL and MUST be equal to the
-  `sub` value in the Credential Issuer's Entity Configuration and to the
+  `iss`/`sub` pair value in the Credential Issuer's Entity Configuration and to the
   `sub` value in any Subordinate Statement about that Credential Issuer,
   as defined in [@!OpenID.Federation].
 
@@ -347,8 +347,8 @@ OpenID4VCI also defines JOSE header parameters such as `trust_chain`
 for proofs and signed metadata (see Appendix F.1 and Section 12.2.3
 of [@!OpenID4VCI]), which enable a Credential Issuer to bind its keys
 and metadata to an OpenID Federation Trust Chain [@!OpenID.Federation].
-Those mechanisms MUST be used consistently with
-the federation model defined in this document.
+Use of these mechanisms is OPTIONAL; when they are used, they MUST be
+consistent with the federation model defined in this document.
 
 ## OpenID Credential Verifier Entity Type
 
