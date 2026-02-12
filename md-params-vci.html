@@ -1744,7 +1744,7 @@ follows when used in Wallet federations:<a href="#section-6.2.1-2" class="pilcro
               <p id="section-6.2.1-3.1.1"><code>credential_issuer</code>:
 The Credential Issuer Identifier as defined in <span>[<a href="#OpenID4VCI" class="cite xref">OpenID4VCI</a>]</span>, Section 12.2.1.
 It MUST be a case-sensitive <code>https</code> URL and MUST be equal to the
-<code>sub</code> value in the Credential Issuer's Entity Configuration and to the
+<code>iss</code>/<code>sub</code> pair value in the Credential Issuer's Entity Configuration and to the
 <code>sub</code> value in any Subordinate Statement about that Credential Issuer,
 as defined in <span>[<a href="#OpenID.Federation" class="cite xref">OpenID.Federation</a>]</span>.<a href="#section-6.2.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
@@ -1790,8 +1790,8 @@ metadata MUST ignore unrecognized metadata parameters.<a href="#section-6.2.1-4"
 for proofs and signed metadata (see Appendix F.1 and Section 12.2.3
 of <span>[<a href="#OpenID4VCI" class="cite xref">OpenID4VCI</a>]</span>), which enable a Credential Issuer to bind its keys
 and metadata to an OpenID Federation Trust Chain <span>[<a href="#OpenID.Federation" class="cite xref">OpenID.Federation</a>]</span>.
-Those mechanisms MUST be used consistently with
-the federation model defined in this document.<a href="#section-6.2.1-5" class="pilcrow">¶</a></p>
+Use of these mechanisms is OPTIONAL; when they are used, they MUST be
+consistent with the federation model defined in this document.<a href="#section-6.2.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
