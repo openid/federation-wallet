@@ -288,8 +288,67 @@ the OpenID for Verifiable Presentations [@!OpenID4VP] specification.
 The OpenID Federation Entity Type Identifier for the Credential Issuer is `openid_credential_issuer`.
 
 For information on metadata parameters specific to OpenID Credential Issuers,
-refer to Section *11.2. Credential Issuer Metadata* of
+refer to Section 11.2 (Credential Issuer Metadata) and Section 12.2.4 (Credential Issuer Metadata Parameters) of
 the OpenID for Verifiable Credential Issuance [@!OpenID4VCI] specification.
+
+### OpenID Credential Issuer Metadata Parameters
+
+When the Credential Issuer is represented as a Federation Entity, the
+`openid_credential_issuer` metadata is carried inside the Entity Configuration
+and Entity Statements under the `metadata` (and, if used, `metadata_policy`)
+parameters defined by OpenID Federation [@!OpenID.Federation].
+
+This specification profiles the OpenID4VCI Credential Issuer metadata as
+follows when used in Wallet federations:
+
+- `credential_issuer`:
+  The Credential Issuer Identifier as defined in [@!OpenID4VCI], Section 12.2.1.
+  It MUST be a case-sensitive `https` URL and MUST be equal to the
+  `iss`/`sub` pair value in the Credential Issuer's Entity Configuration and to the
+  `sub` value in any Subordinate Statement about that Credential Issuer,
+  as defined in [@!OpenID.Federation].
+
+- `authorization_servers`:
+  As defined in [@!OpenID4VCI], Section 12.2.4. Each element of this array
+  is the Issuer Identifier of an OAuth 2.0 Authorization Server
+  [@!RFC8414] that is itself represented as a Federation Entity of
+  type `oauth_authorization_server` in this specification (see Table 1).
+
+- `credential_endpoint`, `nonce_endpoint`, `deferred_credential_endpoint`,
+  `notification_endpoint`, `credential_request_encryption`,
+  `credential_response_encryption`, `batch_credential_issuance`,
+  `display`, and `credential_configurations_supported`:
+  These parameters MUST follow the definitions and processing rules in
+  [@!OpenID4VCI], Section 12.2.4 and Appendix A and are carried
+  unchanged in the `openid_credential_issuer` metadata inside the
+  Federation `metadata` / `metadata_policy` structures.
+
+- `jwks`:
+  A JSON Web Key Set document containing the protocol-specific public keys
+  of the Credential Issuer. When present in the `openid_credential_issuer`
+  metadata, it MUST follow the same conventions as the `jwks` parameter
+  defined for Federation Entities in [@!OpenID.Federation], Section 5.2.1.
+  The keys in this set are used for signature of responses, tokens, and
+  issued credentials. When a trust framework requires the Credential Issuer
+  to sign its metadata (for example, when serving signed metadata at
+  `.well-known/openid-credential-issuer` as defined in [@!OpenID4VCI],
+  Section 12.2.3, using an X.509 certificate or other cryptographic
+  material), the public key material used to verify that signature SHOULD be
+  provided in the `jwks` parameter within the `openid_credential_issuer`
+  metadata of the OpenID Federation Entity Configuration.
+
+Additional metadata parameters MAY be defined by profiles of this
+specification and OpenID4VCI (for example, `status_list_aggregation_endpoint`
+as in [@!I-D.ietf-oauth-status-list]). In accordance with [@!OpenID4VCI],
+Wallets and other clients interacting with `openid_credential_issuer`
+metadata MUST ignore unrecognized metadata parameters.
+
+OpenID4VCI also defines JOSE header parameters such as `trust_chain`
+for proofs and signed metadata (see Appendix F.1 and Section 12.2.3
+of [@!OpenID4VCI]), which enable a Credential Issuer to bind its keys
+and metadata to an OpenID Federation Trust Chain [@!OpenID.Federation].
+Use of these mechanisms is OPTIONAL; when they are used, they MUST be
+consistent with the federation model defined in this document.
 
 ## OpenID Credential Verifier Entity Type
 
@@ -960,6 +1019,9 @@ The technology described in this specification was made available from contribut
 
    -05
 
+   * Added subsection "OpenID Credential Issuer Metadata Parameters" under OpenID Credential Issuer Entity Type, profiling `openid_credential_issuer` metadata when used in Wallet federations.
+   * Documented `credential_issuer`, `authorization_servers`, and the OpenID4VCI parameters (credential_endpoint, nonce_endpoint, display, credential_configurations_supported, etc.) as carried in Federation metadata/metadata_policy.
+   * Added `jwks`: scope for signature of responses, tokens, and issued credentials; requirement that public keys used to verify signed Credential Issuer metadata (e.g. at .well-known/openid-credential-issuer per OpenID4VCI 12.2.3) be provided in `openid_credential_issuer` jwks when trust frameworks require it.
    * Extended OpenID Credential Verifier entity type with additional metadata
      parameters: jwks, request_uris, response_uris, redirect_uris, and
      dcql_queries, with definitions and rationale aligned to the Trusted
