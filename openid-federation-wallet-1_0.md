@@ -840,6 +840,12 @@ The Entity that receives the data object including the JWT `trust_chain`, such a
 
 Using short-lived Trust Chains ensures compatibility with required revocation administrative protocols, such as those defined in a legal framework. For example, if a revocation must be propagated in less than 24 hours, the Trust Chain should not be valid for more than that period.
 
+# Security Considerations
+
+The security considerations in
+[@!OpenID.Federation], [@!OpenID4VP], and [@!OpenID4VCI]
+apply to this specification.
+
 # IANA Considerations
 
 ## OAuth Parameters Registry
@@ -860,6 +866,7 @@ Leif Johansson,
 Stefan Liström,
 Francesco Antonio Marino,
 Eduardo Perottoni,
+Samuel Rinnetmäki,
 Giada Sciarretta,
 and
 Niels van Dijk.
@@ -994,7 +1001,7 @@ Niels van Dijk.
           <author fullname="Vladimir Dzhuvinov">
             <organization>Connect2id</organization>
           </author>
-          <date day="29" month="January" year="2026"/>
+          <date day="15" month="February" year="2026"/>
         </front>
 </reference>
 
@@ -1040,6 +1047,7 @@ The technology described in this specification was made available from contribut
      OpenID4VP) so verifiers can publish multiple authorized queries for
      different situations.
    * Added IANA Considerations registering the dcql_queries parameter.
+   * Added Security Considerations.
 
    -04
 
