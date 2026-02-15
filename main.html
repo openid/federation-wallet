@@ -1300,6 +1300,11 @@ digital wallet architectures.<a href="#section-abstract-1" class="pilcrow">¶</a
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
                 <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-openid-credential-issuer-en" class="internal xref">OpenID Credential Issuer Entity Type</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2.2.1">
+                    <p id="section-toc.1-1.6.2.2.2.1.1"><a href="#section-6.2.1" class="auto internal xref">6.2.1</a>.  <a href="#name-openid-credential-issuer-me" class="internal xref">OpenID Credential Issuer Metadata Parameters</a></p>
+</li>
+                </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.3">
                 <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="auto internal xref">6.3</a>.  <a href="#name-openid-credential-verifier-" class="internal xref">OpenID Credential Verifier Entity Type</a></p>
@@ -1747,8 +1752,74 @@ the OpenID for Verifiable Presentations <span>[<a href="#OpenID4VP" class="cite 
         </h3>
 <p id="section-6.2-1">The OpenID Federation Entity Type Identifier for the Credential Issuer is <code>openid_credential_issuer</code>.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 <p id="section-6.2-2">For information on metadata parameters specific to OpenID Credential Issuers,
-refer to Section <em>11.2. Credential Issuer Metadata</em> of
+refer to Section 11.2 (Credential Issuer Metadata) and Section 12.2.4 (Credential Issuer Metadata Parameters) of
 the OpenID for Verifiable Credential Issuance <span>[<a href="#OpenID4VCI" class="cite xref">OpenID4VCI</a>]</span> specification.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
+<div id="openid-credential-issuer-metadata-parameters">
+<section id="section-6.2.1">
+          <h4 id="name-openid-credential-issuer-me">
+<a href="#section-6.2.1" class="section-number selfRef">6.2.1. </a><a href="#name-openid-credential-issuer-me" class="section-name selfRef">OpenID Credential Issuer Metadata Parameters</a>
+          </h4>
+<p id="section-6.2.1-1">When the Credential Issuer is represented as a Federation Entity, the
+<code>openid_credential_issuer</code> metadata is carried inside the Entity Configuration
+and Entity Statements under the <code>metadata</code> (and, if used, <code>metadata_policy</code>)
+parameters defined by OpenID Federation <span>[<a href="#OpenID.Federation" class="cite xref">OpenID.Federation</a>]</span>.<a href="#section-6.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-2">This specification profiles the OpenID4VCI Credential Issuer metadata as
+follows when used in Wallet federations:<a href="#section-6.2.1-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6.2.1-3.1">
+              <p id="section-6.2.1-3.1.1"><code>credential_issuer</code>:
+The Credential Issuer Identifier as defined in <span>[<a href="#OpenID4VCI" class="cite xref">OpenID4VCI</a>]</span>, Section 12.2.1.
+It MUST be a case-sensitive <code>https</code> URL and MUST be equal to the
+<code>iss</code>/<code>sub</code> pair value in the Credential Issuer's Entity Configuration and to the
+<code>sub</code> value in any Subordinate Statement about that Credential Issuer,
+as defined in <span>[<a href="#OpenID.Federation" class="cite xref">OpenID.Federation</a>]</span>.<a href="#section-6.2.1-3.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-6.2.1-3.2">
+              <p id="section-6.2.1-3.2.1"><code>authorization_servers</code>:
+As defined in <span>[<a href="#OpenID4VCI" class="cite xref">OpenID4VCI</a>]</span>, Section 12.2.4. Each element of this array
+is the Issuer Identifier of an OAuth 2.0 Authorization Server
+<span>[<a href="#RFC8414" class="cite xref">RFC8414</a>]</span> that is itself represented as a Federation Entity of
+type <code>oauth_authorization_server</code> in this specification (see Table 1).<a href="#section-6.2.1-3.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-6.2.1-3.3">
+              <p id="section-6.2.1-3.3.1"><code>credential_endpoint</code>, <code>nonce_endpoint</code>, <code>deferred_credential_endpoint</code>,
+<code>notification_endpoint</code>, <code>credential_request_encryption</code>,
+<code>credential_response_encryption</code>, <code>batch_credential_issuance</code>,
+<code>display</code>, and <code>credential_configurations_supported</code>:
+These parameters MUST follow the definitions and processing rules in
+<span>[<a href="#OpenID4VCI" class="cite xref">OpenID4VCI</a>]</span>, Section 12.2.4 and Appendix A and are carried
+unchanged in the <code>openid_credential_issuer</code> metadata inside the
+Federation <code>metadata</code> / <code>metadata_policy</code> structures.<a href="#section-6.2.1-3.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-6.2.1-3.4">
+              <p id="section-6.2.1-3.4.1"><code>jwks</code>:
+A JSON Web Key Set document containing the protocol-specific public keys
+of the Credential Issuer. When present in the <code>openid_credential_issuer</code>
+metadata, it MUST follow the same conventions as the <code>jwks</code> parameter
+defined for Federation Entities in <span>[<a href="#OpenID.Federation" class="cite xref">OpenID.Federation</a>]</span>, Section 5.2.1.
+The keys in this set are used for signature of responses, tokens, and
+issued credentials. When a trust framework requires the Credential Issuer
+to sign its metadata (for example, when serving signed metadata at
+<code>.well-known/openid-credential-issuer</code> as defined in <span>[<a href="#OpenID4VCI" class="cite xref">OpenID4VCI</a>]</span>,
+Section 12.2.3, using an X.509 certificate or other cryptographic
+material), the public key material used to verify that signature SHOULD be
+provided in the <code>jwks</code> parameter within the <code>openid_credential_issuer</code>
+metadata of the OpenID Federation Entity Configuration.<a href="#section-6.2.1-3.4.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-6.2.1-4">Additional metadata parameters MAY be defined by profiles of this
+specification and OpenID4VCI (for example, <code>status_list_aggregation_endpoint</code>
+as in <span>[<a href="#I-D.ietf-oauth-status-list" class="cite xref">I-D.ietf-oauth-status-list</a>]</span>). In accordance with <span>[<a href="#OpenID4VCI" class="cite xref">OpenID4VCI</a>]</span>,
+Wallets and other clients interacting with <code>openid_credential_issuer</code>
+metadata MUST ignore unrecognized metadata parameters.<a href="#section-6.2.1-4" class="pilcrow">¶</a></p>
+<p id="section-6.2.1-5">OpenID4VCI also defines JOSE header parameters such as <code>trust_chain</code>
+for proofs and signed metadata (see Appendix F.1 and Section 12.2.3
+of <span>[<a href="#OpenID4VCI" class="cite xref">OpenID4VCI</a>]</span>), which enable a Credential Issuer to bind its keys
+and metadata to an OpenID Federation Trust Chain <span>[<a href="#OpenID.Federation" class="cite xref">OpenID.Federation</a>]</span>.
+Use of these mechanisms is OPTIONAL; when they are used, they MUST be
+consistent with the federation model defined in this document.<a href="#section-6.2.1-5" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="openid-credential-verifier-entity-type">
@@ -2356,6 +2427,10 @@ Niels van Dijk.<a href="#section-11-1" class="pilcrow">¶</a></p>
 <a href="#section-12" class="section-number selfRef">12. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
       </h2>
 <dl class="references">
+<dt id="I-D.ietf-oauth-status-list">[I-D.ietf-oauth-status-list]</dt>
+      <dd>
+<span class="refAuthor">Looker, T.</span>, <span class="refAuthor">Bastian, P.</span>, and <span class="refAuthor">C. Bormann</span>, <span class="refTitle">"Token Status List (TSL)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-oauth-status-list-17</span>, <time datetime="2026-01-30" class="refDate">30 January 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-status-list-17">https://datatracker.ietf.org/doc/html/draft-ietf-oauth-status-list-17</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="OpenID.Core">[OpenID.Core]</dt>
       <dd>
 <span class="refAuthor">Sakimura, N.</span>, <span class="refAuthor">Bradley, J.</span>, <span class="refAuthor">Jones, M.</span>, <span class="refAuthor">de Medeiros, B.</span>, and <span class="refAuthor">C. Mortimore</span>, <span class="refTitle">"OpenID Connect Core 1.0 incorporating errata set 2"</span>, <time datetime="2023-12-15" class="refDate">15 December 2023</time>, <span>&lt;<a href="http://openid.net/specs/openid-connect-core-1_0.html">http://openid.net/specs/openid-connect-core-1_0.html</a>&gt;</span>. </dd>
@@ -2439,29 +2514,35 @@ Niels van Dijk.<a href="#section-11-1" class="pilcrow">¶</a></p>
 <p id="appendix-B-1">[[ To be removed from the final specification ]]<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 <p id="appendix-B-2">-05<a href="#appendix-B-2" class="pilcrow">¶</a></p>
 <ul class="compact">
-<li class="compact" id="appendix-B-3.1">Extended OpenID Credential Verifier entity type with additional metadata
+<li class="compact" id="appendix-B-3.1">Added subsection "OpenID Credential Issuer Metadata Parameters" under OpenID Credential Issuer Entity Type, profiling <code>openid_credential_issuer</code> metadata when used in Wallet federations.<a href="#appendix-B-3.1" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="appendix-B-3.2">Documented <code>credential_issuer</code>, <code>authorization_servers</code>, and the OpenID4VCI parameters (credential_endpoint, nonce_endpoint, display, credential_configurations_supported, etc.) as carried in Federation metadata/metadata_policy.<a href="#appendix-B-3.2" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="appendix-B-3.3">Added <code>jwks</code>: scope for signature of responses, tokens, and issued credentials; requirement that public keys used to verify signed Credential Issuer metadata (e.g. at .well-known/openid-credential-issuer per OpenID4VCI 12.2.3) be provided in <code>openid_credential_issuer</code> jwks when trust frameworks require it.<a href="#appendix-B-3.3" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="appendix-B-3.4">Extended OpenID Credential Verifier entity type with additional metadata
  parameters: jwks, request_uris, response_uris, redirect_uris, and
  dcql_queries, with definitions and rationale aligned to the Trusted
- Third-Party trust model.<a href="#appendix-B-3.1" class="pilcrow">¶</a>
+ Third-Party trust model.<a href="#appendix-B-3.4" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-B-3.2">Specified that when a Credential Verifier participates in a federation,
+        <li class="compact" id="appendix-B-3.5">Specified that when a Credential Verifier participates in a federation,
  Wallets MUST use jwks from federation metadata and MUST ignore jwks
- from client_metadata in the Authorization Request.<a href="#appendix-B-3.2" class="pilcrow">¶</a>
+ from client_metadata in the Authorization Request.<a href="#appendix-B-3.5" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-B-3.3">Added section on using openid_credential_verifier metadata and
+        <li class="compact" id="appendix-B-3.6">Added section on using openid_credential_verifier metadata and
  metadata_policy in Subordinate Statements for policy enforcement by
- superior entities (endpoints, keys, dcql_queries).<a href="#appendix-B-3.3" class="pilcrow">¶</a>
+ superior entities (endpoints, keys, dcql_queries).<a href="#appendix-B-3.6" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-B-3.4">Clarified dcql_queries override rules: metadata in a Subordinate
+        <li class="compact" id="appendix-B-3.7">Clarified dcql_queries override rules: metadata in a Subordinate
  Statement overrides request/client_metadata; metadata_policy applies to
  verifier metadata or, if absent, to client_metadata; profiles MAY use
- Trust Marks to convey dcql_queries-related policies.<a href="#appendix-B-3.4" class="pilcrow">¶</a>
+ Trust Marks to convey dcql_queries-related policies.<a href="#appendix-B-3.7" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-B-3.5">Defined dcql_queries as a non-empty array of DCQL query objects (as in
+        <li class="compact" id="appendix-B-3.8">Defined dcql_queries as a non-empty array of DCQL query objects (as in
  OpenID4VP) so verifiers can publish multiple authorized queries for
- different situations.<a href="#appendix-B-3.5" class="pilcrow">¶</a>
+ different situations.<a href="#appendix-B-3.8" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-B-3.6">Added IANA Considerations registering the dcql_queries parameter.<a href="#appendix-B-3.6" class="pilcrow">¶</a>
+        <li class="compact" id="appendix-B-3.9">Added IANA Considerations registering the dcql_queries parameter.<a href="#appendix-B-3.9" class="pilcrow">¶</a>
 </li>
       </ul>
 <p id="appendix-B-4">-04<a href="#appendix-B-4" class="pilcrow">¶</a></p>
