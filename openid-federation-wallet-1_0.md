@@ -99,13 +99,19 @@ This specification uses the terms
 "End-User" and "Entity" as defined by OpenID Connect [@!OpenID.Core],
 "JSON Web Token (JWT)" defined by JSON Web Token (JWT) [@!RFC7519],
 "Client" as defined by [@!RFC6749],
-"Verifiable Presentation" defined in [@!OpenID4VP],
-"Holder", "Credential Issuer", "Wallet Attestation", and "Key Attestation"
+"Verifiable Presentation" and "Wallet Attestation" defined in [@!OpenID4VP],
+"Holder", "Credential Issuer", "Credential", and "Credential Issuer Identifier"
 defined in [@!OpenID4VCI],
 and "Trust Mark", "Federation Entity", "Trust Anchor",
 "Intermediate", and "Subordinate Statement" defined in [@!OpenID.Federation].
 
 This specification also defines the following terms:
+
+**Digital Credential**:
+: A Credential as defined in [@!OpenID4VCI]. This specification uses Digital Credential for that term to distinguish it from other uses of "credential", such as in [@!OpenID.Core] and [@!RFC6749].
+
+**Issuer Identifier**:
+: The identifier of the issuer as obtained from a Digital Credential (for example, the `iss` claim in an SD-JWT VC or JWT-secured Credential). Depending on the Credential Format, this value MAY differ from the Credential Issuer Identifier, as described in [@!OpenID4VCI].
 
 **Organizational Entity**:
 : A Federation Entity represented by a legal entity, specifically referring to public or private organizations (excluding natural persons) recognized through a unique identifier. For the purposes of this specification, an Organizational Entity is also referred to as an Organization.
@@ -178,7 +184,7 @@ The four Entities interact with each other as described below:
 |                          Trust Anchor                        |
 +--------------------------------------------------------------+
 ~~~
-**Figure 1**: The relationships and interactions within a Wallet ecosystem using the Four-Party Model, where each entity uses the Trust Anchor to establish the trust with other entities.
+**Figure 1**: The Four-Party Model. Horizontal arrows represent protocol interactions: issuance of Digital Credentials between the Credential Issuer and the Holder, and presentation between the Holder and the Credential Verifier. Vertical arrows represent trust evaluation with the Trust Anchor; they are not client/server relations and they are not the flow of credential data.
 
 In the Wallet Ecosystem, the primary interaction resolves around asset management. Unlike an Identity Provider in OpenID Connect or SAML2, which authenticates the End-User's identity for third parties, the Credential Issuer in the Wallet ecosystem focuses on managing the issuance of Digital Credentials to the Holder.
 
@@ -206,7 +212,7 @@ Consequently, the End-User obtains and holds the Digital Credentials without dis
 |                          Trust Anchor                             |
 +-------------------------------------------------------------------+
 ~~~
-**Figure 2**: Representation acknowledging the roles of Authentic Sources and Wallet Providers in the ecosystem while maintaining the core structure of the Four-Party Model.
+**Figure 2**: Authentic Sources and Wallet Providers in the Four-Party Model. Horizontal arrows have the same meaning as in Figure 1 (issuance and presentation). The additional downward arrows from Authentic Source to Credential Issuer and from Wallet Provider to Holder represent data used for issuance and Wallet attestation, respectively. Vertical arrows to the Trust Anchor represent trust evaluation, as in Figure 1.
 
 The Figure above illustrates at the center the Holder, who interacts directly with both the Credential Issuer and the Credential Verifier. The Credential Issuer provides Digital Credentials to the Holder, while the Credential Verifier relies on these Credentials to verify the Holder's claims. Above the Holder is the Wallet Provider, which facilitates the registration and the attestation of the security and integrity of the Holder. All entities, including the Credential Issuer, Credential Verifier, Wallet Provider and therefore Holders, and are underpinned by a Trust Anchor, ensuring that all interactions and transactions are anchored in a trusted third party.
 
@@ -1065,6 +1071,37 @@ The technology described in this specification was made available from contribut
 # Document History
 
    [[ To be removed from the final specification ]]
+
+   -06
+
+   * Removed unused Terminology subsection on Direct Trust, Web of Trust,
+     and Trusted Third-Party (federation-wallet issue #62). Defined Trust
+     Model and Trust Framework as terms used in the specification, restated
+     that trust is established through Trust Anchors (participants MAY
+     configure more than one) in the Four-Party Model, and aligned the
+     Credential Verifier metadata rationale with that language.
+   * Clarified Four-Party Model figure captions so horizontal arrows are
+     protocol interactions and vertical arrows are trust evaluation
+     (federation-wallet issue #63).
+     Added Digital Credential, Credential, Credential Issuer Identifier, and
+     Issuer Identifier to Terminology.
+
+   * Added Federation Trust Discovery use case "Credential Verifiers
+     Establishing Trust in Credential Issuers" to resolve
+     federation-wallet issue #48: map https Issuer Identifiers in
+     presented Credentials to Federation Entity Identifiers, perform
+     Federation Entity Discovery (or validate an offline `trust_chain`),
+     and verify Credentials with keys from the validated Trust Chain.
+     Specified that key binding is verified against
+     `openid_credential_issuer` `jwks`, and that issuer identity is
+     established by matching the Issuer Identifier to the Federation
+     Entity Identifier and validating a Trust Chain to a configured
+     Trust Anchor. Clarified that W3C VC `issuer` / `issuer.id` is not
+     used as the Federation Entity Identifier when it differs from the
+     OpenID4VCI Credential Issuer Identifier. DIDs and ISO mDOC X.509
+     bindings remain out of scope for this version; extensions MAY
+     define DID Leaf Entities. Clarified that Trust Discovery use cases
+     are independently adoptable by Trust Frameworks.
 
    -05
 
