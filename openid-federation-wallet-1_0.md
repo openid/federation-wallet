@@ -479,9 +479,51 @@ These modifications allow a federation authority, such as a Trust Anchor, to app
   "exp": 1616239322,
   "metadata": {
     "federation_entity": {
-      "organization_name": "Example Credential Verifier",
+      "organization_name": "Example Credential Verifier"
     },
-    "openid_credential_verifier": { ... as defined in the OpenID4VP specs ... }
+    "openid_credential_verifier": {
+      "jwks": {
+        "keys": [
+          {
+            "kty": "EC",
+            "crv": "P-256",
+            "use": "sig",
+            "kid": "verifier-key-1",
+            "x": "MKBCTNIcKUSDii11ySs3526iDZ8AiTo7Tu6KPAqv7D4",
+            "y": "4Etl6SRW2YiLUrN5vfvVHuhp7x8PxltmWWlbbM4IFyM"
+          }
+        ]
+      },
+      "request_uris": [
+        "https://credential-verifier.example.it/request"
+      ],
+      "response_uris": [
+        "https://credential-verifier.example.it/response"
+      ],
+      "redirect_uris": [
+        "https://credential-verifier.example.it/cb"
+      ],
+      "dcql_queries": [
+        {
+          "credentials": [
+            {
+              "id": "pid",
+              "format": "dc+sd-jwt",
+              "meta": {
+                "vct_values": [
+                  "urn:eudi:pid:1"
+                ]
+              },
+              "claims": [
+                {"path": ["given_name"]},
+                {"path": ["family_name"]},
+                {"path": ["birth_date"]}
+              ]
+            }
+          ]
+        }
+      ]
+    }
   },
   "jwks": {
     "keys": [
@@ -496,7 +538,7 @@ These modifications allow a federation authority, such as a Trust Anchor, to app
   }
 }
 ```
-**Example 1**: Example demonstrating how a Federation Authority can issue a Subordinate Statement about a Credential Verifier, specifying certain metadata parameters such as the endpoints to use and the allowed Digital Credentials to be requested.
+**Example 1**: Non-normative example of a Subordinate Statement issued by a Federation Authority about a Credential Verifier. The `openid_credential_verifier` metadata sets the protocol keys, the registered `request_uri` / `response_uri` / `redirect_uri` endpoints, and the DCQL query the Verifier is allowed to use when requesting Digital Credentials.
 
 ### OpenID Credential Verifier Presentation Metadata in Subordinate Statements
 
@@ -1158,6 +1200,10 @@ The technology described in this specification was made available from contribut
    [[ To be removed from the final specification ]]
 
    -06
+
+   * Filled Example 1 `openid_credential_verifier` metadata with protocol
+     keys, registered endpoints, and an authorized DCQL query
+     (federation-wallet issue #65).
 
    * Added Federation Trust Discovery use case "Credential Verifiers
      Establishing Trust in Credential Issuers" to resolve
