@@ -1275,11 +1275,6 @@ digital wallet architectures.<a href="#section-abstract-1" class="pilcrow">¶</a
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
             <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-terminology" class="internal xref">Terminology</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
-                <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-trust-models-and-trust-fram" class="internal xref">Trust Models and Trust Frameworks</a></p>
-</li>
-            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-the-four-party-model" class="internal xref">The Four-Party Model</a></p>
@@ -1423,7 +1418,10 @@ and accomplish secure and trusted transactions.<a href="#section-1-1" class="pil
 security and interoperability of wallet ecosystems, facilitating trust establishment
 among the parties and enabling secure metadata exchange and policy
 application across large scale deployments.
-It outlines the general architecture of a federated trust
+OpenID Federation is a building block for assembling and using Trust Frameworks.
+It can help ensure that all participants in a system understand and adhere to the
+same principles and practices, making interactions predictable and secure.
+This specification outlines the general architecture of a federated trust
 infrastructure for wallet ecosystems, identifying participant roles and describing
 the use of those roles.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">Additionally, this specification provides practical examples of how to apply
@@ -1469,9 +1467,9 @@ general-purpose wallet specifications to define those new parameters there.<a hr
 "End-User" and "Entity" as defined by OpenID Connect <span>[<a href="#OpenID.Core" class="cite xref">OpenID.Core</a>]</span>,
 "JSON Web Token (JWT)" defined by JSON Web Token (JWT) <span>[<a href="#RFC7519" class="cite xref">RFC7519</a>]</span>,
 "Client" as defined by <span>[<a href="#RFC6749" class="cite xref">RFC6749</a>]</span>,
-"Verifiable Presentation" and "Wallet Attestation" defined in <span>[<a href="#OpenID4VP" class="cite xref">OpenID4VP</a>]</span>,
-"Holder", "Credential Issuer", "Credential", and "Credential Issuer Identifier"
-defined in <span>[<a href="#OpenID4VCI" class="cite xref">OpenID4VCI</a>]</span>,
+"Verifiable Presentation" defined in <span>[<a href="#OpenID4VP" class="cite xref">OpenID4VP</a>]</span>,
+"Holder", "Credential Issuer", "Credential", "Credential Issuer Identifier",
+"Wallet Attestation", and "Key Attestation" defined in <span>[<a href="#OpenID4VCI" class="cite xref">OpenID4VCI</a>]</span>,
 and "Trust Mark", "Federation Entity", "Trust Anchor",
 "Intermediate", and "Subordinate Statement" defined in <span>[<a href="#OpenID.Federation" class="cite xref">OpenID.Federation</a>]</span>.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">This specification also defines the following terms:<a href="#section-3-2" class="pilcrow">¶</a></p>
@@ -1525,32 +1523,18 @@ and "Trust Mark", "Federation Entity", "Trust Anchor",
 <strong>Credential Verifier Instance</strong>:</dt>
         <dd style="margin-left: 1.5em" id="section-3-3.20">A software application that allows an individual to request to an Holder and receive from that Holder a Digital Credential, sometimes in a proximity flow, and then verify the received Digital Credential.<a href="#section-3-3.20" class="pilcrow">¶</a>
 </dd>
+        <dd class="break"></dd>
+<dt id="section-3-3.21">
+<strong>Trust Model</strong>:</dt>
+        <dd style="margin-left: 1.5em" id="section-3-3.22">The relationships and mechanisms through which trust is established and maintained between Entities, including how they interact, the basis on which they can trust each other, and the roles they play.<a href="#section-3-3.22" class="pilcrow">¶</a>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-3-3.23">
+<strong>Trust Framework</strong>:</dt>
+        <dd style="margin-left: 1.5em" id="section-3-3.24">A structure of policies, standards, and guidelines that governs the implementation of a Trust Model, including legal, technical, and procedural rules. This specification covers only the technical and procedural aspects. To allow for a scalable approach, as many aspects of a Trust Framework as possible should be presented in a machine-discoverable and machine-readable way.<a href="#section-3-3.24" class="pilcrow">¶</a>
+</dd>
       <dd class="break"></dd>
 </dl>
-<div id="trust-models-and-trust-frameworks">
-<section id="section-3.1">
-        <h3 id="name-trust-models-and-trust-fram">
-<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-trust-models-and-trust-fram" class="section-name selfRef">Trust Models and Trust Frameworks</a>
-        </h3>
-<p id="section-3.1-1">The terms "trust model" and "trust framework" are often used in the context of security, identity management, and federation systems.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.1-2">The Trust Model defines the relationships and mechanisms through which trust is established and maintained between entities in a system. It outlines how entities interact, the basis on which they can trust each other, and the roles they play within the system. Trust Models can be simple or complex, depending on the number of parties involved and the nature of their interactions. Common examples include:<a href="#section-3.1-2" class="pilcrow">¶</a></p>
-<ul class="compact">
-<li class="compact" id="section-3.1-3.1">
-            <strong>Direct Trust</strong>: Trust is established directly between two parties without intermediaries.<a href="#section-3.1-3.1" class="pilcrow">¶</a>
-</li>
-          <li class="compact" id="section-3.1-3.2">
-            <strong>Trusted Third Party</strong>: Trust is facilitated by a trusted third party.<a href="#section-3.1-3.2" class="pilcrow">¶</a>
-</li>
-          <li class="compact" id="section-3.1-3.3">
-            <strong>Web of Trust</strong>: Each participant makes individual decisions about whom to trust, using Direct Trust or potentially multiple Third-Parties.<a href="#section-3.1-3.3" class="pilcrow">¶</a>
-</li>
-        </ul>
-<p id="section-3.1-4"><strong>Trusted Third-Party</strong> is the focus of this specification, although the <strong>Web of Trust</strong> model is not excluded if multiple trusted third parties (Trust Anchors) are supported by the participants.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
-<p id="section-3.1-5">A Trust Framework is a comprehensive structure that includes policies, standards, and guidelines that govern the implementation of a Trust Model. It provides detailed rules for how trust should be managed, including the legal, technical, and procedural aspects. To allow for a scalable approach, as many aspects of the framework as possible should be presented in a machine discoverable and machine-readable way.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
-<p id="section-3.1-6">In the scope of this specification, only the technical and procedural aspects are considered and fully covered.<a href="#section-3.1-6" class="pilcrow">¶</a></p>
-<p id="section-3.1-7">OpenID Federation <span>[<a href="#OpenID.Federation" class="cite xref">OpenID.Federation</a>]</span> is a building block for assembling and using trust frameworks. It can help ensure that all participants in a system understand and adhere to the same principles and practices, making interactions predictable and secure.<a href="#section-3.1-7" class="pilcrow">¶</a></p>
-</section>
-</div>
 </section>
 </div>
 <div id="the-four-party-model">
@@ -1562,7 +1546,9 @@ and "Trust Mark", "Federation Entity", "Trust Anchor",
 the Holder, the Credential Issuer, the Credential Verifier,
 and an Entity trusted by the other Entities called the Trust Anchor.
 This is an extension of the three-party Issuer-Holder-Verifier Model described in
-<span>[<a href="#OpenID4VCI" class="cite xref">OpenID4VCI</a>]</span> and <span>[<a href="#OpenID4VP" class="cite xref">OpenID4VP</a>]</span> that adds a fourth party: the Trust Anchor.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<span>[<a href="#OpenID4VCI" class="cite xref">OpenID4VCI</a>]</span> and <span>[<a href="#OpenID4VP" class="cite xref">OpenID4VP</a>]</span> that adds a fourth party: the Trust Anchor.
+Trust among those Entities is established through the Trust Anchor acting as a
+trusted third party. Participants MAY configure multiple Trust Anchors.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <p id="section-4-2">The four Entities interact with each other as described below:<a href="#section-4-2" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="compact type-1" id="section-4-3">
 <li id="section-4-3.1">
@@ -1947,10 +1933,10 @@ refinement of, one of the query objects in this array.<a href="#section-6.3.1-4.
 <a href="#section-6.3.1.1" class="section-number selfRef">6.3.1.1. </a><a href="#name-rationale-for-extending-the" class="section-name selfRef">Rationale for Extending the Set of <code>openid_credential_verifier</code> Metadata Parameters</a>
             </h5>
 <p id="section-6.3.1.1-1">The rationale for extending the set of <code>openid_credential_verifier</code> metadata
-parameters is to align OpenID4VP Verifiers with the Trusted Third-Party trust
-model employed by this specification. Cryptographic material, protocol endpoints
-and default or constrained DCQL queries are published in federation-managed metadata,
-constrained DCQL queries in federation-managed metadata. This practice aims to:<a href="#section-6.3.1.1-1" class="pilcrow">¶</a></p>
+parameters is to align OpenID4VP Verifiers with the Trust Anchor-based Trust
+Model employed by this specification. Cryptographic material, protocol endpoints,
+and default or constrained DCQL queries are published in federation-managed metadata.
+This practice aims to:<a href="#section-6.3.1.1-1" class="pilcrow">¶</a></p>
 <ul class="compact">
 <li class="compact" id="section-6.3.1.1-2.1">enforce common technical and policy requirements on all participating
 Credential Verifiers,<a href="#section-6.3.1.1-2.1" class="pilcrow">¶</a>
@@ -2585,38 +2571,21 @@ Niels van Dijk.<a href="#section-12-1" class="pilcrow">¶</a></p>
       </h2>
 <p id="appendix-B-1">[[ To be removed from the final specification ]]<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 <p id="appendix-B-2">-06<a href="#appendix-B-2" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="appendix-B-3.1">Removed unused Terminology subsection on Direct Trust, Web of Trust,
+<ul class="compact">
+<li class="compact" id="appendix-B-3.1">Removed unused Terminology subsection on Direct Trust, Web of Trust,
  and Trusted Third-Party (federation-wallet issue #62). Defined Trust
  Model and Trust Framework as terms used in the specification, restated
  that trust is established through Trust Anchors (participants MAY
  configure more than one) in the Four-Party Model, and aligned the
  Credential Verifier metadata rationale with that language.<a href="#appendix-B-3.1" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="appendix-B-3.2">
-          <p id="appendix-B-3.2.1">Clarified Four-Party Model figure captions so horizontal arrows are
+        <li class="compact" id="appendix-B-3.2">Clarified Four-Party Model figure captions so horizontal arrows are
  protocol interactions and vertical arrows are trust evaluation
- (federation-wallet issue #63).
+ (federation-wallet issue #63). The section and diagrams are retained.
  Added Digital Credential, Credential, Credential Issuer Identifier, and
- Issuer Identifier to Terminology.<a href="#appendix-B-3.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li class="normal" id="appendix-B-3.3">
-          <p id="appendix-B-3.3.1">Added Federation Trust Discovery use case "Credential Verifiers
- Establishing Trust in Credential Issuers" to resolve
- federation-wallet issue #48: map https Issuer Identifiers in
- presented Credentials to Federation Entity Identifiers, perform
- Federation Entity Discovery (or validate an offline <code>trust_chain</code>),
- and verify Credentials with keys from the validated Trust Chain.
- Specified that key binding is verified against
- <code>openid_credential_issuer</code> <code>jwks</code>, and that issuer identity is
- established by matching the Issuer Identifier to the Federation
- Entity Identifier and validating a Trust Chain to a configured
- Trust Anchor. Clarified that W3C VC <code>issuer</code> / <code>issuer.id</code> is not
- used as the Federation Entity Identifier when it differs from the
- OpenID4VCI Credential Issuer Identifier. DIDs and ISO mDOC X.509
- bindings remain out of scope for this version; extensions MAY
- define DID Leaf Entities. Clarified that Trust Discovery use cases
- are independently adoptable by Trust Frameworks.<a href="#appendix-B-3.3.1" class="pilcrow">¶</a></p>
+ Issuer Identifier to Terminology. Restored Wallet Attestation and Key
+ Attestation citations from OpenID4VCI after a merge had moved Wallet
+ Attestation back to OpenID4VP.<a href="#appendix-B-3.2" class="pilcrow">¶</a>
 </li>
       </ul>
 <p id="appendix-B-4">-05<a href="#appendix-B-4" class="pilcrow">¶</a></p>
