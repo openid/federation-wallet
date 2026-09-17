@@ -554,8 +554,8 @@ In particular:
   if available, or otherwise to the `dcql_query` contained in
   `client_metadata` in the Authorization Request.
   Profiles MAY additionally convey `dcql_queries`-related policies using
-  Trust Marks bound to the Credential Verifier; see the section on
-  Trust Marks and policy expression for further guidance.
+  Trust Marks bound to the Credential Verifier, as described in the
+  Using Trust Marks section.
 
 This mechanism allows superior entities to centrally define and enforce
 policy on Credential Verifiers’ OpenID4VP behaviour (including cryptographic
@@ -574,13 +574,31 @@ Differently from `metadata`, `metadata_policy` ensures that specific settings ca
 
 ## Using Trust Marks
 
-Trust Marks are issued by authorized entities (Trust Mark Issuers) within the federation, typically after an entity has demonstrated compliance with certain standards, this might happen through auditing or certification processes.
+Trust Marks are used as defined in [@!OpenID.Federation]. This specification
+does not change Trust Mark issuance, signature verification, or status checks.
 
-Trust Marks are typically implemented as signed assertions that can be verified by other entities.
+This profile uses Trust Marks for qualitative and authorization properties of
+wallet Entities that are not expressed, or not fully expressed, in `metadata`
+and `metadata_policy`. Trust Frameworks using this specification SHOULD define
+the `trust_mark_type` values they rely on, which Entity roles they apply to,
+and which transactions require them. Typical uses in wallet ecosystems include:
 
-This verification process involves checking the digital signature against the public key of the Trust Mark Issuer to ensure the Trust Mark has not been forged, and its check to the Trust Mark Status endpoint to check it against any revocation.
+- Credential Issuer entitlement to issue a given Digital Credential type;
+- Credential Verifier authorization to request particular credentials or to
+  interact with particular populations (for example, under-age End-Users);
+- Wallet Provider assurance that a Wallet Solution meets a security or
+  compliance profile required by the Trust Framework.
 
-Trust Marks SHOULD be defined within the trust framework. Trust Marks are asserted about a subject through a registration service or compliance evaluation mechanism and therefore included in subject's Entity Configurations. This allows other entities to quickly assess the compliance status of a subject by examining the Entity Configuration of a subject.
+When a Trust Framework requires a Trust Mark for a transaction, the Entity
+evaluating trust MUST verify that Trust Mark as specified in
+[@!OpenID.Federation], including signature validation and status checks, and
+MUST NOT complete that transaction if a required Trust Mark is missing, expired,
+or revoked.
+
+Profiles MAY convey `dcql_queries`-related constraints using Trust Marks bound
+to a Credential Verifier, in addition to or instead of `metadata` and
+`metadata_policy`, when the Trust Framework defines how those marks are
+interpreted.
 
 
 ```json=
@@ -593,7 +611,7 @@ Trust Marks SHOULD be defined within the trust framework. Trust Marks are assert
   "tos_uri": "https://vavuso.example.com/tos"
 }
 ```
-**Example 2**: Trust Mark to be included in a Leaf Entity Configuration, which payload states Leaf's compliance in interacting with under-age End-User.
+**Example 2**: Non-normative Trust Mark included in a Credential Verifier's Entity Configuration, asserting authorization to interact with under-age End-Users.
 
 # Federation Trust Discovery Use Cases
 
@@ -1158,6 +1176,12 @@ The technology described in this specification was made available from contribut
    [[ To be removed from the final specification ]]
 
    -06
+
+   * Profiled Trust Marks for wallet ecosystems instead of restating
+     OpenID Federation (federation-wallet issue #66): issuance
+     entitlement, verifier authorization, and Wallet Provider assurance;
+     required marks MUST be verified and MUST block the transaction if
+     missing, expired, or revoked.
 
    * Added Federation Trust Discovery use case "Credential Verifiers
      Establishing Trust in Credential Issuers" to resolve
