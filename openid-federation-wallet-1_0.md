@@ -62,7 +62,7 @@ This specification defines how to use OpenID Federation 1.0 [@!OpenID.Federation
 security and interoperability of wallet ecosystems, facilitating trust establishment
 among the parties and enabling secure metadata exchange and policy
 application across large scale deployments.
-OpenID Federation is a building block for assembling and using Trust Frameworks.
+OpenID Federation is a building block for applying Trust Frameworks.
 It can help ensure that all participants in a system understand and adhere to the
 same principles and practices, making interactions predictable and secure.
 This specification outlines the general architecture of a federated trust
