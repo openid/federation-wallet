@@ -205,7 +205,7 @@ Consequently, the End-User obtains and holds the Digital Credentials without dis
 |                          Trust Anchor                             |
 +-------------------------------------------------------------------+
 ~~~
-**Figure 2**: Authentic Sources and Wallet Providers in the Four-Party Model. Horizontal arrows have the same meaning as in Figure 1 (issuance and presentation). The additional downward arrows from Authentic Source to Credential Issuer and from Wallet Provider to Holder represent data used for issuance and Wallet attestation, respectively. Vertical arrows to the Trust Anchor represent trust evaluation, as in Figure 1.
+**Figure 2**: Authentic Sources and Wallet Providers in the Four-Party Model. Horizontal arrows have the same meaning as in Figure 1 (issuance and presentation). The additional downward arrows from Authentic Source to Credential Issuer and from Wallet Provider to Holder represent data used for issuance and Wallet Attestation, respectively. Vertical arrows to the Trust Anchor represent trust evaluation, as in Figure 1.
 
 The Figure above illustrates at the center the Holder, who interacts directly with both the Credential Issuer and the Credential Verifier. The Credential Issuer provides Digital Credentials to the Holder, while the Credential Verifier relies on these Credentials to verify the Holder's claims. Above the Holder is the Wallet Provider, which facilitates the registration and the attestation of the security and integrity of the Holder. All entities, including the Credential Issuer, Credential Verifier, Wallet Provider and therefore Holders, and are underpinned by a Trust Anchor, ensuring that all interactions and transactions are anchored in a trusted third party.
 
