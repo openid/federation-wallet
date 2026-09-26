@@ -1997,9 +1997,51 @@ These modifications allow a federation authority, such as a Trust Anchor, to app
   "exp": 1616239322,
   "metadata": {
     "federation_entity": {
-      "organization_name": "Example Credential Verifier",
+      "organization_name": "Example Credential Verifier"
     },
-    "openid_credential_verifier": { ... as defined in the OpenID4VP specs ... }
+    "openid_credential_verifier": {
+      "jwks": {
+        "keys": [
+          {
+            "kty": "EC",
+            "crv": "P-256",
+            "use": "sig",
+            "kid": "verifier-key-1",
+            "x": "MKBCTNIcKUSDii11ySs3526iDZ8AiTo7Tu6KPAqv7D4",
+            "y": "4Etl6SRW2YiLUrN5vfvVHuhp7x8PxltmWWlbbM4IFyM"
+          }
+        ]
+      },
+      "request_uris": [
+        "https://credential-verifier.example.it/request"
+      ],
+      "response_uris": [
+        "https://credential-verifier.example.it/response"
+      ],
+      "redirect_uris": [
+        "https://credential-verifier.example.it/cb"
+      ],
+      "dcql_queries": [
+        {
+          "credentials": [
+            {
+              "id": "pid",
+              "format": "dc+sd-jwt",
+              "meta": {
+                "vct_values": [
+                  "urn:eudi:pid:1"
+                ]
+              },
+              "claims": [
+                {"path": ["given_name"]},
+                {"path": ["family_name"]},
+                {"path": ["birth_date"]}
+              ]
+            }
+          ]
+        }
+      ]
+    }
   },
   "jwks": {
     "keys": [
@@ -2015,7 +2057,7 @@ These modifications allow a federation authority, such as a Trust Anchor, to app
 }
 </pre><a href="#section-7.1-3" class="pilcrow">¶</a>
 </div>
-<p id="section-7.1-4"><strong>Example 1</strong>: Example demonstrating how a Federation Authority can issue a Subordinate Statement about a Credential Verifier, specifying certain metadata parameters such as the endpoints to use and the allowed Digital Credentials to be requested.<a href="#section-7.1-4" class="pilcrow">¶</a></p>
+<p id="section-7.1-4"><strong>Example 1</strong>: Non-normative example of a Subordinate Statement issued by a Federation Authority about a Credential Verifier. The <code>openid_credential_verifier</code> metadata sets the protocol keys, the registered <code>request_uri</code> / <code>response_uri</code> / <code>redirect_uri</code> endpoints, and the DCQL query the Verifier is allowed to use when requesting Digital Credentials.<a href="#section-7.1-4" class="pilcrow">¶</a></p>
 <div id="openid-credential-verifier-presentation-metadata-in-subordinate-statements">
 <section id="section-7.1.1">
           <h4 id="name-openid-credential-verifier-p">
@@ -2691,19 +2733,23 @@ Niels van Dijk.<a href="#section-12-1" class="pilcrow">¶</a></p>
 <p id="appendix-B-1">[[ To be removed from the final specification ]]<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 <p id="appendix-B-2">-06<a href="#appendix-B-2" class="pilcrow">¶</a></p>
 <ul class="compact">
-<li class="compact" id="appendix-B-3.1">Clarified that Wallet Instance types are informative and that
+<li class="compact" id="appendix-B-3.1">Filled Example 1 <code>openid_credential_verifier</code> metadata with protocol
+ keys, registered endpoints, and an authorized DCQL query
+ (federation-wallet issue #65).<a href="#appendix-B-3.1" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="appendix-B-3.2">Clarified that Wallet Instance types are informative and that
  federation processing does not vary by type (federation-wallet
  issue #64). Trust with the Holder is established through the
- Wallet Provider and Wallet Attestation for all instance types.<a href="#appendix-B-3.1" class="pilcrow">¶</a>
+ Wallet Provider and Wallet Attestation for all instance types.<a href="#appendix-B-3.2" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-B-3.2">Removed unused Terminology subsection on Direct Trust, Web of Trust,
+        <li class="compact" id="appendix-B-3.3">Removed unused Terminology subsection on Direct Trust, Web of Trust,
  and Trusted Third-Party (federation-wallet issue #62). Defined Trust
  Model and Trust Framework as terms used in the specification, restated
  that trust is established through Trust Anchors (participants MAY
  configure more than one) in the Four-Party Model, and aligned the
- Credential Verifier metadata rationale with that language.<a href="#appendix-B-3.2" class="pilcrow">¶</a>
+ Credential Verifier metadata rationale with that language.<a href="#appendix-B-3.3" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-B-3.3">Added Federation Trust Discovery use case "Credential Verifiers
+        <li class="compact" id="appendix-B-3.4">Added Federation Trust Discovery use case "Credential Verifiers
  Establishing Trust in Credential Issuers" to resolve
  federation-wallet issue #48: map https Issuer Identifiers in
  presented Credentials to Federation Entity Identifiers, perform
@@ -2718,7 +2764,7 @@ Niels van Dijk.<a href="#section-12-1" class="pilcrow">¶</a></p>
  OpenID4VCI Credential Issuer Identifier. DIDs and ISO mDOC X.509
  bindings remain out of scope for this version; extensions MAY
  define DID Leaf Entities. Clarified that Trust Discovery use cases
- are independently adoptable by Trust Frameworks.<a href="#appendix-B-3.3" class="pilcrow">¶</a>
+ are independently adoptable by Trust Frameworks.<a href="#appendix-B-3.4" class="pilcrow">¶</a>
 </li>
       </ul>
 <p id="appendix-B-4">-05<a href="#appendix-B-4" class="pilcrow">¶</a></p>
