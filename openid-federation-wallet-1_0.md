@@ -62,7 +62,10 @@ This specification defines how to use OpenID Federation 1.0 [@!OpenID.Federation
 security and interoperability of wallet ecosystems, facilitating trust establishment
 among the parties and enabling secure metadata exchange and policy
 application across large scale deployments.
-It outlines the general architecture of a federated trust
+OpenID Federation is a building block for applying Trust Frameworks.
+It can help ensure that all participants in a system understand and adhere to the
+same principles and practices, making interactions predictable and secure.
+This specification outlines the general architecture of a federated trust
 infrastructure for wallet ecosystems, identifying participant roles and describing
 the use of those roles.
 
@@ -131,23 +134,11 @@ This specification also defines the following terms:
 **Credential Verifier Instance**:
 : A software application that allows an individual to request to an Holder and receive from that Holder a Digital Credential, sometimes in a proximity flow, and then verify the received Digital Credential.
 
-## Trust Models and Trust Frameworks
+**Trust Model**:
+: The relationships and mechanisms through which trust is established and maintained between Entities, including how they interact, the basis on which they can trust each other, and the roles they play.
 
-The terms "trust model" and "trust framework" are often used in the context of security, identity management, and federation systems.
-
-The Trust Model defines the relationships and mechanisms through which trust is established and maintained between entities in a system. It outlines how entities interact, the basis on which they can trust each other, and the roles they play within the system. Trust Models can be simple or complex, depending on the number of parties involved and the nature of their interactions. Common examples include:
-
-- **Direct Trust**: Trust is established directly between two parties without intermediaries.
-- **Trusted Third Party**: Trust is facilitated by a trusted third party.
-- **Web of Trust**: Each participant makes individual decisions about whom to trust, using Direct Trust or potentially multiple Third-Parties.
-
-**Trusted Third-Party** is the focus of this specification, although the **Web of Trust** model is not excluded if multiple trusted third parties (Trust Anchors) are supported by the participants.
-
-A Trust Framework is a comprehensive structure that includes policies, standards, and guidelines that govern the implementation of a Trust Model. It provides detailed rules for how trust should be managed, including the legal, technical, and procedural aspects. To allow for a scalable approach, as many aspects of the framework as possible should be presented in a machine discoverable and machine-readable way.
-
-In the scope of this specification, only the technical and procedural aspects are considered and fully covered.
-
-OpenID Federation [@!OpenID.Federation] is a building block for assembling and using trust frameworks. It can help ensure that all participants in a system understand and adhere to the same principles and practices, making interactions predictable and secure.
+**Trust Framework**:
+: A structure of policies, standards, and guidelines that governs the implementation of a Trust Model, including legal, technical, and procedural rules. This specification covers only the technical and procedural aspects. To allow for a scalable approach, as many aspects of a Trust Framework as possible should be presented in a machine-discoverable and machine-readable way.
 
 # The Four-Party Model
 
@@ -156,6 +147,8 @@ the Holder, the Credential Issuer, the Credential Verifier,
 and an Entity trusted by the other Entities called the Trust Anchor.
 This is an extension of the three-party Issuer-Holder-Verifier Model described in
 [@!OpenID4VCI] and [@!OpenID4VP] that adds a fourth party: the Trust Anchor.
+Trust among those Entities is established through the Trust Anchor acting as a
+trusted third party. Participants MAY configure multiple Trust Anchors.
 
 
 The four Entities interact with each other as described below:
@@ -445,10 +438,10 @@ metadata:
 #### Rationale for Extending the Set of `openid_credential_verifier` Metadata Parameters
 
 The rationale for extending the set of `openid_credential_verifier` metadata
-parameters is to align OpenID4VP Verifiers with the Trusted Third-Party trust
-model employed by this specification. Cryptographic material, protocol endpoints 
-and default or constrained DCQL queries are published in federation-managed metadata,
-constrained DCQL queries in federation-managed metadata. This practice aims to:
+parameters is to align OpenID4VP Verifiers with the Trust Anchor-based Trust
+Model employed by this specification. Cryptographic material, protocol endpoints,
+and default or constrained DCQL queries are published in federation-managed metadata.
+This practice aims to:
 
 - enforce common technical and policy requirements on all participating
   Credential Verifiers,
@@ -1169,7 +1162,12 @@ The technology described in this specification was made available from contribut
      federation processing does not vary by type (federation-wallet
      issue #64). Trust with the Holder is established through the
      Wallet Provider and Wallet Attestation for all instance types.
-
+   * Removed unused Terminology subsection on Direct Trust, Web of Trust,
+     and Trusted Third-Party (federation-wallet issue #62). Defined Trust
+     Model and Trust Framework as terms used in the specification, restated
+     that trust is established through Trust Anchors (participants MAY
+     configure more than one) in the Four-Party Model, and aligned the
+     Credential Verifier metadata rationale with that language.
    * Added Federation Trust Discovery use case "Credential Verifiers
      Establishing Trust in Credential Issuers" to resolve
      federation-wallet issue #48: map https Issuer Identifiers in
