@@ -203,11 +203,17 @@ Consequently, the End-User obtains and holds the Digital Credentials without dis
 
 The Figure above illustrates at the center the Holder, who interacts directly with both the Credential Issuer and the Credential Verifier. The Credential Issuer provides Digital Credentials to the Holder, while the Credential Verifier relies on these Credentials to verify the Holder's claims. Above the Holder is the Wallet Provider, which facilitates the registration and the attestation of the security and integrity of the Holder. All entities, including the Credential Issuer, Credential Verifier, Wallet Provider and therefore Holders, and are underpinned by a Trust Anchor, ensuring that all interactions and transactions are anchored in a trusted third party.
 
-# Wallet Instance Types
+# Wallet Instances
 
-There are many ways to technically implement Wallet Instances to manage Digital Credentials. There are typically two types of Wallet End-Users: one is a natural person and another is an Organizational Entity. These two types of End-Users may have different usage and functional requirements.
+This section describes deployment forms of Wallet Instances and how trust is established with the Holder.
 
-Below a non-exhaustive list of the different Wallet Instance types.
+The Wallet Instance types below are informative and non-exhaustive. This specification does not define type-specific federation processing. Credential Issuers, Credential Verifiers, and other Entities evaluate trust with the Holder using the Wallet Provider and Wallet Attestation, regardless of Wallet Instance type.
+
+Wallet Instances may be used by a natural person or by an Organizational Entity. These two cases may have different usage and functional requirements; those differences do not change the federation mechanisms defined in this specification.
+
+## Wallet Instance Types
+
+There are many ways to technically implement Wallet Instances to manage Digital Credentials.
 
 **Mobile Wallet Native Application**
 : Also known as Mobile Wallet only, is an application that runs natively on a Personal Device under the sole control of an End-User and provided through a platform vendor specific app-store, on behalf of the Wallet Solution. In some cases the End-User as natural person uses the Mobile Wallet representing a legal person.
@@ -222,7 +228,7 @@ Below a non-exhaustive list of the different Wallet Instance types.
 
 ## Establishing Trust with the Holder
 
-Since the Holder may not be an Organizational Entity and cannot be registered as an Organization through registration services, it is not represented within a Trust Chain and does not qualify as a Federation Entity. This context sets the stage for understanding the unique position of the Holder in relation to the Trust Chain and Federation Entities.
+Since the Holder may not be an Organizational Entity and cannot be registered as an Organization through registration services, it is not represented within a Trust Chain and does not qualify as a Federation Entity. This applies regardless of Wallet Instance type. This context sets the stage for understanding the unique position of the Holder in relation to the Trust Chain and Federation Entities.
 
 ~~~ ascii-art
 +----------------------------+
@@ -1152,13 +1158,16 @@ The technology described in this specification was made available from contribut
 
    -06
 
+   * Clarified that Wallet Instance types are informative and that
+     federation processing does not vary by type (federation-wallet
+     issue #64). Trust with the Holder is established through the
+     Wallet Provider and Wallet Attestation for all instance types.
    * Removed unused Terminology subsection on Direct Trust, Web of Trust,
      and Trusted Third-Party (federation-wallet issue #62). Defined Trust
      Model and Trust Framework as terms used in the specification, restated
      that trust is established through Trust Anchors (participants MAY
      configure more than one) in the Four-Party Model, and aligned the
      Credential Verifier metadata rationale with that language.
-
    * Added Federation Trust Discovery use case "Credential Verifiers
      Establishing Trust in Credential Issuers" to resolve
      federation-wallet issue #48: map https Issuer Identifiers in
