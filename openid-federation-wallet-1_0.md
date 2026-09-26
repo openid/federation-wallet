@@ -129,7 +129,7 @@ This specification also defines the following terms:
 : Entity that requests and verifies Digital Credentials presented by a Holder. 
 
 **Credential Verifier Instance**:
-: A software application that allows an individual to request to an Holder and receive from that Holder a Digital Credential, sometimes in a proximity flow, and then verify the received Digital Credential. A Credential Verifier Instance is not a Federation Entity: it has no queryable Entity Identifier and is attested by a Verifier Provider.
+: A software application that allows an individual to request to a Holder and receive from that Holder a Digital Credential, sometimes in a proximity flow, and then verify the received Digital Credential. A Credential Verifier Instance is not a Federation Entity: it has no queryable Entity Identifier. It can be attested by a Verifier Provider.
 
 **Verifier Provider**:
 : An Organizational Entity that develops, publishes, or manages Credential Verifier Instance software and that issues Verifier Attestation JWTs about those instances.
