@@ -214,7 +214,7 @@ The Figure above illustrates at the center the Holder, who interacts directly wi
 
 This section describes deployment forms of Wallet Instances and how trust is established with the Holder.
 
-The Wallet Instance types below are informative and non-exhaustive. This specification does not define type-specific federation processing. Credential Issuers, Credential Verifiers, and other Entities evaluate trust with the Holder using the Wallet Provider and Wallet Attestation, as specified in this section and in the Federation Trust Discovery Use Cases, regardless of Wallet Instance type.
+The Wallet Instance types below are informative and non-exhaustive. This specification does not define type-specific federation processing. Credential Issuers, Credential Verifiers, and other Entities evaluate trust with the Holder using the Wallet Provider and Wallet Attestation, regardless of Wallet Instance type.
 
 Wallet Instances may be used by a natural person or by an Organizational Entity. These End-Users may have different usage and functional requirements; those differences do not change the federation mechanisms defined in this specification.
 
