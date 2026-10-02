@@ -1212,7 +1212,7 @@ li > p:last-of-type:only-child {
 <thead><tr>
 <td class="left"></td>
 <td class="center">OpenID Federation for Wallet Architectur</td>
-<td class="right">September 2026</td>
+<td class="right">October 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">De Marco, et al.</td>
@@ -1227,7 +1227,7 @@ li > p:last-of-type:only-child {
 <dd class="workgroup">OpenID Connect Working Group</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-09-26" class="published">26 September 2026</time>
+<time datetime="2026-10-02" class="published">2 October 2026</time>
     </dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
@@ -1535,7 +1535,7 @@ and "Trust Mark", "Federation Entity", "Trust Anchor",
         <dd class="break"></dd>
 <dt id="section-3-3.15">
 <strong>Credential Verifier Instance</strong>:</dt>
-        <dd style="margin-left: 1.5em" id="section-3-3.16">A software application that allows an individual to request to a Holder and receive from that Holder a Digital Credential, sometimes in a proximity flow, and then verify the received Digital Credential. A Credential Verifier Instance is not a Federation Entity: it has no queryable Entity Identifier. It can be attested by a Verifier Provider.<a href="#section-3-3.16" class="pilcrow">¶</a>
+        <dd style="margin-left: 1.5em" id="section-3-3.16">A software application that allows an individual to request to a Holder and receive from that Holder a Digital Credential, sometimes in a proximity flow, and then verify the received Digital Credential. A Credential Verifier Instance is not a Federation Entity since it has no queryable Entity Identifier. It can be attested by a Verifier Provider.<a href="#section-3-3.16" class="pilcrow">¶</a>
 </dd>
         <dd class="break"></dd>
 <dt id="section-3-3.17">
@@ -2232,7 +2232,7 @@ obtained from Trust Chain evaluation.<a href="#section-7.1.1-7" class="pilcrow">
           </h4>
 <p id="section-8.1.2-1">When this use case is used, the Wallet MUST:<a href="#section-8.1.2-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="compact type-1" id="section-8.1.2-2">
-<li id="section-8.1.2-2.1">Validate the Verifier Attestation JWT as specified in <span>[<a href="#OpenID4VP" class="cite xref">OpenID4VP</a>]</span>, including <code>typ</code>, <code>exp</code>, <code>sub</code>, <code>iss</code>, and <code>cnf</code>.<a href="#section-8.1.2-2.1" class="pilcrow">¶</a>
+<li id="section-8.1.2-2.1">Validate the header and the claims of the Verifier Attestation JWT as specified in <span>[<a href="#OpenID4VP" class="cite xref">OpenID4VP</a>]</span>, including <code>typ</code>, <code>exp</code>, <code>sub</code>, <code>iss</code>, and <code>cnf</code>. The signature is verified in step 2.<a href="#section-8.1.2-2.1" class="pilcrow">¶</a>
 </li>
             <li id="section-8.1.2-2.2">Establish trust in <code>iss</code> as a Verifier Provider of type <code>openid_verifier_provider</code> by constructing a Trust Chain to a configured Trust Anchor, or by validating a <code>trust_chain</code> JOSE header on the attestation as described in the Implementation Considerations for Offline Flows section. The Wallet MUST verify the attestation signature using keys obtained from that Trust Chain.<a href="#section-8.1.2-2.2" class="pilcrow">¶</a>
 </li>
@@ -2245,7 +2245,7 @@ obtained from Trust Chain evaluation.<a href="#section-7.1.1-7" class="pilcrow">
           </ol>
 <p id="section-8.1.2-3">A Verifier Attestation JWT asserts instance integrity and key binding. It MAY also carry provider-asserted constraints that narrow the Organizational Credential Verifier's entitlement for that instance (for example <code>redirect_uris</code> as defined in <span>[<a href="#OpenID4VP" class="cite xref">OpenID4VP</a>]</span>, or <code>dcql_queries</code> as defined in this specification). Those constraints MUST NOT grant privileges beyond the metadata, <code>metadata_policy</code>, and Trust Marks of <code>sub</code>. If both organizational metadata and attestation constraints are present for the same parameter, the Wallet MUST use the intersection. If that intersection is empty, the Wallet MUST refuse the request.<a href="#section-8.1.2-3" class="pilcrow">¶</a></p>
 <p id="section-8.1.2-4">When federated metadata for <code>sub</code> is available, the Wallet MUST use it for cryptographic keys, endpoints, and authorized DCQL queries, and MUST ignore conflicting values in <code>client_metadata</code>. This overrides the OpenID4VP rule that, for the <code>verifier_attestation</code> Client Identifier Prefix, Verifier metadata other than the public key is taken from <code>client_metadata</code>.<a href="#section-8.1.2-4" class="pilcrow">¶</a></p>
-<p id="section-8.1.2-5">When used in a Wallet federation, Verifier Attestation JWTs SHOULD include the <code>trust_chain</code> JOSE header parameter defined in Section 4.3 of <span>[<a href="#OpenID.Federation" class="cite xref">OpenID.Federation</a>]</span>, so that the Wallet can validate the Verifier Provider without real-time Federation Entity Discovery.<a href="#section-8.1.2-5" class="pilcrow">¶</a></p>
+<p id="section-8.1.2-5">When used in a Wallet federation, Verifier Attestation JWTs SHOULD include the <code>trust_chain</code> JOSE header parameter defined in Section 4.3 of <span>[<a href="#OpenID.Federation" class="cite xref">OpenID.Federation</a>]</span>, containing a Trust Chain about <code>iss</code>, so that the Wallet can validate the Verifier Provider without real-time Federation Entity Discovery. The signed Request Object MAY include the <code>trust_chain</code> JOSE header parameter containing a Trust Chain about <code>sub</code>. This Trust Chain is used to obtain the metadata of <code>sub</code> while the signature of the Request Object is verified with the key in <code>cnf</code>.<a href="#section-8.1.2-5" class="pilcrow">¶</a></p>
 <p id="section-8.1.2-6">If the Wallet cannot establish trust in the Verifier Provider or in the Organizational Credential Verifier, it MUST refuse the request.<a href="#section-8.1.2-6" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -2651,13 +2651,11 @@ obtained from Trust Chain evaluation.<a href="#section-7.1.1-7" class="pilcrow">
 <p id="section-10-1">The security considerations in
 <span>[<a href="#OpenID.Federation" class="cite xref">OpenID.Federation</a>]</span>, <span>[<a href="#OpenID4VP" class="cite xref">OpenID4VP</a>]</span>, and <span>[<a href="#OpenID4VCI" class="cite xref">OpenID4VCI</a>]</span>
 apply to this specification.<a href="#section-10-1" class="pilcrow">¶</a></p>
-<p id="section-10-2">Routing every Credential Verifier Instance request through an Organizational
-Credential Verifier for signature concentrates one organizational key in every
-terminal and fails offline and proximity flows. Verifier Attestation JWTs bind
-per-instance keys instead. A Verifier Attestation JWT MUST NOT expand the
+<p id="section-10-2">Without per-instance attestation, a Credential Verifier either routes every request through its backend for signature, which does not work offline, or deploys the same organizational key on every terminal, so that one compromise affects the whole organization. Verifier Attestation JWTs bind a distinct key to each instance instead. A Verifier Attestation JWT MUST NOT expand the
 Organizational Credential Verifier's entitlements; a compromised Verifier
 Provider can at worst narrow them. Authorization authority remains with the
 federation.<a href="#section-10-2" class="pilcrow">¶</a></p>
+<p id="section-10-3">Nothing prevents a Verifier Provider from publishing one of its Federation Entity Keys also in the <code>jwks</code> of its <code>openid_verifier_provider</code> metadata. However, Section 3.1 of <span>[<a href="#OpenID.Federation" class="cite xref">OpenID.Federation</a>]</span> states that Federation Entity Keys SHOULD NOT be used in other protocols, so Verifier Providers SHOULD use keys distinct from their Federation Entity Keys to sign Verifier Attestation JWTs.<a href="#section-10-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
