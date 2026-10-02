@@ -594,9 +594,10 @@ In particular:
   applied to any `dcql_queries` present in the Credential Verifier metadata,
   if available, or otherwise to the `dcql_query` contained in
   `client_metadata` in the Authorization Request.
-  Profiles MAY additionally convey `dcql_queries`-related policies using
-  Trust Marks bound to the Credential Verifier; see the section on
-  Trust Marks and policy expression for further guidance.
+  When `metadata` or `metadata_policy` contains
+  `openid_credential_verifier.dcql_queries`, the DCQL queries a
+  Credential Verifier is permitted to use MUST be determined only from
+  that `metadata` and `metadata_policy`.
 
 This mechanism allows superior entities to centrally define and enforce
 policy on Credential Verifiers’ OpenID4VP behaviour (including cryptographic
@@ -615,26 +616,140 @@ Differently from `metadata`, `metadata_policy` ensures that specific settings ca
 
 ## Using Trust Marks
 
-Trust Marks are issued by authorized entities (Trust Mark Issuers) within the federation, typically after an entity has demonstrated compliance with certain standards, this might happen through auditing or certification processes.
+Trust Marks are used as defined in [@!OpenID.Federation]. This specification
+does not change Trust Mark issuance, signature verification, or status checks.
 
-Trust Marks are typically implemented as signed assertions that can be verified by other entities.
+This profile uses Trust Marks for qualitative and authorization properties of
+wallet Entities that are not expressed, or not fully expressed, in `metadata`
+and `metadata_policy`. Typical uses in wallet ecosystems include:
 
-This verification process involves checking the digital signature against the public key of the Trust Mark Issuer to ensure the Trust Mark has not been forged, and its check to the Trust Mark Status endpoint to check it against any revocation.
+- Credential Issuer entitlement to issue a given Digital Credential type;
+- Credential Verifier authorization to request particular credentials or to
+  interact with particular populations (for example, under-age End-Users);
+- Wallet Provider assurance that a Wallet Solution meets a security or
+  compliance profile required by the Trust Framework;
+- Credential Verifier attributes that a Wallet verifies and presents to the
+  End-User (for example, an assurance that the verifier is an ethical data user).
 
-Trust Marks SHOULD be defined within the trust framework. Trust Marks are asserted about a subject through a registration service or compliance evaluation mechanism and therefore included in subject's Entity Configurations. This allows other entities to quickly assess the compliance status of a subject by examining the Entity Configuration of a subject.
+The DCQL queries a Credential Verifier is permitted to use are determined
+as defined in OpenID Credential Verifier Presentation Metadata in
+Subordinate Statements. Trust Marks SHOULD NOT be used to carry `dcql_queries`.
 
+### Trust Mark Requirements
+
+A Trust Anchor that relies on Trust Marks for wallet transactions MUST
+publish those requirements in its Entity Configuration, at
+`metadata.federation_entity.trust_mark_requirements`.
+The value is a JSON array of requirement objects.
+Evaluating Entities, including unattended Entities, apply the rules in
+this section to that array.
+
+Each requirement object contains the following members:
+
+`trust_mark_type`:
+: REQUIRED. The Trust Mark Type identifier, as defined in
+  [@!OpenID.Federation].
+
+`entity_types`:
+: REQUIRED. A non-empty array of Entity Type Identifiers from Table 1.
+  The requirement applies to a counterpart whose resolved metadata
+  contains one of these identifiers.
+
+`enforcement`:
+: REQUIRED. Either `block` or `warn`.
+  With `block`, failure of the requirement prevents the transaction
+  from completing.
+  With `warn`, failure of the requirement is reported to the End-User,
+  or to the configured policy of an unattended Entity, and that
+  End-User or policy MAY allow the transaction to continue.
+
+`credential_types`:
+: OPTIONAL. A non-empty array of credential type identifiers defined by
+  the Trust Framework, such as an OpenID4VCI `vct` value or an ISO mdoc
+  document type.
+  When present, the requirement applies only when the transaction issues
+  or requests at least one listed credential type.
+  When absent, the requirement applies to every transaction with a
+  counterpart of a listed entity type.
+  This member selects which transactions the requirement covers.
+  Trust Marks SHOULD NOT be used to carry `dcql_queries`. Permitted
+  queries are determined as defined in OpenID Credential Verifier
+  Presentation Metadata in Subordinate Statements.
+
+The Entity evaluating trust MUST take `trust_mark_requirements` from the
+Trust Anchor to which the counterpart's Trust Chain is validated.
+It MUST ignore a requirement object that lacks `trust_mark_type`,
+`entity_types`, or `enforcement`, or whose `enforcement` is a value other
+than `block` or `warn`.
+An Entity evaluating trust offline MAY use a previously validated copy of
+that Trust Anchor's Entity Configuration.
+
+A requirement applies to the current transaction when `entity_types`
+includes an Entity Type Identifier of the counterpart and, when
+`credential_types` is present, the transaction issues or requests at least
+one listed credential type.
+For each applicable requirement, the evaluating Entity MUST verify a Trust
+Mark of that `trust_mark_type` about the counterpart, as specified in
+[@!OpenID.Federation], including signature validation and status checks.
+
+When `enforcement` is `block` and that Trust Mark is missing, expired,
+revoked, or fails verification, the evaluating Entity MUST NOT complete
+the transaction.
+A configured local policy MUST NOT allow completion in that case.
+
+When `enforcement` is `warn` and that Trust Mark is missing, expired,
+revoked, or fails verification, the evaluating Entity MUST make the
+verification result available before the transaction completes.
+A Wallet MUST present that result to the End-User, who MAY proceed.
+An unattended Entity MUST provide that result to its configured policy,
+which MAY allow the transaction to continue.
+When verification of a `warn` Trust Mark succeeds, a Wallet SHOULD present
+that Trust Mark to the End-User.
+
+When more than one requirement applies to the same transaction, the
+evaluating Entity MUST evaluate each applicable requirement on its own.
+The transaction MUST NOT complete when any applicable `block` requirement
+fails.
+The evaluating Entity MUST still make every applicable `warn` result
+available, as defined above.
+A Trust Mark that is present in an Entity Configuration and that is not
+referenced by `trust_mark_requirements` has no effect on whether the
+transaction completes.
+A Wallet MAY verify such a Trust Mark and MAY present it to the End-User.
 
 ```json=
 {
-  "trust_mark_type":"https://diligent.federation.example.com/openid_credential_verifier/private/under-age",
-  "iss": "https://trustissuer.pinarolo.example.it",
-  "sub": "https://vavuso.example.com/rp",
-  "iat": 1579621160,
-  "policy_uri": "https://vavuso.example.com/policy",
-  "tos_uri": "https://vavuso.example.com/tos"
+  "metadata": {
+    "federation_entity": {
+      "organization_name": "Example Trust Anchor",
+      "trust_mark_requirements": [
+        {
+          "trust_mark_type": "https://trust-anchor.example/trust-marks/under-age",
+          "entity_types": ["openid_credential_verifier"],
+          "credential_types": ["urn:example:age-credential"],
+          "enforcement": "block"
+        },
+        {
+          "trust_mark_type": "https://trust-anchor.example/trust-marks/ethical-data-user",
+          "entity_types": ["openid_credential_verifier"],
+          "enforcement": "warn"
+        }
+      ]
+    }
+  }
 }
 ```
-**Example 2**: Trust Mark to be included in a Leaf Entity Configuration, which payload states Leaf's compliance in interacting with under-age End-User.
+**Example 2**: Non-normative `trust_mark_requirements` in a Trust Anchor Entity Configuration. A missing or invalid under-age Trust Mark blocks a transaction that requests the listed credential type. The ethical-data-user Trust Mark is verified and presented to the End-User, who may proceed when that mark is absent or invalid.
+
+```json=
+{
+  "trust_mark_type": "https://trust-anchor.example/trust-marks/under-age",
+  "iss": "https://trustissuer.pinarolo.example.it",
+  "sub": "https://vavuso.example.com/rp",
+  "iat": 1579621160
+}
+```
+**Example 3**: Non-normative Trust Mark in a Credential Verifier Entity Configuration, corresponding to the `block` requirement in Example 2.
 
 # Federation Trust Discovery Use Cases
 
@@ -1213,6 +1328,19 @@ The technology described in this specification was made available from contribut
      that trust is established through Trust Anchors (participants MAY
      configure more than one) in the Four-Party Model, and aligned the
      Credential Verifier metadata rationale with that language.
+   * Profiled Trust Marks for wallet ecosystems instead of restating
+     OpenID Federation (federation-wallet issue #66). Trust Anchors
+     publish `trust_mark_requirements` with machine-readable
+     `enforcement` of `block` or `warn`. A failed `block` requirement
+     prevents completion of the transaction. A failed `warn` requirement
+     is presented to the End-User, or to an unattended Entity's
+     configured policy, either of which may proceed. Optional
+     `credential_types` selects the transactions a requirement applies
+     to. When several requirements apply, each is evaluated, and any
+     failed `block` requirement prevents completion. When `metadata`
+     or `metadata_policy` contains `dcql_queries`, permitted queries
+     MUST be determined only from that metadata. Trust Marks SHOULD NOT
+     be used to carry `dcql_queries`.
    * Added Federation Trust Discovery use case "Credential Verifiers
      Establishing Trust in Credential Issuers" to resolve
      federation-wallet issue #48: map https Issuer Identifiers in
