@@ -594,10 +594,16 @@ In particular:
   applied to any `dcql_queries` present in the Credential Verifier metadata,
   if available, or otherwise to the `dcql_query` contained in
   `client_metadata` in the Authorization Request.
+<<<<<<< HEAD
   When `metadata` or `metadata_policy` contains
   `openid_credential_verifier.dcql_queries`, the DCQL queries a
   Credential Verifier is permitted to use MUST be determined only from
   that `metadata` and `metadata_policy`.
+=======
+  Profiles MAY additionally convey `dcql_queries`-related policies using
+  Trust Marks bound to the Credential Verifier, as described in the
+  Using Trust Marks section.
+>>>>>>> b056a9af69f9104f538127b792128bd5a52de37a
 
 This mechanism allows superior entities to centrally define and enforce
 policy on Credential Verifiers’ OpenID4VP behaviour (including cryptographic
@@ -621,15 +627,36 @@ does not change Trust Mark issuance, signature verification, or status checks.
 
 This profile uses Trust Marks for qualitative and authorization properties of
 wallet Entities that are not expressed, or not fully expressed, in `metadata`
+<<<<<<< HEAD
 and `metadata_policy`. Typical uses in wallet ecosystems include:
+=======
+and `metadata_policy`. Trust Frameworks using this specification SHOULD define
+the `trust_mark_type` values they rely on, which Entity roles they apply to,
+and which transactions require them. Typical uses in wallet ecosystems include:
+>>>>>>> b056a9af69f9104f538127b792128bd5a52de37a
 
 - Credential Issuer entitlement to issue a given Digital Credential type;
 - Credential Verifier authorization to request particular credentials or to
   interact with particular populations (for example, under-age End-Users);
 - Wallet Provider assurance that a Wallet Solution meets a security or
+<<<<<<< HEAD
   compliance profile required by the Trust Framework;
 - Credential Verifier attributes that a Wallet verifies and presents to the
   End-User (for example, an assurance that the verifier is an ethical data user).
+=======
+  compliance profile required by the Trust Framework.
+
+When a Trust Framework requires a Trust Mark for a transaction, the Entity
+evaluating trust MUST verify that Trust Mark as specified in
+[@!OpenID.Federation], including signature validation and status checks, and
+MUST NOT complete that transaction if a required Trust Mark is missing, expired,
+or revoked.
+
+Profiles MAY convey `dcql_queries`-related constraints using Trust Marks bound
+to a Credential Verifier, in addition to or instead of `metadata` and
+`metadata_policy`, when the Trust Framework defines how those marks are
+interpreted.
+>>>>>>> b056a9af69f9104f538127b792128bd5a52de37a
 
 The DCQL queries a Credential Verifier is permitted to use are determined
 as defined in OpenID Credential Verifier Presentation Metadata in
@@ -645,7 +672,7 @@ Subordinate Statements. Trust Marks SHOULD NOT be used to carry `dcql_queries`.
   "tos_uri": "https://vavuso.example.com/tos"
 }
 ```
-**Example 2**: Trust Mark to be included in a Leaf Entity Configuration, which payload states Leaf's compliance in interacting with under-age End-User.
+**Example 2**: Non-normative Trust Mark included in a Credential Verifier's Entity Configuration, asserting authorization to interact with under-age End-Users.
 
 # Federation Trust Discovery Use Cases
 
@@ -1229,6 +1256,11 @@ The technology described in this specification was made available from contribut
      entitlement, verifier authorization, Wallet Provider assurance,
      and verifier attributes presented to the End-User. DCQL query
      authorization remains in `metadata` and `metadata_policy`.
+   * Profiled Trust Marks for wallet ecosystems instead of restating
+     OpenID Federation (federation-wallet issue #66): issuance
+     entitlement, verifier authorization, and Wallet Provider assurance;
+     required marks MUST be verified and MUST block the transaction if
+     missing, expired, or revoked.
    * Added Federation Trust Discovery use case "Credential Verifiers
      Establishing Trust in Credential Issuers" to resolve
      federation-wallet issue #48: map https Issuer Identifiers in
