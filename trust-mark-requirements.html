@@ -2123,8 +2123,10 @@ When a <code>dcql_queries</code> constraint is expressed via
 applied to any <code>dcql_queries</code> present in the Credential Verifier metadata,
 if available, or otherwise to the <code>dcql_query</code> contained in
 <code>client_metadata</code> in the Authorization Request.
-Which DCQL queries a Credential Verifier is permitted to use SHOULD
-determined only from this <code>metadata</code> and <code>metadata_policy</code>.<a href="#section-7.1.1-6.2" class="pilcrow">¶</a>
+When <code>metadata</code> or <code>metadata_policy</code> contains
+<code>openid_credential_verifier.dcql_queries</code>, the DCQL queries a
+Credential Verifier is permitted to use MUST be determined only from
+that <code>metadata</code> and <code>metadata_policy</code>.<a href="#section-7.1.1-6.2" class="pilcrow">¶</a>
 </li>
           </ul>
 <p id="section-7.1.1-7">This mechanism allows superior entities to centrally define and enforce
@@ -2175,8 +2177,7 @@ compliance profile required by the Trust Framework;<a href="#section-7.4-3.3" cl
 End-User (for example, an assurance that the verifier is an ethical data user).<a href="#section-7.4-3.4" class="pilcrow">¶</a>
 </li>
         </ul>
-<p id="section-7.4-4">Which DCQL queries a Credential Verifier are permitted to use SHOULD be determined only
-from <code>openid_credential_verifier</code> <code>metadata</code> and <code>metadata_policy</code>,
+<p id="section-7.4-4">The DCQL queries a Credential Verifier is permitted to use are determined
 as defined in OpenID Credential Verifier Presentation Metadata in
 Subordinate Statements. Trust Marks SHOULD NOT be used to carry <code>dcql_queries</code>.<a href="#section-7.4-4" class="pilcrow">¶</a></p>
 <div id="trust-mark-requirements">
@@ -2225,7 +2226,9 @@ or requests at least one listed credential type.
 When absent, the requirement applies to every transaction with a
 counterpart of a listed entity type.
 This member selects which transactions the requirement covers.
-It does not authorize or constrain DCQL queries.<a href="#section-7.4.1-3.8" class="pilcrow">¶</a>
+Trust Marks SHOULD NOT be used to carry <code>dcql_queries</code>. Permitted
+queries are determined as defined in OpenID Credential Verifier
+Presentation Metadata in Subordinate Statements.<a href="#section-7.4.1-3.8" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 </dl>
@@ -2890,9 +2893,10 @@ Niels van Dijk.<a href="#section-12-1" class="pilcrow">¶</a></p>
  configured policy, either of which may proceed. Optional
  <code>credential_types</code> selects the transactions a requirement applies
  to. When several requirements apply, each is evaluated, and any
- failed <code>block</code> requirement prevents completion. Removed the
- allowance for Trust Marks to convey <code>dcql_queries</code> policies;
- that authorization remains in <code>metadata</code> and <code>metadata_policy</code>.<a href="#appendix-B-3.4" class="pilcrow">¶</a>
+ failed <code>block</code> requirement prevents completion. When <code>metadata</code>
+ or <code>metadata_policy</code> contains <code>dcql_queries</code>, permitted queries
+ MUST be determined only from that metadata. Trust Marks SHOULD NOT
+ be used to carry <code>dcql_queries</code>.<a href="#appendix-B-3.4" class="pilcrow">¶</a>
 </li>
         <li class="compact" id="appendix-B-3.5">Added Federation Trust Discovery use case "Credential Verifiers
  Establishing Trust in Credential Issuers" to resolve
