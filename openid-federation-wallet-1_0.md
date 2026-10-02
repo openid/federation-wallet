@@ -594,8 +594,10 @@ In particular:
   applied to any `dcql_queries` present in the Credential Verifier metadata,
   if available, or otherwise to the `dcql_query` contained in
   `client_metadata` in the Authorization Request.
-  Which DCQL queries a Credential Verifier is permitted to use SHOULD
-  determined only from this `metadata` and `metadata_policy`.
+  When `metadata` or `metadata_policy` contains
+  `openid_credential_verifier.dcql_queries`, the DCQL queries a
+  Credential Verifier is permitted to use MUST be determined only from
+  that `metadata` and `metadata_policy`.
 
 This mechanism allows superior entities to centrally define and enforce
 policy on Credential Verifiers’ OpenID4VP behaviour (including cryptographic
@@ -629,8 +631,7 @@ and `metadata_policy`. Typical uses in wallet ecosystems include:
 - Credential Verifier attributes that a Wallet verifies and presents to the
   End-User (for example, an assurance that the verifier is an ethical data user).
 
-Which DCQL queries a Credential Verifier are permitted to use SHOULD be determined only
-from `openid_credential_verifier` `metadata` and `metadata_policy`,
+The DCQL queries a Credential Verifier is permitted to use are determined
 as defined in OpenID Credential Verifier Presentation Metadata in
 Subordinate Statements. Trust Marks SHOULD NOT be used to carry `dcql_queries`.
 
@@ -671,7 +672,9 @@ Each requirement object contains the following members:
   When absent, the requirement applies to every transaction with a
   counterpart of a listed entity type.
   This member selects which transactions the requirement covers.
-  It does not authorize or constrain DCQL queries.
+  Trust Marks SHOULD NOT be used to carry `dcql_queries`. Permitted
+  queries are determined as defined in OpenID Credential Verifier
+  Presentation Metadata in Subordinate Statements.
 
 The Entity evaluating trust MUST take `trust_mark_requirements` from the
 Trust Anchor to which the counterpart's Trust Chain is validated.
@@ -1334,9 +1337,10 @@ The technology described in this specification was made available from contribut
      configured policy, either of which may proceed. Optional
      `credential_types` selects the transactions a requirement applies
      to. When several requirements apply, each is evaluated, and any
-     failed `block` requirement prevents completion. Removed the
-     allowance for Trust Marks to convey `dcql_queries` policies;
-     that authorization remains in `metadata` and `metadata_policy`.
+     failed `block` requirement prevents completion. When `metadata`
+     or `metadata_policy` contains `dcql_queries`, permitted queries
+     MUST be determined only from that metadata. Trust Marks SHOULD NOT
+     be used to carry `dcql_queries`.
    * Added Federation Trust Discovery use case "Credential Verifiers
      Establishing Trust in Credential Issuers" to resolve
      federation-wallet issue #48: map https Issuer Identifiers in
