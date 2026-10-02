@@ -1212,7 +1212,7 @@ li > p:last-of-type:only-child {
 <thead><tr>
 <td class="left"></td>
 <td class="center">OpenID Federation for Wallet Architectur</td>
-<td class="right">September 2026</td>
+<td class="right">October 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">De Marco, et al.</td>
@@ -1227,7 +1227,7 @@ li > p:last-of-type:only-child {
 <dd class="workgroup">OpenID Connect Working Group</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-09-24" class="published">24 September 2026</time>
+<time datetime="2026-10-02" class="published">2 October 2026</time>
     </dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
@@ -1280,10 +1280,13 @@ digital wallet architectures.<a href="#section-abstract-1" class="pilcrow">¶</a
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-the-four-party-model" class="internal xref">The Four-Party Model</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-wallet-instance-types" class="internal xref">Wallet Instance Types</a></p>
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-wallet-instances" class="internal xref">Wallet Instances</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
-                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-establishing-trust-with-the" class="internal xref">Establishing Trust with the Holder</a></p>
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-wallet-instance-types" class="internal xref">Wallet Instance Types</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-establishing-trust-with-the" class="internal xref">Establishing Trust with the Holder</a></p>
 </li>
             </ul>
 </li>
@@ -1361,6 +1364,17 @@ digital wallet architectures.<a href="#section-abstract-1" class="pilcrow">¶</a
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.6">
                 <p id="section-toc.1-1.8.2.6.1"><a href="#section-8.6" class="auto internal xref">8.6</a>.  <a href="#name-wallet-establishing-trust-i" class="internal xref">Wallet Establishing Trust in the Credential Verifier</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.7">
+                <p id="section-toc.1-1.8.2.7.1"><a href="#section-8.7" class="auto internal xref">8.7</a>.  <a href="#name-credential-verifiers-establ" class="internal xref">Credential Verifiers Establishing Trust in Credential Issuers</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.7.2.1">
+                    <p id="section-toc.1-1.8.2.7.2.1.1"><a href="#section-8.7.1" class="auto internal xref">8.7.1</a>.  <a href="#name-obtaining-the-credential-is" class="internal xref">Obtaining the Credential Issuer Entity Identifier</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.7.2.2">
+                    <p id="section-toc.1-1.8.2.7.2.2.1"><a href="#section-8.7.2" class="auto internal xref">8.7.2</a>.  <a href="#name-federation-entity-discovery" class="internal xref">Federation Entity Discovery and Credential Validation</a></p>
+</li>
+                </ul>
 </li>
             </ul>
 </li>
@@ -1605,44 +1619,53 @@ trusted third party. Participants MAY configure multiple Trust Anchors.<a href="
 <p id="section-4-11">The Figure above illustrates at the center the Holder, who interacts directly with both the Credential Issuer and the Credential Verifier. The Credential Issuer provides Digital Credentials to the Holder, while the Credential Verifier relies on these Credentials to verify the Holder's claims. Above the Holder is the Wallet Provider, which facilitates the registration and the attestation of the security and integrity of the Holder. All entities, including the Credential Issuer, Credential Verifier, Wallet Provider and therefore Holders, and are underpinned by a Trust Anchor, ensuring that all interactions and transactions are anchored in a trusted third party.<a href="#section-4-11" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="wallet-instance-types">
+<div id="wallet-instances">
 <section id="section-5">
-      <h2 id="name-wallet-instance-types">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-wallet-instance-types" class="section-name selfRef">Wallet Instance Types</a>
+      <h2 id="name-wallet-instances">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-wallet-instances" class="section-name selfRef">Wallet Instances</a>
       </h2>
-<p id="section-5-1">There are many ways to technically implement Wallet Instances to manage Digital Credentials. There are typically two types of Wallet End-Users: one is a natural person and another is an Organizational Entity. These two types of End-Users may have different usage and functional requirements.<a href="#section-5-1" class="pilcrow">¶</a></p>
-<p id="section-5-2">Below a non-exhaustive list of the different Wallet Instance types.<a href="#section-5-2" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlCompact dlParallel" id="section-5-3">
-        <dt id="section-5-3.1"><strong>Mobile Wallet Native Application</strong></dt>
-        <dd style="margin-left: 1.5em" id="section-5-3.2">Also known as Mobile Wallet only, is an application that runs natively on a Personal Device under the sole control of an End-User and provided through a platform vendor specific app-store, on behalf of the Wallet Solution. In some cases the End-User as natural person uses the Mobile Wallet representing a legal person.<a href="#section-5-3.2" class="pilcrow">¶</a>
-</dd>
-        <dd class="break"></dd>
-<dt id="section-5-3.3"><strong>Web Wallet Native Application</strong></dt>
-        <dd style="margin-left: 1.5em" id="section-5-3.4">
-          <p id="section-5-3.4.1">Also known as Cloud Wallet or Web Wallet only, is a Wallet that uses native web technologies for its components, such as UI components. Cloud Wallets are typically suited for Organizational Entities that requires automated Digital Credential operations (request, issuance, store, presentation, revocations) in unsupervised flows, therefore without any human control. Web Wallets are divided into two additional subtypes:<a href="#section-5-3.4.1" class="pilcrow">¶</a></p>
-<ul class="compact">
-<li class="compact" id="section-5-3.4.2.1">
-              <strong>Custodial Web Wallet</strong>: Cloud Wallets that have dependency on a cloud infrastructure, not necessarily hosted by the Wallet Provider, are typically classified as Custodial Web Wallets; in this case, the cryptographic keys used and the Digital Credentials are stored in the cloud infrastructure.<a href="#section-5-3.4.2.1" class="pilcrow">¶</a>
-</li>
-            <li class="compact" id="section-5-3.4.2.2">
-              <strong>Non-Custodial Web Wallet</strong>: A Web Wallet where the cryptographic keys are stored and managed on a media in possession by the End-User and the Digital Credentials can only be used by the End-User, e.g. using a FIDO enabled security hardware token, no matter whether the Credentials are stored locally in a Personal Device or in cloud storage.<a href="#section-5-3.4.2.2" class="pilcrow">¶</a>
-</li>
-          </ul>
-</dd>
-        <dd class="break"></dd>
-<dt id="section-5-3.5">
-<strong>Progressive Web Application Wallet</strong> (PWAW)</dt>
-        <dd style="margin-left: 1.5em" id="section-5-3.6">PWAW is a web application that looks like a native app. It can be installed on a Personal Device and not necessarily using the operative system specific app-store. The advantage with a PWAW is that it gives the End-User the same experience as a Mobile Native Wallet Application while also offering the benefits of a web application. PWAW can be Custodial or Non-Custodial.<a href="#section-5-3.6" class="pilcrow">¶</a>
-</dd>
-      <dd class="break"></dd>
-</dl>
-<div id="establishing-trust-with-the-holder">
+<p id="section-5-1">This section describes deployment forms of Wallet Instances and how trust is established with the Holder.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">The Wallet Instance types below are informative and non-exhaustive. This specification does not define type-specific federation processing. Credential Issuers, Credential Verifiers, and other Entities evaluate trust with the Holder using the Wallet Provider and Wallet Attestation, regardless of Wallet Instance type.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<p id="section-5-3">Wallet Instances may be used by a natural person or by an Organizational Entity. These two cases may have different usage and functional requirements; those differences do not change the federation mechanisms defined in this specification.<a href="#section-5-3" class="pilcrow">¶</a></p>
+<div id="wallet-instance-types">
 <section id="section-5.1">
-        <h3 id="name-establishing-trust-with-the">
-<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-establishing-trust-with-the" class="section-name selfRef">Establishing Trust with the Holder</a>
+        <h3 id="name-wallet-instance-types">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-wallet-instance-types" class="section-name selfRef">Wallet Instance Types</a>
         </h3>
-<p id="section-5.1-1">Since the Holder may not be an Organizational Entity and cannot be registered as an Organization through registration services, it is not represented within a Trust Chain and does not qualify as a Federation Entity. This context sets the stage for understanding the unique position of the Holder in relation to the Trust Chain and Federation Entities.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<div class="lang-ascii-art sourcecode" id="section-5.1-2">
+<p id="section-5.1-1">There are many ways to technically implement Wallet Instances to manage Digital Credentials.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlCompact dlParallel" id="section-5.1-2">
+          <dt id="section-5.1-2.1"><strong>Mobile Wallet Native Application</strong></dt>
+          <dd style="margin-left: 1.5em" id="section-5.1-2.2">Also known as Mobile Wallet only, is an application that runs natively on a Personal Device under the sole control of an End-User and provided through a platform vendor specific app-store, on behalf of the Wallet Solution. In some cases the End-User as natural person uses the Mobile Wallet representing a legal person.<a href="#section-5.1-2.2" class="pilcrow">¶</a>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.1-2.3"><strong>Web Wallet Native Application</strong></dt>
+          <dd style="margin-left: 1.5em" id="section-5.1-2.4">
+            <p id="section-5.1-2.4.1">Also known as Cloud Wallet or Web Wallet only, is a Wallet that uses native web technologies for its components, such as UI components. Cloud Wallets are typically suited for Organizational Entities that requires automated Digital Credential operations (request, issuance, store, presentation, revocations) in unsupervised flows, therefore without any human control. Web Wallets are divided into two additional subtypes:<a href="#section-5.1-2.4.1" class="pilcrow">¶</a></p>
+<ul class="compact">
+<li class="compact" id="section-5.1-2.4.2.1">
+                <strong>Custodial Web Wallet</strong>: Cloud Wallets that have dependency on a cloud infrastructure, not necessarily hosted by the Wallet Provider, are typically classified as Custodial Web Wallets; in this case, the cryptographic keys used and the Digital Credentials are stored in the cloud infrastructure.<a href="#section-5.1-2.4.2.1" class="pilcrow">¶</a>
+</li>
+              <li class="compact" id="section-5.1-2.4.2.2">
+                <strong>Non-Custodial Web Wallet</strong>: A Web Wallet where the cryptographic keys are stored and managed on a media in possession by the End-User and the Digital Credentials can only be used by the End-User, e.g. using a FIDO enabled security hardware token, no matter whether the Credentials are stored locally in a Personal Device or in cloud storage.<a href="#section-5.1-2.4.2.2" class="pilcrow">¶</a>
+</li>
+            </ul>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-5.1-2.5">
+<strong>Progressive Web Application Wallet</strong> (PWAW)</dt>
+          <dd style="margin-left: 1.5em" id="section-5.1-2.6">PWAW is a web application that looks like a native app. It can be installed on a Personal Device and not necessarily using the operative system specific app-store. The advantage with a PWAW is that it gives the End-User the same experience as a Mobile Native Wallet Application while also offering the benefits of a web application. PWAW can be Custodial or Non-Custodial.<a href="#section-5.1-2.6" class="pilcrow">¶</a>
+</dd>
+        <dd class="break"></dd>
+</dl>
+</section>
+</div>
+<div id="establishing-trust-with-the-holder">
+<section id="section-5.2">
+        <h3 id="name-establishing-trust-with-the">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-establishing-trust-with-the" class="section-name selfRef">Establishing Trust with the Holder</a>
+        </h3>
+<p id="section-5.2-1">Since the Holder may not be an Organizational Entity and cannot be registered as an Organization through registration services, it is not represented within a Trust Chain and does not qualify as a Federation Entity. This applies regardless of Wallet Instance type. This context sets the stage for understanding the unique position of the Holder in relation to the Trust Chain and Federation Entities.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<div class="lang-ascii-art sourcecode" id="section-5.2-2">
 <pre>+----------------------------+
 | Trust Chain                |
 | +------------------------+ |
@@ -1664,10 +1687,10 @@ trusted third party. Participants MAY configure multiple Trust Anchors.<a href="
 | | (Entity Configuration) |-----&gt;|      Wallet Attestation       |
 | +------------------------+ |    | (Not part of the Trust Chain) |
 +----------------------------+    +-------------------------------+
-</pre><a href="#section-5.1-2" class="pilcrow">¶</a>
+</pre><a href="#section-5.2-2" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1-3"><strong>Figure 3</strong>: Federation Trust Chain and Wallet Attestation are separate things, where the Wallet Attestation is linked to its Issuer attested within the Trust Chain.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
-<p id="section-5.1-4">Outside the Trust Chain, it is the Wallet Attestation, where the Wallet Provider that issued it is attestable through the Trust Chain, while the Wallet, such as the End-User's Native Mobile Application installed on the Personal Device, is attested through the Wallet Attestation and under the responsibility of its issuer, the Wallet Provider.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+<p id="section-5.2-3"><strong>Figure 3</strong>: Federation Trust Chain and Wallet Attestation are separate things, where the Wallet Attestation is linked to its Issuer attested within the Trust Chain.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+<p id="section-5.2-4">Outside the Trust Chain, it is the Wallet Attestation, where the Wallet Provider that issued it is attestable through the Trust Chain, while the Wallet, such as the End-User's Native Mobile Application installed on the Personal Device, is attested through the Wallet Attestation and under the responsibility of its issuer, the Wallet Provider.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1984,9 +2007,51 @@ These modifications allow a federation authority, such as a Trust Anchor, to app
   "exp": 1616239322,
   "metadata": {
     "federation_entity": {
-      "organization_name": "Example Credential Verifier",
+      "organization_name": "Example Credential Verifier"
     },
-    "openid_credential_verifier": { ... as defined in the OpenID4VP specs ... }
+    "openid_credential_verifier": {
+      "jwks": {
+        "keys": [
+          {
+            "kty": "EC",
+            "crv": "P-256",
+            "use": "sig",
+            "kid": "verifier-key-1",
+            "x": "MKBCTNIcKUSDii11ySs3526iDZ8AiTo7Tu6KPAqv7D4",
+            "y": "4Etl6SRW2YiLUrN5vfvVHuhp7x8PxltmWWlbbM4IFyM"
+          }
+        ]
+      },
+      "request_uris": [
+        "https://credential-verifier.example.it/request"
+      ],
+      "response_uris": [
+        "https://credential-verifier.example.it/response"
+      ],
+      "redirect_uris": [
+        "https://credential-verifier.example.it/cb"
+      ],
+      "dcql_queries": [
+        {
+          "credentials": [
+            {
+              "id": "pid",
+              "format": "dc+sd-jwt",
+              "meta": {
+                "vct_values": [
+                  "urn:eudi:pid:1"
+                ]
+              },
+              "claims": [
+                {"path": ["given_name"]},
+                {"path": ["family_name"]},
+                {"path": ["birth_date"]}
+              ]
+            }
+          ]
+        }
+      ]
+    }
   },
   "jwks": {
     "keys": [
@@ -2002,7 +2067,7 @@ These modifications allow a federation authority, such as a Trust Anchor, to app
 }
 </pre><a href="#section-7.1-3" class="pilcrow">¶</a>
 </div>
-<p id="section-7.1-4"><strong>Example 1</strong>: Example demonstrating how a Federation Authority can issue a Subordinate Statement about a Credential Verifier, specifying certain metadata parameters such as the endpoints to use and the allowed Digital Credentials to be requested.<a href="#section-7.1-4" class="pilcrow">¶</a></p>
+<p id="section-7.1-4"><strong>Example 1</strong>: Non-normative example of a Subordinate Statement issued by a Federation Authority about a Credential Verifier. The <code>openid_credential_verifier</code> metadata sets the protocol keys, the registered <code>request_uri</code> / <code>response_uri</code> / <code>redirect_uri</code> endpoints, and the DCQL query the Verifier is allowed to use when requesting Digital Credentials.<a href="#section-7.1-4" class="pilcrow">¶</a></p>
 <div id="openid-credential-verifier-presentation-metadata-in-subordinate-statements">
 <section id="section-7.1.1">
           <h4 id="name-openid-credential-verifier-p">
@@ -2124,6 +2189,7 @@ obtained from Trust Chain evaluation.<a href="#section-7.1.1-7" class="pilcrow">
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-federation-trust-discovery-" class="section-name selfRef">Federation Trust Discovery Use Cases</a>
       </h2>
 <p id="section-8-1">The process of trust establishment in federated environments is illustrated in this section through specific use cases involving Wallet Instances, Credential Issuers (CIs), and Credential Verifiers (CVs).<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-8-2">These use cases are independent: a Trust Framework MAY require support for any subset of them. Normative requirements in a use case apply only when that use case is used for OpenID Federation trust establishment.<a href="#section-8-2" class="pilcrow">¶</a></p>
 <div id="establishing-trust-with-a-credential-verifier-instance">
 <section id="section-8.1">
         <h3 id="name-establishing-trust-with-a-c">
@@ -2395,6 +2461,111 @@ obtained from Trust Chain evaluation.<a href="#section-7.1.1-7" class="pilcrow">
 <p id="section-8.6-4"><strong>Figure 6</strong>: Federation Entity Discovery, the Wallet Instance evaluates the trust with a Credential Verifier.<a href="#section-8.6-4" class="pilcrow">¶</a></p>
 </section>
 </div>
+<div id="credential-verifiers-establishing-trust-in-credential-issuers">
+<section id="section-8.7">
+        <h3 id="name-credential-verifiers-establ">
+<a href="#section-8.7" class="section-number selfRef">8.7. </a><a href="#name-credential-verifiers-establ" class="section-name selfRef">Credential Verifiers Establishing Trust in Credential Issuers</a>
+        </h3>
+<p id="section-8.7-1">When a Credential Verifier uses OpenID Federation to establish trust in the Credential Issuer of a presented Digital Credential, the Credential Verifier MUST validate that:<a href="#section-8.7-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="compact type-1" id="section-8.7-2">
+<li id="section-8.7-2.1">the cryptographic key used to sign the Digital Credential is (or was, at the time of issuance) bound to that Credential Issuer - specifically, that key is listed in the <code>jwks</code> property of the Credential Issuer's <code>openid_credential_issuer</code> metadata;<a href="#section-8.7-2.1" class="pilcrow">¶</a>
+</li>
+          <li id="section-8.7-2.2">the Credential Issuer is the Entity it claims to be - specifically, the Issuer Identifier obtained from the Digital Credential equals the Credential Issuer's Federation Entity Identifier, and a valid Trust Chain can be constructed from that Entity to a Trust Anchor configured by the Credential Verifier, establishing that the Credential Issuer is a (direct or indirect) subordinate of a Federation Entity that the Credential Verifier trusts; and<a href="#section-8.7-2.2" class="pilcrow">¶</a>
+</li>
+          <li id="section-8.7-2.3">where required by the Trust Framework, the Credential Issuer is entitled to issue that Credential (for example, via Trust Marks or metadata policy evaluated over the Trust Chain).<a href="#section-8.7-2.3" class="pilcrow">¶</a>
+</li>
+        </ol>
+<p id="section-8.7-3">This use case applies only when OpenID Federation is the trust mechanism used for that verification. An <code>https</code> Issuer Identifier in a Digital Credential does not by itself imply that the Credential Issuer participates in an OpenID Federation; other key-resolution mechanisms (for example, those defined by SD-JWT VC) MAY apply outside this use case.<a href="#section-8.7-3" class="pilcrow">¶</a></p>
+<div id="obtaining-the-credential-issuer-entity-identifier">
+<section id="section-8.7.1">
+          <h4 id="name-obtaining-the-credential-is">
+<a href="#section-8.7.1" class="section-number selfRef">8.7.1. </a><a href="#name-obtaining-the-credential-is" class="section-name selfRef">Obtaining the Credential Issuer Entity Identifier</a>
+          </h4>
+<p id="section-8.7.1-1">OpenID Federation Entity Identifiers MUST be <code>https</code> URLs, as defined in <span>[<a href="#OpenID.Federation" class="cite xref">OpenID.Federation</a>]</span>.<a href="#section-8.7.1-1" class="pilcrow">¶</a></p>
+<p id="section-8.7.1-2">When this use case applies, the Credential Issuer's Federation Entity Identifier is the OpenID4VCI Credential Issuer Identifier (<code>credential_issuer</code> metadata). That Entity Identifier MUST equal the <code>iss</code>/<code>sub</code> pair of the Credential Issuer's Entity Configuration, as profiled in the OpenID Credential Issuer Metadata Parameters section of this specification.<a href="#section-8.7.1-2" class="pilcrow">¶</a></p>
+<p id="section-8.7.1-3">When the Digital Credential identifies the Credential Issuer with an <code>https</code> URL that is that Credential Issuer Identifier (for example, the <code>iss</code> claim in an SD-JWT VC or JWT-secured Credential), that URL MUST be used as the Federation Entity Identifier.<a href="#section-8.7.1-3" class="pilcrow">¶</a></p>
+<p id="section-8.7.1-4">Some credential formats also carry an organizational issuer identifier that MAY differ from the Credential Issuer Identifier (for example, a W3C Verifiable Credential whose <code>issuer</code> / <code>issuer.id</code> names an institution, while <code>iss</code> or the OpenID4VCI <code>credential_issuer</code> names the technical issuance service). In that case, the Federation Entity Identifier MUST be the Credential Issuer Identifier, not the distinct organizational identifier. Establishing federation trust in the organizational issuer as a separate Entity is out of scope for this use case.<a href="#section-8.7.1-4" class="pilcrow">¶</a></p>
+<p id="section-8.7.1-5">Alternative Issuer Identifiers that are not <code>https</code> URLs (for example, DIDs), and format-specific bindings such as ISO mDOC X.509 certificate chains, are out of scope for this version of the specification. Extensions MAY define how to use DIDs as Leaf Entity Identifiers; that is out of scope for this specification, which defines how Federation Wallets use OpenID Federation 1.0 together with the OpenID4VC specifications.<a href="#section-8.7.1-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="federation-entity-discovery-and-credential-validation">
+<section id="section-8.7.2">
+          <h4 id="name-federation-entity-discovery">
+<a href="#section-8.7.2" class="section-number selfRef">8.7.2. </a><a href="#name-federation-entity-discovery" class="section-name selfRef">Federation Entity Discovery and Credential Validation</a>
+          </h4>
+<p id="section-8.7.2-1">The Credential Verifier MUST establish trust in the Credential Issuer using Federation Entity Discovery as defined in <span>[<a href="#OpenID.Federation" class="cite xref">OpenID.Federation</a>]</span>, equivalent to the process illustrated for Wallets in Figure 5:<a href="#section-8.7.2-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="compact type-1" id="section-8.7.2-2">
+<li id="section-8.7.2-2.1">Fetch the Credential Issuer's Entity Configuration using the Entity Identifier obtained above.<a href="#section-8.7.2-2.1" class="pilcrow">¶</a>
+</li>
+            <li id="section-8.7.2-2.2">Follow <code>authority_hints</code>, collect Subordinate Statements, and construct a Trust Chain to a Trust Anchor configured by the Credential Verifier.<a href="#section-8.7.2-2.2" class="pilcrow">¶</a>
+</li>
+            <li id="section-8.7.2-2.3">Validate the Trust Chain cryptographically and for temporal validity.<a href="#section-8.7.2-2.3" class="pilcrow">¶</a>
+</li>
+            <li id="section-8.7.2-2.4">Apply metadata policies and obtain the Credential Issuer's final metadata, including cryptographic keys used to verify issued Credentials (for example, keys in <code>openid_credential_issuer</code> <code>jwks</code>).<a href="#section-8.7.2-2.4" class="pilcrow">¶</a>
+</li>
+            <li id="section-8.7.2-2.5">Verify the presented Digital Credential using that validated key material, and evaluate any Trust Marks or policies required by the Trust Framework for issuance entitlement.<a href="#section-8.7.2-2.5" class="pilcrow">¶</a>
+</li>
+          </ol>
+<p id="section-8.7.2-3">Alternatively, when the presented Digital Credential includes the <code>trust_chain</code> JOSE header parameter defined in Section 4.3 of <span>[<a href="#OpenID.Federation" class="cite xref">OpenID.Federation</a>]</span>, the Credential Verifier MAY validate that Trust Chain offline as described in the Implementation Considerations for Offline Flows section, without performing real-time Federation Entity Discovery. The Credential Verifier MUST still validate the Trust Chain using a configured Trust Anchor's public keys and MUST verify the Digital Credential using key material consistent with the validated chain.<a href="#section-8.7.2-3" class="pilcrow">¶</a></p>
+<div class="breakable lang-ascii-art sourcecode" id="section-8.7.2-4">
+<pre>        +-------------------+                      +-----------------+ +-------------------------+
+        |Credential Verifier|                      |Credential Issuer| |Intermediate/Trust Anchor|
+        +--------+----------+                      +--------+--------+ +--------+----------------+
+                 |       Fetch Entity Configuration         |                     |
+                 |-----------------------------------------&gt;|                     |
+                 |                                          |                     |
+                 |----+                                     |                     |
+                 |    | Extract Authority Hints             |                     |
+                 |    | from Entity Configuration           |                     |
+                 |&lt;---+                                     |                     |
+                 |                                          |                     |
++-------+--------+------------------------------------------+---------------------+----------+
+| LOOP  |for each Authority Hint                            |                     |          |
++-------+        |                                          |                     |          |
+|                |                   Fetch Entity Configuration                   |          |
+|                |---------------------------------------------------------------&gt;|          |
+|                |                                          |                     |          |
+|                |                    Fetch Subordinate Statement                 |          |
+|                |---------------------------------------------------------------&gt;|          |
+|                |                                          |                     |          |
+|                |----+                                     |                     |          |
+|                |    | Validate the previous statement     |                     |          |
+|                |&lt;---+ using the Federation Entity Keys    |                     |          |
+|                |      provided in the Subordinate Statement|                    |          |
+|                |                                          |                     |          |
++----------------+------------------------------------------+---------------------+----------+
+                 |                                          |                     |
+                 |----+                                     |                     |
+                 |    | Validate Trust Chain                |                     |
+                 |&lt;---+                                     |                     |
+                 |                                          |                     |
++------+---------+---------------------------------------+  |                     |
+| ALT  |If Trust Chain is Valid and Unexpired            |  |                     |
++------+         |                                       |  |                     |
+|                |----+                                  |  |                     |
+|                |    | Derive final metadata and keys   |  |                     |
+|                |&lt;---+                                  |  |                     |
+|                |                                       |  |                     |
+|                |----+                                  |  |                     |
+|                |    | Verify Digital Credential        |  |                     |
+|                |    | and evaluate issuance policies   |  |                     |
+|                |&lt;---+                                  |  |                     |
++----------------+---------------------------------------+  |                     |
+|                |                                       |  |                     |
+|                |----+                                  |  |                     |
+|                |    | Abort Process with Error         |  |                     |
+|                |&lt;---+                                  |  |                     |
++----------------+---------------------------------------+  |                     |
+        +--------+----------+                      +--------+--------+ +--------+----------------+
+        |Credential Verifier|                      |Credential Issuer| |Intermediate/Trust Anchor|
+        +-------------------+                      +-----------------+ +-------------------------+
+</pre><a href="#section-8.7.2-4" class="pilcrow">¶</a>
+</div>
+<p id="section-8.7.2-5"><strong>Figure 7</strong>: Federation Entity Discovery, the Credential Verifier evaluates trust with a Credential Issuer.<a href="#section-8.7.2-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
 </section>
 </div>
 <div id="implementation-considerations-for-offline-flows">
@@ -2411,7 +2582,7 @@ obtained from Trust Chain evaluation.<a href="#section-7.1.1-7" class="pilcrow">
 </li>
         <li class="compact" id="section-9-3.3">Credential Verifiers in signed request objects. The Wallet Instance obtains a presentation request that includes a Trust Chain using a Trust Anchor that the Credential Verifier has in common with the Wallet Provider, according to the information obtained in the <code>wallet_metadata</code> parameter provided by the Wallet using the Request URI POST;<a href="#section-9-3.3" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="section-9-3.4">A Credential Issuer in a signed Digital Credential. The Wallet Instance obtains a Digital Credential from its Credential Issuer, which includes the Trust Chain using a Trust Anchor that the Credential Verifier has in common with the Wallet Provider, according to the Wallet Attestation used during the Issuance.<a href="#section-9-3.4" class="pilcrow">¶</a>
+        <li class="compact" id="section-9-3.4">Credential Issuers in signed Digital Credentials. A Credential Verifier (or Wallet Instance) obtaining such a Credential MAY use the included Trust Chain to establish trust in the Credential Issuer without real-time Federation Entity Discovery, as described in Credential Verifiers Establishing Trust in Credential Issuers.<a href="#section-9-3.4" class="pilcrow">¶</a>
 </li>
       </ul>
 <p id="section-9-4">The Entity that receives the data object including the JWT <code>trust_chain</code>, such as the Wallet Instance obtaining a signed request object, verifies the Trust Chain using the Trust Anchor's public keys and applies any metadata policies, without needing to have a working network connection for reaching the Federation API.<a href="#section-9-4" class="pilcrow">¶</a></p>
@@ -2572,20 +2743,46 @@ Niels van Dijk.<a href="#section-12-1" class="pilcrow">¶</a></p>
 <p id="appendix-B-1">[[ To be removed from the final specification ]]<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 <p id="appendix-B-2">-06<a href="#appendix-B-2" class="pilcrow">¶</a></p>
 <ul class="compact">
-<li class="compact" id="appendix-B-3.1">Removed unused Terminology subsection on Direct Trust, Web of Trust,
+<li class="compact" id="appendix-B-3.1">Filled Example 1 <code>openid_credential_verifier</code> metadata with protocol
+ keys, registered endpoints, and an authorized DCQL query
+ (federation-wallet issue #65).<a href="#appendix-B-3.1" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="appendix-B-3.2">Clarified that Wallet Instance types are informative and that
+ federation processing does not vary by type (federation-wallet
+ issue #64). Trust with the Holder is established through the
+ Wallet Provider and Wallet Attestation for all instance types.<a href="#appendix-B-3.2" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="appendix-B-3.3">Removed unused Terminology subsection on Direct Trust, Web of Trust,
  and Trusted Third-Party (federation-wallet issue #62). Defined Trust
  Model and Trust Framework as terms used in the specification, restated
  that trust is established through Trust Anchors (participants MAY
  configure more than one) in the Four-Party Model, and aligned the
- Credential Verifier metadata rationale with that language.<a href="#appendix-B-3.1" class="pilcrow">¶</a>
+ Credential Verifier metadata rationale with that language.<a href="#appendix-B-3.3" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-B-3.2">Clarified Four-Party Model figure captions so horizontal arrows are
+        <li class="compact" id="appendix-B-3.4">Clarified Four-Party Model figure captions so horizontal arrows are
  protocol interactions and vertical arrows are trust evaluation
  (federation-wallet issue #63). The section and diagrams are retained.
  Added Digital Credential, Credential, Credential Issuer Identifier, and
  Issuer Identifier to Terminology. Restored Wallet Attestation and Key
  Attestation citations from OpenID4VCI after a merge had moved Wallet
- Attestation back to OpenID4VP.<a href="#appendix-B-3.2" class="pilcrow">¶</a>
+ Attestation back to OpenID4VP.<a href="#appendix-B-3.4" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="appendix-B-3.5">Added Federation Trust Discovery use case "Credential Verifiers
+ Establishing Trust in Credential Issuers" to resolve
+ federation-wallet issue #48: map https Issuer Identifiers in
+ presented Credentials to Federation Entity Identifiers, perform
+ Federation Entity Discovery (or validate an offline <code>trust_chain</code>),
+ and verify Credentials with keys from the validated Trust Chain.
+ Specified that key binding is verified against
+ <code>openid_credential_issuer</code> <code>jwks</code>, and that issuer identity is
+ established by matching the Issuer Identifier to the Federation
+ Entity Identifier and validating a Trust Chain to a configured
+ Trust Anchor. Clarified that W3C VC <code>issuer</code> / <code>issuer.id</code> is not
+ used as the Federation Entity Identifier when it differs from the
+ OpenID4VCI Credential Issuer Identifier. DIDs and ISO mDOC X.509
+ bindings remain out of scope for this version; extensions MAY
+ define DID Leaf Entities. Clarified that Trust Discovery use cases
+ are independently adoptable by Trust Frameworks.<a href="#appendix-B-3.5" class="pilcrow">¶</a>
 </li>
       </ul>
 <p id="appendix-B-4">-05<a href="#appendix-B-4" class="pilcrow">¶</a></p>
