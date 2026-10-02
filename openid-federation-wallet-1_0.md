@@ -594,9 +594,10 @@ In particular:
   applied to any `dcql_queries` present in the Credential Verifier metadata,
   if available, or otherwise to the `dcql_query` contained in
   `client_metadata` in the Authorization Request.
-  Profiles MAY additionally convey `dcql_queries`-related policies using
-  Trust Marks bound to the Credential Verifier; see the section on
-  Trust Marks and policy expression for further guidance.
+  When `metadata` or `metadata_policy` contains
+  `openid_credential_verifier.dcql_queries`, the DCQL queries a
+  Credential Verifier is permitted to use MUST be determined only from
+  that `metadata` and `metadata_policy`.
 
 This mechanism allows superior entities to centrally define and enforce
 policy on Credential Verifiers’ OpenID4VP behaviour (including cryptographic
@@ -615,14 +616,24 @@ Differently from `metadata`, `metadata_policy` ensures that specific settings ca
 
 ## Using Trust Marks
 
-Trust Marks are issued by authorized entities (Trust Mark Issuers) within the federation, typically after an entity has demonstrated compliance with certain standards, this might happen through auditing or certification processes.
+Trust Marks are used as defined in [@!OpenID.Federation]. This specification
+does not change Trust Mark issuance, signature verification, or status checks.
 
-Trust Marks are typically implemented as signed assertions that can be verified by other entities.
+This profile uses Trust Marks for qualitative and authorization properties of
+wallet Entities that are not expressed, or not fully expressed, in `metadata`
+and `metadata_policy`. Typical uses in wallet ecosystems include:
 
-This verification process involves checking the digital signature against the public key of the Trust Mark Issuer to ensure the Trust Mark has not been forged, and its check to the Trust Mark Status endpoint to check it against any revocation.
+- Credential Issuer entitlement to issue a given Digital Credential type;
+- Credential Verifier authorization to request particular credentials or to
+  interact with particular populations (for example, under-age End-Users);
+- Wallet Provider assurance that a Wallet Solution meets a security or
+  compliance profile required by the Trust Framework;
+- Credential Verifier attributes that a Wallet verifies and presents to the
+  End-User (for example, an assurance that the verifier is an ethical data user).
 
-Trust Marks SHOULD be defined within the trust framework. Trust Marks are asserted about a subject through a registration service or compliance evaluation mechanism and therefore included in subject's Entity Configurations. This allows other entities to quickly assess the compliance status of a subject by examining the Entity Configuration of a subject.
-
+The DCQL queries a Credential Verifier is permitted to use are determined
+as defined in OpenID Credential Verifier Presentation Metadata in
+Subordinate Statements. Trust Marks SHOULD NOT be used to carry `dcql_queries`.
 
 ```json=
 {
@@ -1213,6 +1224,11 @@ The technology described in this specification was made available from contribut
      that trust is established through Trust Anchors (participants MAY
      configure more than one) in the Four-Party Model, and aligned the
      Credential Verifier metadata rationale with that language.
+   * Profiled Trust Marks for wallet ecosystems instead of restating
+     OpenID Federation (federation-wallet issue #66): issuance
+     entitlement, verifier authorization, Wallet Provider assurance,
+     and verifier attributes presented to the End-User. DCQL query
+     authorization remains in `metadata` and `metadata_policy`.
    * Added Federation Trust Discovery use case "Credential Verifiers
      Establishing Trust in Credential Issuers" to resolve
      federation-wallet issue #48: map https Issuer Identifiers in
