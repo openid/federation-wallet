@@ -88,6 +88,9 @@ It defines entity types for entities participating in those ecosystems.
 It describes trust evaluation mechanisms for those entities.
 It uses applicable metadata parameters defined by other specifications
 for wallet entities.
+It covers only the technical and procedural aspects of a Trust Framework.
+To allow for a scalable approach, as many aspects of a Trust Framework as
+possible should be presented in a machine-discoverable and machine-readable way.
 
 Collaboration Note: When a metadata parameter is needed for an Entity Type
 defined by this specification that does not currently exist and
@@ -132,7 +135,7 @@ This specification also defines the following terms:
 : The Wallet Solution is a product offered by a Wallet Provider to enable End-Users to securely manage and use their Digital Credentials. It is delivered by the Wallet Provider in the form of mobile app or cloud service or another form of software application. It may also utilize services and web services for the exchange of data between its Wallet Provider and the Wallet Instances.
 
 **Authentic Source**:
-: A protected Resource Server, not necessarily an OAuth 2.0 Resource Server, utilized by the Credential Issuer to retrieve the data necessary for issuing a Credential related to a subject.
+: A protected Resource Server, not necessarily an OAuth 2.0 Resource Server, utilized by the Credential Issuer to retrieve the data necessary for issuing a Digital Credential related to a subject.
 
 **Credential Verifier**:
 : Entity that requests and verifies Digital Credentials presented by a Holder. 
@@ -144,7 +147,7 @@ This specification also defines the following terms:
 : The relationships and mechanisms through which trust is established and maintained between Entities, including how they interact, the basis on which they can trust each other, and the roles they play.
 
 **Trust Framework**:
-: A structure of policies, standards, and guidelines that governs the implementation of a Trust Model, including legal, technical, and procedural rules. This specification covers only the technical and procedural aspects. To allow for a scalable approach, as many aspects of a Trust Framework as possible should be presented in a machine-discoverable and machine-readable way.
+: A structure of policies, standards, and guidelines that governs the implementation of a Trust Model, including legal, technical, and procedural rules.
 
 # The Four-Party Model
 
@@ -161,7 +164,7 @@ The four Entities interact with each other as described below:
 
 1. **Holder**: The Holder requests, stores, presents, and manages Digital Credentials and other forms of digital attestations. It discovers trustworthy Credential Issuers through the Trust Anchor and its Intermediates. Additionally, the Holder evaluates trust with Credential Verifiers recognized by the Trust Anchor and its Intermediates and checks for the non-revocation of the other Entities in use.
 2. **Credential Issuer**: This Entity issues Digital Credentials to the Holder, after having evaluated the trust in the Wallet Solution and the security of the Holder.
-3. **Credential Verifier**: This is any Entity that requires proof of the End-User's identity, through the presentation of Credentials, to provide services or carry out transactions. Credential Verifiers rely on the validity of the Digital Credentials presented via the End-User's Wallet. They MUST have the means to verify these Credentials against the Credential Issuer's cryptographic public keys or other verification methods to ensure they are authentic and have not been tampered with. The Credential Verifier uses the Trust Anchor and its Intermediates to establish the trust with the Credential Issuers, obtains their metadata and cryptographic material, and check the validity of the presented Digital Credentials. It also establishes trust with the Holder and the Wallet Solution used by it.
+3. **Credential Verifier**: This is any Entity that requires proof of the End-User's identity, attributes, or both, through the presentation of Digital Credentials, to provide services or carry out transactions. Credential Verifiers rely on the validity of the Digital Credentials presented via the End-User's Wallet. They MUST have the means to verify these Digital Credentials against the Credential Issuer's cryptographic public keys or other verification methods to ensure they are authentic and have not been tampered with. The Credential Verifier uses the Trust Anchor and its Intermediates to establish the trust with the Credential Issuers, obtains their metadata and cryptographic material, and check the validity of the presented Digital Credentials. It also establishes trust with the Holder and the Wallet Solution used by it.
 4. **Trust Anchor**: This Entity and its Intermediates, issue Subordinate Statements and any required information about the status of the Federation and its participants (Organizational Entities), to demonstrate their non-revocations, distribute the policies and prevents the repudiation of the past transaction about any trust evaluation, if signed. Historical proofs allow for the evaluation of an Organizational Entity's status within a federation and their past signatures, which can be verified using a historical Trust Chain.
 
 
@@ -177,7 +180,7 @@ The four Entities interact with each other as described below:
 |                          Trust Anchor                        |
 +--------------------------------------------------------------+
 ~~~
-**Figure 1**: The Four-Party Model. Horizontal arrows represent protocol interactions: issuance of Digital Credentials between the Credential Issuer and the Holder, and presentation between the Holder and the Credential Verifier. Vertical arrows represent trust evaluation with the Trust Anchor; they are not client/server relations and they are not the flow of credential data.
+**Figure 1**: The Four-Party Model. Horizontal arrows represent protocol interactions: issuance of Digital Credentials between the Credential Issuer and the Holder, and presentation between the Holder and the Credential Verifier. Vertical arrows mean that the party uses the Trust Anchor to evaluate trust in other parties. They are not client/server relations and they are not the flow of credential data. A vertical arrow does not mean that the party is a Federation Entity under the Trust Anchor. The Holder is not a Federation Entity; it uses the Trust Anchor to evaluate Credential Issuers and Credential Verifiers.
 
 In the Wallet Ecosystem, the primary interaction resolves around asset management. Unlike an Identity Provider in OpenID Connect or SAML2, which authenticates the End-User's identity for third parties, the Credential Issuer in the Wallet ecosystem focuses on managing the issuance of Digital Credentials to the Holder.
 
@@ -205,9 +208,9 @@ Consequently, the End-User obtains and holds the Digital Credentials without dis
 |                          Trust Anchor                             |
 +-------------------------------------------------------------------+
 ~~~
-**Figure 2**: Authentic Sources and Wallet Providers in the Four-Party Model. Horizontal arrows have the same meaning as in Figure 1 (issuance and presentation). The additional downward arrows from Authentic Source to Credential Issuer and from Wallet Provider to Holder represent data used for issuance and Wallet Attestation, respectively. Vertical arrows to the Trust Anchor represent trust evaluation, as in Figure 1.
+**Figure 2**: Authentic Sources and Wallet Providers in the Four-Party Model. Horizontal arrows have the same meaning as in Figure 1 (issuance and presentation). The additional downward arrows from Authentic Source to Credential Issuer and from Wallet Provider to Holder represent data used for issuance and Wallet Attestation, respectively. Vertical arrows to the Trust Anchor have the same meaning as in Figure 1: the party uses the Trust Anchor to evaluate trust in other parties. The Wallet Provider is a Federation Entity evaluated under the Trust Anchor, for example by Credential Issuers; that evaluation is not drawn as an arrow from the Wallet Provider.
 
-The Figure above illustrates at the center the Holder, who interacts directly with both the Credential Issuer and the Credential Verifier. The Credential Issuer provides Digital Credentials to the Holder, while the Credential Verifier relies on these Credentials to verify the Holder's claims. Above the Holder is the Wallet Provider, which facilitates the registration and the attestation of the security and integrity of the Holder. All entities, including the Credential Issuer, Credential Verifier, Wallet Provider and therefore Holders, and are underpinned by a Trust Anchor, ensuring that all interactions and transactions are anchored in a trusted third party.
+The Figure above illustrates at the center the Holder, who interacts directly with both the Credential Issuer and the Credential Verifier. The Credential Issuer provides Digital Credentials to the Holder, while the Credential Verifier relies on these Digital Credentials to verify the Holder's claims. Above the Holder is the Wallet Provider, which facilitates the registration and the attestation of the security and integrity of the Holder. The Credential Issuer, the Credential Verifier, and the Wallet Provider are Federation Entities evaluated under the Trust Anchor. The Holder is not a Federation Entity. Other parties evaluate the Holder through the Wallet Provider and its Wallet Attestation, and the Holder uses the Trust Anchor to evaluate the other parties.
 
 # Wallet Instances
 
@@ -227,7 +230,7 @@ There are many ways to technically implement Wallet Instances to manage Digital 
 **Web Wallet Native Application**
 : Also known as Cloud Wallet or Web Wallet only, is a Wallet that uses native web technologies for its components, such as UI components. Cloud Wallets are typically suited for Organizational Entities that requires automated Digital Credential operations (request, issuance, store, presentation, revocations) in unsupervised flows, therefore without any human control. Web Wallets are divided into two additional subtypes:
     - **Custodial Web Wallet**: Cloud Wallets that have dependency on a cloud infrastructure, not necessarily hosted by the Wallet Provider, are typically classified as Custodial Web Wallets; in this case, the cryptographic keys used and the Digital Credentials are stored in the cloud infrastructure.
-    - **Non-Custodial Web Wallet**: A Web Wallet where the cryptographic keys are stored and managed on a media in possession by the End-User and the Digital Credentials can only be used by the End-User, e.g. using a FIDO enabled security hardware token, no matter whether the Credentials are stored locally in a Personal Device or in cloud storage.
+    - **Non-Custodial Web Wallet**: A Web Wallet where the cryptographic keys are stored and managed on a media in possession by the End-User and the Digital Credentials can only be used by the End-User, e.g. using a FIDO enabled security hardware token, no matter whether the Digital Credentials are stored locally in a Personal Device or in cloud storage.
 
 **Progressive Web Application Wallet** (PWAW)
 : PWAW is a web application that looks like a native app. It can be installed on a Personal Device and not necessarily using the operative system specific app-store. The advantage with a PWAW is that it gives the End-User the same experience as a Mobile Native Wallet Application while also offering the benefits of a web application. PWAW can be Custodial or Non-Custodial.
