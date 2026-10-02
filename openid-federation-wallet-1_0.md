@@ -129,7 +129,7 @@ This specification also defines the following terms:
 : Entity that requests and verifies Digital Credentials presented by a Holder. 
 
 **Credential Verifier Instance**:
-: A software application that allows an individual to request to a Holder and receive from that Holder a Digital Credential, sometimes in a proximity flow, and then verify the received Digital Credential. A Credential Verifier Instance is not a Federation Entity: it has no queryable Entity Identifier. It can be attested by a Verifier Provider.
+: A software application that allows an individual to request to a Holder and receive from that Holder a Digital Credential, sometimes in a proximity flow, and then verify the received Digital Credential. A Credential Verifier Instance is not a Federation Entity since it has no queryable Entity Identifier. It can be attested by a Verifier Provider.
 
 **Verifier Provider**:
 : An Organizational Entity that develops, publishes, or manages Credential Verifier Instance software and that issues Verifier Attestation JWTs about those instances.
@@ -656,7 +656,7 @@ The Authorization Request MUST be signed with the private key corresponding to `
 
 When this use case is used, the Wallet MUST:
 
-1. Validate the Verifier Attestation JWT as specified in [@!OpenID4VP], including `typ`, `exp`, `sub`, `iss`, and `cnf`.
+1. Validate the header and the claims of the Verifier Attestation JWT as specified in [@!OpenID4VP], including `typ`, `exp`, `sub`, `iss`, and `cnf`. The signature is verified in step 2.
 2. Establish trust in `iss` as a Verifier Provider of type `openid_verifier_provider` by constructing a Trust Chain to a configured Trust Anchor, or by validating a `trust_chain` JOSE header on the attestation as described in the Implementation Considerations for Offline Flows section. The Wallet MUST verify the attestation signature using keys obtained from that Trust Chain.
 3. Establish trust in `sub` as a Credential Verifier of type `openid_credential_verifier` by constructing a Trust Chain to a configured Trust Anchor, or by validating an offline Trust Chain about that Entity. The Wallet MUST obtain the Organizational Credential Verifier's metadata and entitlements from that Trust Chain.
 4. Verify that the Authorization Request is signed with the key in `cnf`.
@@ -666,7 +666,7 @@ A Verifier Attestation JWT asserts instance integrity and key binding. It MAY al
 
 When federated metadata for `sub` is available, the Wallet MUST use it for cryptographic keys, endpoints, and authorized DCQL queries, and MUST ignore conflicting values in `client_metadata`. This overrides the OpenID4VP rule that, for the `verifier_attestation` Client Identifier Prefix, Verifier metadata other than the public key is taken from `client_metadata`.
 
-When used in a Wallet federation, Verifier Attestation JWTs SHOULD include the `trust_chain` JOSE header parameter defined in Section 4.3 of [@!OpenID.Federation], so that the Wallet can validate the Verifier Provider without real-time Federation Entity Discovery.
+When used in a Wallet federation, Verifier Attestation JWTs SHOULD include the `trust_chain` JOSE header parameter defined in Section 4.3 of [@!OpenID.Federation], containing a Trust Chain about `iss`, so that the Wallet can validate the Verifier Provider without real-time Federation Entity Discovery. The signed Request Object MAY include the `trust_chain` JOSE header parameter containing a Trust Chain about `sub`. This Trust Chain is used to obtain the metadata of `sub` while the signature of the Request Object is verified with the key in `cnf`.
 
 If the Wallet cannot establish trust in the Verifier Provider or in the Organizational Credential Verifier, it MUST refuse the request.
 
@@ -1027,13 +1027,12 @@ The security considerations in
 [@!OpenID.Federation], [@!OpenID4VP], and [@!OpenID4VCI]
 apply to this specification.
 
-Routing every Credential Verifier Instance request through an Organizational
-Credential Verifier for signature concentrates one organizational key in every
-terminal and fails offline and proximity flows. Verifier Attestation JWTs bind
-per-instance keys instead. A Verifier Attestation JWT MUST NOT expand the
+Without per-instance attestation, a Credential Verifier either routes every request through its backend for signature, which does not work offline, or deploys the same organizational key on every terminal, so that one compromise affects the whole organization. Verifier Attestation JWTs bind a distinct key to each instance instead. A Verifier Attestation JWT MUST NOT expand the
 Organizational Credential Verifier's entitlements; a compromised Verifier
 Provider can at worst narrow them. Authorization authority remains with the
 federation.
+
+Nothing prevents a Verifier Provider from publishing one of its Federation Entity Keys also in the `jwks` of its `openid_verifier_provider` metadata. However, Section 3.1 of [@!OpenID.Federation] states that Federation Entity Keys SHOULD NOT be used in other protocols, so Verifier Providers SHOULD use keys distinct from their Federation Entity Keys to sign Verifier Attestation JWTs.
 
 # IANA Considerations
 
