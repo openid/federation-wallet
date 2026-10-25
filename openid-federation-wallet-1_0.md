@@ -1062,20 +1062,24 @@ Niels van Dijk.
         </front>
 </reference>
 
-<reference anchor="I-D.ietf-oauth-attestation-based-client-auth" target="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-attestation-based-client-auth">
-  <front>
-    <title>OAuth 2.0 Attestation-Based Client Authentication</title>
-    <author initials="T." surname="Looker" fullname="Tobias Looker">
-      <organization>MATTR</organization>
-    </author>
-    <author initials="P." surname="Bastian" fullname="Paul Bastian">
-      <organization>Bundesdruckerei</organization>
-    </author>
-    <author initials="C." surname="Bormann" fullname="Christian Bormann">
-      <organization>SPRIND</organization>
-    </author>
-    <date day="6" month="July" year="2026"/>
-  </front>
+<reference anchor="I-D.ietf-oauth-attestation-based-client-auth" target="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-attestation-based-client-auth-12">
+<front>
+<title>OAuth 2.0 Attestation-Based Client Authentication</title>
+<author initials="T." surname="Looker" fullname="Tobias Looker">
+<organization>MATTR</organization>
+</author>
+<author initials="P." surname="Bastian" fullname="Paul Bastian">
+<organization>Bundesdruckerei</organization>
+</author>
+<author initials="C." surname="Bormann" fullname="Christian Bormann">
+<organization>SPRIND</organization>
+</author>
+<date month="October" day="12" year="2026"/>
+<abstract>
+<t> This specification defines an extension to the OAuth 2.0 protocol (RFC 6749) that enables a client instance to include a key-bound attestation when interacting with an Authorization Server or Resource Server. This mechanism allows a client instance to prove its authenticity, as verified by a client attester, without revealing its target audience to that attester. It may also serve as a mechanism for client authentication as per OAuth 2.0. </t>
+</abstract>
+</front>
+<seriesInfo name="Internet-Draft" value="draft-ietf-oauth-attestation-based-client-auth-12"/>
 </reference>
 
 <reference anchor="IANA.OAuth.Parameters" target="https://www.iana.org/assignments/oauth-parameters/">
@@ -1083,6 +1087,21 @@ Niels van Dijk.
     <title>OAuth Parameters</title>
     <author><organization>IANA</organization></author>
   </front>
+</reference>
+
+<reference anchor="CIMD" target="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-client-id-metadata-document-02">
+<front>
+<title>OAuth Client ID Metadata Document</title>
+<author initials="A." surname="Parecki" fullname="Aaron Parecki">
+<organization>Okta</organization>
+</author>
+<author initials="E." surname="Smith" fullname="Emelia Smith"> </author>
+<date month="July" day="6" year="2026"/>
+<abstract>
+<t> This specification defines a mechanism through which an OAuth client can identify itself to authorization servers, without prior dynamic client registration or other existing registration. This is through the usage of a URL as a client_id in an OAuth flow, where the URL refers to a document containing the necessary client metadata, enabling the authorization server to fetch the metadata about the client as needed. </t>
+</abstract>
+</front>
+<seriesInfo name="Internet-Draft" value="draft-ietf-oauth-client-id-metadata-document-02"/>
 </reference>
 
 # Notices
