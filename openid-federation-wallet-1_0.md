@@ -476,6 +476,17 @@ Appendix B of [@!OpenID4VP].
 Together, these rules enable compliance with
 Section 14.8 of [@!OpenID4VP] (Always Use the Full Client Identifier).
 
+Implementations processing Client IDs MUST NOT treat the Entity Identifier
+obtained by removing the `openid_federation:` prefix
+as equivalent to a Client ID of the same value that was received
+with a different Client Identifier Prefix, with no prefix (except when it is clear
+that the client is a properly authenticated OpenID Federation Client ID being
+used in a context where an un-prefixed ClientID is permitted),
+or under another specification,
+such as an OAuth Client ID Metadata Document [@CIMD] Client ID.
+The full prefixed value remains the Client ID of the Credential Verifier,
+as required by Section 14.8 of [@!OpenID4VP].
+
 # Federation Policies
 
 Policies refer to a set of rules that govern the operations, security, and interactions within a federation.
