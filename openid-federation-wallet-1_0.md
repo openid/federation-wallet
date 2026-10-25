@@ -1,5 +1,5 @@
 %%%
-title = "OpenID Federation for Wallet Architectures 1.0 - draft 05"
+title = "OpenID Federation for Wallet Architectures 1.0 - draft 06"
 abbrev = "OpenID Federation for Wallet Architectures"
 ipr = "none"
 workgroup = "OpenID Connect Working Group"
@@ -454,6 +454,37 @@ When these parameters are expressed and enforced through Subordinate
 Statements, as defined in [@!OpenID.Federation], critical configuration and
 authorization decisions move from ad‑hoc, per‑instance configuration into a
 federated, policy-driven framework anchored in the Trust Anchor and the Superior Entities.
+
+### OpenID Federation Client IDs Used with OpenID for Verifiable Presentations
+
+Note that Section 5.9.3 of [@!OpenID4VP] defines that the Client ID values
+specified by Section 12.1 of [@!OpenID.Federation], which are Entity Identifiers,
+MUST be prefixed by `openid_federation:` when used with [@!OpenID4VP].
+Therefore, such Client IDs MUST be prefixed when used with
+[@!OpenID4VP] protocols and APIs
+and the prefix MUST be removed from any Client IDs received from
+[@!OpenID4VP] protocols and APIs
+when applying the processing rules in OpenID Federation 1.0 and this specification.
+For example, the prefix MUST be included in
+the `client_id` values in the Authorization Requests defined in
+Section 5 of [@!OpenID4VP],
+the `client_id` values in the key-bound attestations defined in
+Section 5.11.1 of [@!OpenID4VP], and
+wherever the Client ID value is used in the Presentation Responses defined in
+Appendix B of [@!OpenID4VP].
+Together, these rules enable compliance with
+Section 14.8 of [@!OpenID4VP] (Always Use the Full Client Identifier).
+
+Implementations processing Client IDs MUST NOT treat the Entity Identifier
+obtained by removing the `openid_federation:` prefix
+as equivalent to a Client ID of the same value that was received
+with a different Client Identifier Prefix, with no prefix (except when it is clear
+that the client is a properly authenticated OpenID Federation Client ID being
+used in a context where an un-prefixed ClientID is permitted),
+or under another specification,
+such as an OAuth Client ID Metadata Document [@CIMD] Client ID.
+The full prefixed value remains the Client ID of the Credential Verifier,
+as required by Section 14.8 of [@!OpenID4VP].
 
 # Federation Policies
 
@@ -1163,20 +1194,24 @@ Niels van Dijk.
         </front>
 </reference>
 
-<reference anchor="I-D.ietf-oauth-attestation-based-client-auth" target="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-attestation-based-client-auth">
-  <front>
-    <title>OAuth 2.0 Attestation-Based Client Authentication</title>
-    <author initials="T." surname="Looker" fullname="Tobias Looker">
-      <organization>MATTR</organization>
-    </author>
-    <author initials="P." surname="Bastian" fullname="Paul Bastian">
-      <organization>Bundesdruckerei</organization>
-    </author>
-    <author initials="C." surname="Bormann" fullname="Christian Bormann">
-      <organization>SPRIND</organization>
-    </author>
-    <date day="6" month="July" year="2026"/>
-  </front>
+<reference anchor="I-D.ietf-oauth-attestation-based-client-auth" target="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-attestation-based-client-auth-12">
+<front>
+<title>OAuth 2.0 Attestation-Based Client Authentication</title>
+<author initials="T." surname="Looker" fullname="Tobias Looker">
+<organization>MATTR</organization>
+</author>
+<author initials="P." surname="Bastian" fullname="Paul Bastian">
+<organization>Bundesdruckerei</organization>
+</author>
+<author initials="C." surname="Bormann" fullname="Christian Bormann">
+<organization>SPRIND</organization>
+</author>
+<date month="October" day="12" year="2026"/>
+<abstract>
+<t> This specification defines an extension to the OAuth 2.0 protocol (RFC 6749) that enables a client instance to include a key-bound attestation when interacting with an Authorization Server or Resource Server. This mechanism allows a client instance to prove its authenticity, as verified by a client attester, without revealing its target audience to that attester. It may also serve as a mechanism for client authentication as per OAuth 2.0. </t>
+</abstract>
+</front>
+<seriesInfo name="Internet-Draft" value="draft-ietf-oauth-attestation-based-client-auth-12"/>
 </reference>
 
 <reference anchor="IANA.OAuth.Parameters" target="https://www.iana.org/assignments/oauth-parameters/">
@@ -1184,6 +1219,21 @@ Niels van Dijk.
     <title>OAuth Parameters</title>
     <author><organization>IANA</organization></author>
   </front>
+</reference>
+
+<reference anchor="CIMD" target="https://datatracker.ietf.org/doc/html/draft-ietf-oauth-client-id-metadata-document-02">
+<front>
+<title>OAuth Client ID Metadata Document</title>
+<author initials="A." surname="Parecki" fullname="Aaron Parecki">
+<organization>Okta</organization>
+</author>
+<author initials="E." surname="Smith" fullname="Emelia Smith"> </author>
+<date month="July" day="6" year="2026"/>
+<abstract>
+<t> This specification defines a mechanism through which an OAuth client can identify itself to authorization servers, without prior dynamic client registration or other existing registration. This is through the usage of a URL as a client_id in an OAuth flow, where the URL refers to a document containing the necessary client metadata, enabling the authorization server to fetch the metadata about the client as needed. </t>
+</abstract>
+</front>
+<seriesInfo name="Internet-Draft" value="draft-ietf-oauth-client-id-metadata-document-02"/>
 </reference>
 
 # Notices
@@ -1200,6 +1250,7 @@ The technology described in this specification was made available from contribut
 
    -06
 
+   * Added note on prefixing Client ID values used with OpenID4VP.
    * Filled Example 1 `openid_credential_verifier` metadata with protocol
      keys, registered endpoints, and an authorized DCQL query
      (federation-wallet issue #65).
