@@ -471,7 +471,7 @@ the `client_id` values in the Authorization Requests defined in
 Section 5 of [@!OpenID4VP],
 the `client_id` values in the key-bound attestations defined in
 Section 5.11.1 of [@!OpenID4VP], and
-the `aud` values in the Presentation Responses defined in
+wherever the Client ID value is used in the Presentation Responses defined in
 Appendix B of [@!OpenID4VP].
 Together, these rules enable compliance with
 Section 14.8 of [@!OpenID4VP] (Always Use the Full Client Identifier).
