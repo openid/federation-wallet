@@ -510,7 +510,7 @@ These modifications allow a federation authority, such as a Trust Anchor, to app
               "format": "dc+sd-jwt",
               "meta": {
                 "vct_values": [
-                  "urn:eudi:pid:1"
+                  "https://credentials.example.com/pid"
                 ]
               },
               "claims": [
