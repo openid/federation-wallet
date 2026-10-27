@@ -621,7 +621,7 @@ does not change Trust Mark issuance, signature verification, or status checks.
 
 This profile uses Trust Marks for qualitative and authorization properties of
 wallet Entities that are not expressed, or not fully expressed, in `metadata`
-and `metadata_policy`. Typical uses in wallet ecosystems include:
+and `metadata_policy`. Uses in wallet ecosystems may include:
 
 - Credential Issuer entitlement to issue a given Digital Credential type;
 - Credential Verifier authorization to request particular credentials or to
@@ -707,13 +707,13 @@ When verification of a `warn` Trust Mark succeeds, a Wallet SHOULD present
 that Trust Mark to the End-User.
 
 When more than one requirement applies to the same transaction, the
-evaluating Entity MUST evaluate each applicable requirement on its own.
+evaluating Entity MUST evaluate each applicable requirement independently.
 The transaction MUST NOT complete when any applicable `block` requirement
 fails.
 The evaluating Entity MUST still make every applicable `warn` result
-available, as defined above.
+available, as described above.
 A Trust Mark that is present in an Entity Configuration and that is not
-referenced by `trust_mark_requirements` has no effect on whether the
+referenced by `trust_mark_requirements` has no REQUIRED effect on whether the
 transaction completes.
 A Wallet MAY verify such a Trust Mark and MAY present it to the End-User.
 
