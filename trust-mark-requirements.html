@@ -1227,7 +1227,7 @@ li > p:last-of-type:only-child {
 <dd class="workgroup">OpenID Connect Working Group</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-10-02" class="published">2 October 2026</time>
+<time datetime="2026-10-27" class="published">27 October 2026</time>
     </dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
@@ -2163,7 +2163,7 @@ obtained from Trust Chain evaluation.<a href="#section-7.1.1-7" class="pilcrow">
 does not change Trust Mark issuance, signature verification, or status checks.<a href="#section-7.4-1" class="pilcrow">¶</a></p>
 <p id="section-7.4-2">This profile uses Trust Marks for qualitative and authorization properties of
 wallet Entities that are not expressed, or not fully expressed, in <code>metadata</code>
-and <code>metadata_policy</code>. Typical uses in wallet ecosystems include:<a href="#section-7.4-2" class="pilcrow">¶</a></p>
+and <code>metadata_policy</code>. Uses in wallet ecosystems may include:<a href="#section-7.4-2" class="pilcrow">¶</a></p>
 <ul class="compact">
 <li class="compact" id="section-7.4-3.1">Credential Issuer entitlement to issue a given Digital Credential type;<a href="#section-7.4-3.1" class="pilcrow">¶</a>
 </li>
@@ -2259,13 +2259,13 @@ which MAY allow the transaction to continue.
 When verification of a <code>warn</code> Trust Mark succeeds, a Wallet SHOULD present
 that Trust Mark to the End-User.<a href="#section-7.4.1-7" class="pilcrow">¶</a></p>
 <p id="section-7.4.1-8">When more than one requirement applies to the same transaction, the
-evaluating Entity MUST evaluate each applicable requirement on its own.
+evaluating Entity MUST evaluate each applicable requirement independently.
 The transaction MUST NOT complete when any applicable <code>block</code> requirement
 fails.
 The evaluating Entity MUST still make every applicable <code>warn</code> result
-available, as defined above.
+available, as described above.
 A Trust Mark that is present in an Entity Configuration and that is not
-referenced by <code>trust_mark_requirements</code> has no effect on whether the
+referenced by <code>trust_mark_requirements</code> has no REQUIRED effect on whether the
 transaction completes.
 A Wallet MAY verify such a Trust Mark and MAY present it to the End-User.<a href="#section-7.4.1-8" class="pilcrow">¶</a></p>
 <div class="lang-json= sourcecode" id="section-7.4.1-9">
