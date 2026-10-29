@@ -1227,7 +1227,7 @@ li > p:last-of-type:only-child {
 <dd class="workgroup">OpenID Connect Working Group</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-10-27" class="published">27 October 2026</time>
+<time datetime="2026-10-29" class="published">29 October 2026</time>
     </dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
@@ -1947,8 +1947,7 @@ refinement of, one of the query objects in this array.<a href="#section-6.3.1-4.
             </h5>
 <p id="section-6.3.1.1-1">The rationale for extending the set of <code>openid_credential_verifier</code> metadata
 parameters is to align OpenID4VP Verifiers with the Trust Anchor-based Trust
-Model employed by this specification. Cryptographic material, protocol endpoints,
-and default or constrained DCQL queries are published in federation-managed metadata.
+Model employed by this specification.
 This practice aims to:<a href="#section-6.3.1.1-1" class="pilcrow">¶</a></p>
 <ul class="compact">
 <li class="compact" id="section-6.3.1.1-2.1">enforce common technical and policy requirements on all participating
@@ -2117,11 +2116,7 @@ When a <code>dcql_queries</code> constraint is expressed via
 <code>metadata_policy.openid_credential_verifier</code>, that policy MUST be
 applied to any <code>dcql_queries</code> present in the Credential Verifier metadata,
 if available, or otherwise to the <code>dcql_query</code> contained in
-<code>client_metadata</code> in the Authorization Request.
-When <code>metadata</code> or <code>metadata_policy</code> contains
-<code>openid_credential_verifier.dcql_queries</code>, the DCQL queries a
-Credential Verifier is permitted to use MUST be determined only from
-that <code>metadata</code> and <code>metadata_policy</code>.<a href="#section-7.1.1-6.2" class="pilcrow">¶</a>
+<code>client_metadata</code> in the Authorization Request.<a href="#section-7.1.1-6.2" class="pilcrow">¶</a>
 </li>
           </ul>
 <p id="section-7.1.1-7">This mechanism allows superior entities to centrally define and enforce
@@ -2172,10 +2167,7 @@ compliance profile required by the Trust Framework;<a href="#section-7.4-3.3" cl
 End-User (for example, an assurance that the verifier is an ethical data user).<a href="#section-7.4-3.4" class="pilcrow">¶</a>
 </li>
         </ul>
-<p id="section-7.4-4">The DCQL queries a Credential Verifier is permitted to use are determined
-as defined in OpenID Credential Verifier Presentation Metadata in
-Subordinate Statements. Trust Marks SHOULD NOT be used to carry <code>dcql_queries</code>.<a href="#section-7.4-4" class="pilcrow">¶</a></p>
-<div class="lang-json= sourcecode" id="section-7.4-5">
+<div class="lang-json= sourcecode" id="section-7.4-4">
 <pre>{
   "trust_mark_type":"https://diligent.federation.example.com/openid_credential_verifier/private/under-age",
   "iss": "https://trustissuer.pinarolo.example.it",
@@ -2184,9 +2176,9 @@ Subordinate Statements. Trust Marks SHOULD NOT be used to carry <code>dcql_queri
   "policy_uri": "https://vavuso.example.com/policy",
   "tos_uri": "https://vavuso.example.com/tos"
 }
-</pre><a href="#section-7.4-5" class="pilcrow">¶</a>
+</pre><a href="#section-7.4-4" class="pilcrow">¶</a>
 </div>
-<p id="section-7.4-6"><strong>Example 2</strong>: Non-normative Trust Mark included in a Credential Verifier's Entity Configuration, asserting authorization to interact with under-age End-Users.<a href="#section-7.4-6" class="pilcrow">¶</a></p>
+<p id="section-7.4-5"><strong>Example 2</strong>: Non-normative Trust Mark included in a Credential Verifier's Entity Configuration, asserting authorization to interact with under-age End-Users.<a href="#section-7.4-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2770,8 +2762,7 @@ Niels van Dijk.<a href="#section-12-1" class="pilcrow">¶</a></p>
         <li class="compact" id="appendix-B-3.4">Profiled Trust Marks for wallet ecosystems instead of restating
  OpenID Federation (federation-wallet issue #66): issuance
  entitlement, verifier authorization, Wallet Provider assurance,
- and verifier attributes presented to the End-User. DCQL query
- authorization remains in <code>metadata</code> and <code>metadata_policy</code>.<a href="#appendix-B-3.4" class="pilcrow">¶</a>
+ and verifier attributes presented to the End-User.<a href="#appendix-B-3.4" class="pilcrow">¶</a>
 </li>
         <li class="compact" id="appendix-B-3.5">Added Federation Trust Discovery use case "Credential Verifiers
  Establishing Trust in Credential Issuers" to resolve
