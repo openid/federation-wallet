@@ -1227,7 +1227,7 @@ li > p:last-of-type:only-child {
 <dd class="workgroup">OpenID Connect Working Group</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-11-06" class="published">6 November 2026</time>
+<time datetime="2026-11-12" class="published">12 November 2026</time>
     </dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
@@ -2012,8 +2012,7 @@ entitlements.<a href="#section-6.4.1-4.12" class="pilcrow">¶</a>
             </h5>
 <p id="section-6.4.1.1-1">The rationale for extending the set of <code>openid_credential_verifier</code> metadata
 parameters is to align OpenID4VP Verifiers with the Trust Anchor-based Trust
-Model employed by this specification. Cryptographic material, protocol endpoints,
-and default or constrained DCQL queries are published in federation-managed metadata.
+Model employed by this specification.
 This practice aims to:<a href="#section-6.4.1.1-1" class="pilcrow">¶</a></p>
 <ul class="compact">
 <li class="compact" id="section-6.4.1.1-2.1">enforce common technical and policy requirements on all participating
@@ -2132,7 +2131,7 @@ These modifications allow a federation authority, such as a Trust Anchor, to app
               "format": "dc+sd-jwt",
               "meta": {
                 "vct_values": [
-                  "urn:eudi:pid:1"
+                  "https://credentials.example.com/pid"
                 ]
               },
               "claims": [
@@ -2224,10 +2223,7 @@ When a <code>dcql_queries</code> constraint is expressed via
 <code>metadata_policy.openid_credential_verifier</code>, that policy MUST be
 applied to any <code>dcql_queries</code> present in the Credential Verifier metadata,
 if available, or otherwise to the <code>dcql_query</code> contained in
-<code>client_metadata</code> in the Authorization Request.
-Profiles MAY additionally convey <code>dcql_queries</code>-related policies using
-Trust Marks bound to the Credential Verifier; see the section on
-Trust Marks and policy expression for further guidance.<a href="#section-7.1.1-6.2" class="pilcrow">¶</a>
+<code>client_metadata</code> in the Authorization Request.<a href="#section-7.1.1-6.2" class="pilcrow">¶</a>
 </li>
           </ul>
 <p id="section-7.1.1-7">This mechanism allows superior entities to centrally define and enforce
@@ -2260,11 +2256,25 @@ obtained from Trust Chain evaluation.<a href="#section-7.1.1-7" class="pilcrow">
         <h3 id="name-using-trust-marks">
 <a href="#section-7.4" class="section-number selfRef">7.4. </a><a href="#name-using-trust-marks" class="section-name selfRef">Using Trust Marks</a>
         </h3>
-<p id="section-7.4-1">Trust Marks are issued by authorized entities (Trust Mark Issuers) within the federation, typically after an entity has demonstrated compliance with certain standards, this might happen through auditing or certification processes.<a href="#section-7.4-1" class="pilcrow">¶</a></p>
-<p id="section-7.4-2">Trust Marks are typically implemented as signed assertions that can be verified by other entities.<a href="#section-7.4-2" class="pilcrow">¶</a></p>
-<p id="section-7.4-3">This verification process involves checking the digital signature against the public key of the Trust Mark Issuer to ensure the Trust Mark has not been forged, and its check to the Trust Mark Status endpoint to check it against any revocation.<a href="#section-7.4-3" class="pilcrow">¶</a></p>
-<p id="section-7.4-4">Trust Marks SHOULD be defined within the trust framework. Trust Marks are asserted about a subject through a registration service or compliance evaluation mechanism and therefore included in subject's Entity Configurations. This allows other entities to quickly assess the compliance status of a subject by examining the Entity Configuration of a subject.<a href="#section-7.4-4" class="pilcrow">¶</a></p>
-<div class="lang-json= sourcecode" id="section-7.4-5">
+<p id="section-7.4-1">Trust Marks are used as defined in <span>[<a href="#OpenID.Federation" class="cite xref">OpenID.Federation</a>]</span>. This specification
+does not change Trust Mark issuance, signature verification, or status checks.<a href="#section-7.4-1" class="pilcrow">¶</a></p>
+<p id="section-7.4-2">This profile uses Trust Marks for qualitative and authorization properties of
+wallet Entities that are not expressed, or not fully expressed, in <code>metadata</code>
+and <code>metadata_policy</code>. Typical uses in wallet ecosystems include:<a href="#section-7.4-2" class="pilcrow">¶</a></p>
+<ul class="compact">
+<li class="compact" id="section-7.4-3.1">Credential Issuer entitlement to issue a given Digital Credential type;<a href="#section-7.4-3.1" class="pilcrow">¶</a>
+</li>
+          <li class="compact" id="section-7.4-3.2">Credential Verifier authorization to request particular credentials or to
+interact with particular populations (for example, under-age End-Users);<a href="#section-7.4-3.2" class="pilcrow">¶</a>
+</li>
+          <li class="compact" id="section-7.4-3.3">Wallet Provider assurance that a Wallet Solution meets a security or
+compliance profile required by the Trust Framework;<a href="#section-7.4-3.3" class="pilcrow">¶</a>
+</li>
+          <li class="compact" id="section-7.4-3.4">Credential Verifier attributes that a Wallet verifies and presents to the
+End-User (for example, an assurance that the verifier is an ethical data user).<a href="#section-7.4-3.4" class="pilcrow">¶</a>
+</li>
+        </ul>
+<div class="lang-json= sourcecode" id="section-7.4-4">
 <pre>{
   "trust_mark_type":"https://diligent.federation.example.com/openid_credential_verifier/private/under-age",
   "iss": "https://trustissuer.pinarolo.example.it",
@@ -2273,9 +2283,9 @@ obtained from Trust Chain evaluation.<a href="#section-7.1.1-7" class="pilcrow">
   "policy_uri": "https://vavuso.example.com/policy",
   "tos_uri": "https://vavuso.example.com/tos"
 }
-</pre><a href="#section-7.4-5" class="pilcrow">¶</a>
+</pre><a href="#section-7.4-4" class="pilcrow">¶</a>
 </div>
-<p id="section-7.4-6"><strong>Example 2</strong>: Trust Mark to be included in a Leaf Entity Configuration, which payload states Leaf's compliance in interacting with under-age End-User.<a href="#section-7.4-6" class="pilcrow">¶</a></p>
+<p id="section-7.4-5"><strong>Example 2</strong>: Non-normative Trust Mark included in a Credential Verifier's Entity Configuration, asserting authorization to interact with under-age End-Users.<a href="#section-7.4-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2960,15 +2970,20 @@ Niels van Dijk.<a href="#section-12-1" class="pilcrow">¶</a></p>
  configure more than one) in the Four-Party Model, and aligned the
  Credential Verifier metadata rationale with that language.<a href="#appendix-B-3.6" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-B-3.7">Clarified Four-Party Model figure captions so horizontal arrows are
+        <li class="compact" id="appendix-B-3.7">Profiled Trust Marks for wallet ecosystems instead of restating
+ OpenID Federation (federation-wallet issue #66): issuance
+ entitlement, verifier authorization, Wallet Provider assurance,
+ and verifier attributes presented to the End-User.<a href="#appendix-B-3.7" class="pilcrow">¶</a>
+</li>
+        <li class="compact" id="appendix-B-3.8">Clarified Four-Party Model figure captions so horizontal arrows are
  protocol interactions and vertical arrows are trust evaluation
  (federation-wallet issue #63). The section and diagrams are retained.
  Added Digital Credential, Credential, and Credential Issuer Identifier
  to Terminology. Restored Wallet Attestation and Key
  Attestation citations from OpenID4VCI after a merge had moved Wallet
- Attestation back to OpenID4VP.<a href="#appendix-B-3.7" class="pilcrow">¶</a>
+ Attestation back to OpenID4VP.<a href="#appendix-B-3.8" class="pilcrow">¶</a>
 </li>
-        <li class="compact" id="appendix-B-3.8">Added Federation Trust Discovery use case "Credential Verifiers
+        <li class="compact" id="appendix-B-3.9">Added Federation Trust Discovery use case "Credential Verifiers
  Establishing Trust in Credential Issuers" to resolve
  federation-wallet issue #48: map https issuer identifiers carried in
  presented Credentials to Federation Entity Identifiers, perform
@@ -2984,7 +2999,7 @@ Niels van Dijk.<a href="#section-12-1" class="pilcrow">¶</a></p>
  Issuer Identifier. DIDs and ISO mDOC X.509
  bindings remain out of scope for this version; extensions MAY
  define DID Leaf Entities. Clarified that Trust Discovery use cases
- are independently adoptable by Trust Frameworks.<a href="#appendix-B-3.8" class="pilcrow">¶</a>
+ are independently adoptable by Trust Frameworks.<a href="#appendix-B-3.9" class="pilcrow">¶</a>
 </li>
       </ul>
 <p id="appendix-B-4">-05<a href="#appendix-B-4" class="pilcrow">¶</a></p>
